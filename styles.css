@@ -1,4 +1,4 @@
-    <style>
+
         :root {
             --primary-color: #000000;
             --secondary-color: #720000;
@@ -364,4 +364,3 @@
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
-    </style>
