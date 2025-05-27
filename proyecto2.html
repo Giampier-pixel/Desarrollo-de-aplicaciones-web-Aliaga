@@ -432,34 +432,51 @@
             
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Sintaxis CSS3 y Propiedades Display</h2>
+                    <h2 class="card-title">Variables usadas para un diseño flexbox, fluido y responsivo.</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Ejemplo de Sintaxis CSS3 Moderna</h3>
+                    <h3>Variables</h3>
                     <div class="code-container">
 <pre>
-/* Variables CSS (Custom Properties) */
-:root {
-    --primary-color: #4a6fa5;
-    --spacing: 1rem;
-    --border-radius: 8px;
+/* Flexbox */
+.flexbox-demo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(45deg, #f1f3f4, #e8eaed);
 }
 
-/* Selectores y propiedades modernas */
-.container {
+.flex-item {
+    background: var(--gradient); /* Usa la variable */
+    color: white;
+}
+
+/* Diseño fluido */
+.responsive-demo {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing);
-    border-radius: var(--border-radius);
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
 }
 
-/* Display properties */
-.block-element { display: block; }
-.inline-element { display: inline; }
-.inline-block-element { display: inline-block; }
-.flex-element { display: flex; }
-.grid-element { display: grid; }
+.responsive-card {
+    background: var(--white); /* Variable usada */
+    box-shadow: var(--shadow); /* Variable usada */
+    border-left: 4px solid var(--accent-color); /* Variable usada */
+}
+
+/* Diseño responsivo */
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.demo-item {
+    background: var(--white); /* Variable usada */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 </pre>
                     </div>
                     <p class="description">
