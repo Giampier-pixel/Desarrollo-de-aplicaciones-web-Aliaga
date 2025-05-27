@@ -3,340 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 3 - Portafolio de Giampier</title>
+    <title>Semana 2 - Portafolio de Giampier</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6a8caf;
-            --accent-color: #166088;
-            --light-gray: #f5f7fa;
-            --dark-gray: #333;
-            --white: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         }
         
         body {
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
         }
         
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
         
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-gray);
-            text-decoration: none;
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
-        .nav-links {
-            display: flex;
-            list-style: none;
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .nav-links li {
-            margin-left: 2rem;
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
         }
         
-        .nav-links a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            transition: color 0.3s;
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
-        .nav-links a:hover {
-            color: var(--accent-color);
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
         }
         
-        .section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--accent-color);
-        }
-        
-        .card {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-        
-        .card-body {
-            padding: 1.5rem;
-        }
-        
-        .code-container {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 1rem 0;
-        }
-        
-        .code-container pre {
-            margin: 0;
-        }
-        
-        .description {
-            margin-top: 1rem;
-            line-height: 1.7;
-        }
-        
-        .tag {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .demo-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        footer {
-            background-color: var(--dark-gray);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .social-links {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-        
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
+        .bg-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">Portafolio</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="index.html#sobre-mi">Sobre mí</a></li>
-                    <li><a href="index.html#proyectos">Proyectos</a></li>
-                    <li><a href="index.html#contactame">Contáctame</a></li>
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 min-h-screen">
+    
+    <!-- Navigation with Bootstrap + Tailwind -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-effect">
+        <div class="container-fluid px-4 lg:px-8">
+            <a class="navbar-brand fw-bold text-2xl gradient-text" href="index.html">
+                <i class="fas fa-code mr-2"></i>Portafolio
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto space-x-6">
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html">
+                            <i class="fas fa-home mr-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#sobre-mi">
+                            <i class="fas fa-user mr-1"></i>Sobre mí
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#proyectos">
+                            <i class="fas fa-project-diagram mr-1"></i>Proyectos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#contactame">
+                            <i class="fas fa-envelope mr-1"></i>Contáctame
+                        </a>
+                    </li>
                 </ul>
-            </nav>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="section">
-        <div class="container">
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
+    <!-- Main Content -->
+    <main class="pt-24 pb-12">
+        <div class="container mx-auto px-4 lg:px-8">
             
-            <h1 class="section-title">Semana 3</h1>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Temas aprendidos</h2>
-                </div>
-                <div class="card-body">
-                    <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                    <p class="description">
-                        Este proyecto consiste en una aplicación web interactiva que permite a los usuarios [descripción breve del proyecto]. 
-                        Fue desarrollado utilizando HTML para la estructura, CSS para el diseño y JavaScript para la funcionalidad interactiva.
-                    </p>
-                    <a href="https://github.com/tuusuario/turepositorio/tree/main/proyecto1" target="_blank" class="btn">Ver en GitHub</a>
+            <!-- Back Button with Badge -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <a href="index.html#proyectos" class="btn btn-outline-light hover-lift d-inline-flex align-items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Volver a proyectos</span>
+                        <span class="badge bg-primary ms-2">Portfolio</span>
+                    </a>
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Ejercicio</h2>
+            <!-- Hero Section with Avatar -->
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="position-relative floating-animation">
+                            <img src="https://ui-avatars.com/api/?name=Giampier+Aliaga&size=120&background=667eea&color=ffffff&bold=true" 
+                                 alt="Avatar" class="rounded-circle border-4 border-white custom-shadow">
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" 
+                                  style="width: 30px; height: 30px;"></span>
+                        </div>
+                    </div>
+                    <h1 class="display-3 fw-bold text-white mb-3 tracking-tight">Semana 2</h1>
+                    <p class="lead text-white opacity-90 max-w-2xl mx-auto">
+                        Desarrollo Frontend con HTML, CSS y JavaScript
+                    </p>
                 </div>
-                <div class="card-body">
-                    <h3>HTML</h3>
-                    <div class="code-container">
-<pre>
+            </div>
+            
+            <!-- Learned Topics Card -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap fs-4 mr-3"></i>
+                                <h2 class="card-title mb-0 fs-3 fw-bold">Temas Aprendidos</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Technology Badges -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-primary">
+                                            <i class="fab fa-html5 mr-2"></i>HTML
+                                        </button>
+                                        <button type="button" class="btn btn-outline-info">
+                                            <i class="fab fa-css3-alt mr-2"></i>CSS
+                                        </button>
+                                        <button type="button" class="btn btn-outline-warning">
+                                            <i class="fab fa-js-square mr-2"></i>JavaScript
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Description with Typography -->
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <p class="fs-5 text-muted mb-3 leading-relaxed">
+                                        Este proyecto consiste en una aplicación web interactiva que permite a los usuarios 
+                                        crear experiencias dinámicas y responsivas. Fue desarrollado utilizando las tecnologías 
+                                        fundamentales del desarrollo frontend.
+                                    </p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <a href="https://github.com/tuusuario/turepositorio/tree/main/proyecto1" 
+                                       target="_blank" class="btn btn-primary btn-lg w-100 hover-lift">
+                                        <i class="fab fa-github mr-2"></i>Ver en GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exercise Section with Flexbox Layout -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-code fs-4 mr-3"></i>
+                                    <h2 class="card-title mb-0 fs-3 fw-bold">Ejercicio Práctico</h2>
+                                </div>
+                                <span class="badge bg-light text-dark">HTML Structure</span>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <!-- Tabs for Code Display -->
+                            <ul class="nav nav-tabs nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#html-tab">
+                                        <i class="fab fa-html5 mr-2"></i>HTML
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#css-tab">
+                                        <i class="fab fa-css3-alt mr-2"></i>CSS
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#js-tab">
+                                        <i class="fab fa-js-square mr-2"></i>JavaScript
+                                    </button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="html-tab">
+                                    <div class="bg-gray-900 text-green-400 p-4 code-font text-sm overflow-x-auto">
+<pre class="mb-0">
 &lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Proyecto 1&lt;/title&gt;
+    &lt;title&gt;Proyecto Semana 2&lt;/title&gt;
     &lt;link rel="stylesheet" href="styles.css"&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div id="app"&gt;
-        &lt;h1&gt;Mi Aplicación&lt;/h1&gt;
-        &lt;div class="container"&gt;
-            &lt;!-- Contenido del proyecto --&gt;
-        &lt;/div&gt;
+    &lt;div id="app" class="container"&gt;
+        &lt;header class="header"&gt;
+            &lt;h1 class="title"&gt;Mi Aplicación Interactiva&lt;/h1&gt;
+            &lt;nav class="navigation"&gt;
+                &lt;ul class="nav-list"&gt;
+                    &lt;li&gt;&lt;a href="#home"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#about"&gt;Acerca&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#contact"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        &lt;/header&gt;
+        &lt;main class="main-content"&gt;
+            &lt;section class="hero"&gt;
+                &lt;h2&gt;Bienvenido a mi proyecto&lt;/h2&gt;
+                &lt;p&gt;Una aplicación web moderna y responsiva&lt;/p&gt;
+                &lt;button id="interactive-btn"&gt;Interactuar&lt;/button&gt;
+            &lt;/section&gt;
+        &lt;/main&gt;
     &lt;/div&gt;
     &lt;script src="script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Resultado</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Este proyecto implementa las siguientes funcionalidades:
-                    </p>
-                    <ul>
-                        <li>Interfaz de usuario intuitiva y responsive</li>
-                        <li>Manipulación dinámica del DOM con JavaScript</li>
-                        <li>Diseño moderno utilizando CSS personalizado</li>
-                        <li>Optimización para distintos dispositivos y tamaños de pantalla</li>
-                    </ul>
-                    
-                    <div class="demo-container">
-                        <h3>Demo Interactiva</h3>
-                        <p>Aquí podrías incluir una versión interactiva o capturas de pantalla del proyecto.</p>
-                        <img src="/api/placeholder/600/300" alt="Demo del Proyecto 1" style="max-width: 100%; margin-top: 1rem; border-radius: 5px;">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Reflexion final</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Durante el desarrollo de este proyecto, aprendí y puse en práctica varios conceptos importantes:
-                    </p>
-                    <ul>
-                        <li>Estructura semántica HTML para mejorar la accesibilidad</li>
-                        <li>Uso de CSS moderno para crear diseños atractivos</li>
-                        <li>Programación JavaScript para agregar interactividad</li>
-                        <li>Principios de diseño responsive para adaptarse a múltiples dispositivos</li>
-                    </ul>
-                    
-                    <p class="description">
-                        Los mayores desafíos fueron [describe los desafíos] y los resolví mediante [explica cómo los resolviste].
-                    </p>
-                </div>
-            </div>
-            
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
-        </div>
-    </main>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="css-tab">
+                                    <div class="bg-gray-900 text-blue-400 p-4 code-font text-sm overflow-x-auto">
+<pre class="mb-0">
+/* Estilos CSS Modernos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aliaga Esquivel Giampier</p>
-            <div class="social-links">
-                <a href="https://github.com/tuusuario" target="_blank" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                </a>
-                <a href="https://linkedin.com/in/tuusuario" target="_blank" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <a href="https://twitter.com/tuusuario" target="_blank" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                    </svg>
-                </a>
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.navigation ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+    color: #f093fb;
+    transform: translateY(-2px);
+}
+</pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="js-tab">
+                                    <div class="bg-gray-900 text-yellow-400 p-4 code-font text-sm overflow-x-auto">
+<pre class="mb-0">
+// JavaScript Interactivo
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos del DOM
+    const interactiveBtn = document.getElementById('interactive-btn');
+    const title = document.querySelector('.title');
+    
+    // Función para cambiar colores dinámicamente
+    function changeColors() {
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        title.style.color = randomColor;
+    }
+    
+    // Event Listeners
+    interactiveBtn.addEventListener('click', function() {
+        changeColors();
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
+    });
+    
+    // Animación de entrada
+    window.addEventListener('load', function() {
+        title.style.opacity = '0';
+        title.style.transform = 'translateY(-30px)';
+        
+        setTimeout(() => {
+            title.style.transition = 'all 0.8s ease';
+            title.style.opacity = '1';
+            title.style.transform = 'translateY(0)';
+        }, 100);
+    });
+});
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
-</body>
-</html>
+            
+            <!-- Results with Flex and Grid Layout -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-green-600 to-teal-600 text-white border-0">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-chart-line fs-4 mr-3"></i>
+                                <h2 class="card-title mb-0 fs-3 fw-bold">Resultados del Proyecto</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Feature Grid -->
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100">
+                                        <i class="fas fa-mobile-alt fs-2 text-purple-600 mb-2"></i>
+                                        <h5 class="fw-bold">Responsive</h5>
+                                        <p class="small text-muted mb-0">Diseño adaptable</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100">
+                                        <i class="fas fa-code fs-2 text-blue-600 mb-2"></i>
+                                        <h5 class="fw-bold">Interactivo</h5>
+                                        <p class="small text-muted mb-0">JavaScript dinámico</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-green-100 to-emerald-100">
+                                        <i class="fas fa-paint-brush fs-2 text-green-600 mb-2"></i>
+                                        <h5 class="fw-bold">Moderno</h5>
+                                        <p class="small text-muted mb-0">CSS avanzado</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-orange-100 to-red-100">
+                                        <i class="fas fa-rocket fs-2 text-orange-600 mb-2"></i>
+                                        <h5 class="fw-bold">Optimizado</h5>
+                                        <p class="small text-muted mb-0">Alto rendimiento</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Features Table -->
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Funcionalidad</th>
+                                            <th scope="col">Tecnología</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Complejidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Interfaz Responsiva</td>
+                                            <td><span class="badge bg-info">CSS Grid</span></td>
+                                            <td><span class="badge bg-success">Completado</span></td>
+                                            <td>
+                                                <div class="progress" style="height: 8px;">
+                                                    <div class="progress-bar bg-info" style="width: 85%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Manipulación DOM</td>
+                                            <td><span class="badge bg-warning">JavaScript</span></td>
+                                            <td><span class="badge bg-success">Completado</span></td>
+                                            <td>
+                                                <div class="progress" style="height: 8px;">
+                                                    <div class="progress-bar bg-warning" style="width: 90%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Animaciones CSS</td>
+                                            <td><span class="badge bg-primary">CSS3</span></td>
+                                            <td><span class="badge bg-success">Completado</span></td>
+                                            <td>
+                                                <div class="progress" style="height: 8px;">
+                                                    <div class="progress-bar bg-primary" style="width: 75%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Reflection Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-pink-600 to-rose-600 text-white border-0">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-lightbulb fs-4 mr-3"></i>
+                                <h2 class="card-title mb-0 fs-3 fw-bold">Reflexión Final</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h4 class="fw-bold mb-3 text-gray-800">Aprendizajes Clave</h4>
+                                    <p class="fs-5 text-muted mb-4 leading-relaxed">
+                                        Durante el desarrollo de este proyecto de la Semana 2, he profundizado significativamente 
+                                        en las tecnologías fundamentales del desarrollo web frontend. La integración de HTML semántico, 
+                                        CSS moderno y JavaScript interactivo me ha permitido crear una experiencia de usuario 
+                                        coherente y atractiva.
+                                    </p>
+                                    
+                                    <h5 class="fw-bold mb-3 text-gray-800">Desafíos Superados</h5>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                                <div>
+                                                    <strong>Responsive Design:</strong> Implementación de layouts flexibles que se adaptan a múltiples dispositivos
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                                <div>
+                                                    <strong>JavaScript Moderno:</strong> Uso de ES6+ y manipulación eficiente del DOM
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                                <div>
+                                                    <strong>CSS Avanzado:</strong> Implementación de gradientes, animaciones y efectos visuales
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                                                <div>
+                                                    <strong>Optimización:</strong> Mejora del rendimiento y tiempos de carga
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h5 class="fw-bold mb-3 text-gray-800">Reflexión sobre Bootstrap y Tailwind CSS</h5>
+                                    <p class="text-muted mb-4">
+                                        La implementación de frameworks CSS como Bootstrap y Tailwind CSS ha revolucionado mi 
+                                        approach al desarrollo frontend. Bootstrap proporciona componentes robustos y un sistema 
+                                        de grid confiable, mientras que Tailwind CSS ofrece un enfoque utility-first que permite 
+                                        un control granular del diseño. La combinación de ambos frameworks me ha permitido:
+                                    </p>
+                                    
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-star text-warning mt-1 mr-2"></i>
+                                            <span>Acelerar significativamente el tiempo de desarrollo</span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-star text-warning mt-1 mr-2"></i>
+                                            <span>Mantener consistencia visual en todo el proyecto</span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-star text-warning mt-1 mr-2"></i>
+                                            <span>Implementar diseños responsive sin escribir media queries complejas</span>
+                                        </li>
+                                        <li class="mb-2 d-flex align-items-start">
+                                            <i class="fas fa-star text-warning mt-1 mr-2"></i>
+                                            <span>Crear interfaces modernas con efectos visuales avanzados</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="bg-gradient-to-br from-purple-100 to-pink-100 p-4 rounded-lg">
+                                        <h5 class="fw-bold mb-3 text-center">Tecnologías Dominadas</h5>
+                                        <div class="space-y-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-medium">HTML5</span>
+                                                <span class="badge bg-success">95%</span>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-success" style="width: 95%"></div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-medium">CSS3</span>
+                                                <span class="badge bg-info">90%</span>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-info" style="width: 90%"></div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-medium">JavaScript</span>
+                                                <span class="badge bg-warning">85%</span>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-warning" style="width: 85%"></div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-medium">Bootstrap</span>
+                                                <span class="badge bg-primary">88%</span>
+                                            </div>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" style="width: 88%"></div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-medium">Tail
