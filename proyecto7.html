@@ -580,7 +580,7 @@ const expensiveValue = useMemo(() => {
                         <i className="fas fa-tasks"></i>
                         useReducer - Gestor de Tareas
                     </h4>
-                    
+                    <h5 className="fw-semibold mb-2">Código:</h5>
                     <div className="code-block">
                         <pre>{`const todoReducer = (state, action) => {
     switch (action.type) {
@@ -601,7 +601,7 @@ const expensiveValue = useMemo(() => {
 
 const [todos, dispatch] = useReducer(todoReducer, []);`}</pre>
                     </div>
-                    
+                    <h5 className="fw-semibold mb-2">Resultado:</h5>
                     <div className="demo-container">
                         <div style={{marginBottom: '20px'}}>
                             <input 
@@ -730,7 +730,7 @@ const [todos, dispatch] = useReducer(todoReducer, []);`}</pre>
                         <i className="fas fa-globe"></i>
                         useContext - Contexto Global
                     </h4>
-                    
+                    <h5 className="fw-semibold mb-2">Código:</h5>
                     <div className="code-block">
                         <pre>{`const ThemeContext = createContext();
 
@@ -754,7 +754,7 @@ const ThemeCard = () => {
     // Componente que consume el contexto
 };`}</pre>
                     </div>
-                    
+                    <h5 className="fw-semibold mb-2">Resultado:</h5>
                     <div className="demo-container">
                         <ThemeProvider>
                             <ThemeCard />
