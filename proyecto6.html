@@ -794,13 +794,13 @@ const addTask = (e) => {
     }
 };
 
-// Renderizado Condicional
+
 {getFilteredTasks().length === 0 ? (
     <div className="text-center text-muted py-4">
         <p>No hay tareas {filter === 'completed' ? 'completadas' : 'pendientes'}</p>
     </div>
 ) : (
-    // Renderizado Iterativo con map()
+
     getFilteredTasks().map(task => (
         <TaskItem key={task.id} task={task} onToggle={toggleTask} />
     ))
@@ -828,7 +828,7 @@ const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 };
 
-// CRUD Operations
+
 const handleSubmit = (e) => {
     e.preventDefault();
     if (editingId) {
@@ -837,12 +837,12 @@ const handleSubmit = (e) => {
             student.id === editingId ? { ...student, ...formData } : student
         ));
     } else {
-        // Create
+
         setStudents([...students, { id: Date.now(), ...formData }]);
     }
 };
 
-// Ordenamiento dinámico
+
 const getSortedStudents = () => {
     return [...students].sort((a, b) => {
         if (sortBy === 'grade') return b.grade - a.grade;
@@ -881,7 +881,6 @@ const fetchUsers = async () => {
     }
 };
 
-// Múltiples requests con Promise.all
 const fetchUserPosts = async (userId) => {
     try {
         const [userResponse, postsResponse] = await Promise.all([
@@ -898,7 +897,7 @@ const fetchUserPosts = async (userId) => {
     }
 };
 
-// useEffect para carga inicial
+
 useEffect(() => {
     fetchUsers();
 }, []);`}</pre>
