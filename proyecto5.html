@@ -1,477 +1,627 @@
-import React, { useState } from 'react';
-const Header = ({ title, onNavigate }) => {
-  const headerStyles = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    borderBottom: '4px solid transparent',
-    borderImage: 'linear-gradient(to right, #8b5cf6, #3b82f6) 1',
-    zIndex: 50,
-    padding: '1rem 0'
-  };
-
-  const navStyles = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '0 2rem'
-  };
-
-  return (
-    <header style={headerStyles}>
-      <nav style={navStyles}>
-        <div className="flex items-center space-x-2">
-          <i className="fas fa-code text-purple-600 text-2xl"></i>
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            {title}
-          </span>
-        </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 3 - React JS</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
         
-        <ul className="flex items-center space-x-6 list-none m-0">
-          {['Inicio', 'Sobre mí', 'Proyectos', 'Contáctame'].map((item, index) => (
-            <li key={index}>
-              <button 
-                onClick={() => onNavigate(item)}
-                className="text-gray-700 hover:text-purple-600 font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50 border-none bg-transparent cursor-pointer"
-              >
-                <i className={`fas fa-${['home', 'user', 'project-diagram', 'envelope'][index]} mr-1`}></i>
-                {item}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+        
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bg-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* Estilos adicionales para React */
+        .component-demo {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .react-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .react-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .inline-styles {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 min-h-screen">
+    
+    <!-- Header con estructura original -->
+    <header class="fixed-top bg-white shadow-lg border-b-4 border-gradient-to-r from-purple-500 to-blue-500 z-50">
+        <div class="container mx-auto px-4 lg:px-8">
+            <nav class="d-flex justify-content-between align-items-center py-3">
+                <a href="index.html" class="text-decoration-none">
+                    <span class="fs-3 fw-bold gradient-text d-flex align-items-center">
+                        <i class="fab fa-react me-2 text-purple-600"></i>
+                        React Portfolio
+                    </span>
+                </a>
+                
+                <ul class="list-unstyled d-flex align-items-center mb-0 space-x-8">
+                    <li>
+                        <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                           href="index.html">
+                            <i class="fas fa-home me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                           href="index.html#sobre-mi">
+                            <i class="fas fa-user me-1"></i>Sobre mí
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                           href="index.html#proyectos">
+                            <i class="fas fa-project-diagram me-1"></i>Proyectos
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                           href="index.html#contactame">
+                            <i class="fas fa-envelope me-1"></i>Contáctame
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
-  );
-};
-const Card = ({ title, icon, gradient, children, className = "" }) => {
-  const cardStyles = {
-    border: 'none',
-    borderRadius: '10px',
-    boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    backgroundColor: 'white',
-    overflow: 'hidden'
-  };
 
-  const headerStyles = {
-    background: gradient || 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
-    color: 'white',
-    padding: '1rem',
-    border: 'none'
-  };
+    <!-- Contenedor principal donde React se montará -->
+    <div id="root"></div>
 
-  return (
-    <div 
-      className={`hover:-translate-y-2 hover:shadow-2xl ${className}`}
-      style={cardStyles}
-    >
-      <div style={headerStyles}>
-        <div className="flex items-center">
-          <i className={`${icon} text-xl mr-3`}></i>
-          <h2 className="text-xl font-bold m-0">{title}</h2>
-        </div>
-      </div>
-      <div className="p-4">
-        {children}
-      </div>
-    </div>
-  );
-};
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-const Badge = ({ children, color = "purple" }) => {
-  const colorMap = {
-    purple: "bg-purple-100 text-purple-800",
-    blue: "bg-blue-100 text-blue-800",
-    green: "bg-green-100 text-green-800",
-    red: "bg-red-100 text-red-800",
-    yellow: "bg-yellow-100 text-yellow-800"
-  };
-
-  return (
-    <span className={`${colorMap[color]} px-3 py-1 rounded-full text-sm font-medium inline-block`}>
-      {children}
-    </span>
-  );
-};
-
-const CodeBlock = ({ children, language = "html" }) => {
-  const codeBlockStyles = {
-    backgroundColor: '#1f2937',
-    color: '#10b981',
-    padding: '1rem',
-    borderRadius: '0.5rem',
-    fontFamily: 'JetBrains Mono, monospace',
-    fontSize: '0.875rem',
-    overflow: 'auto',
-    margin: '1rem 0'
-  };
-
-  return (
-    <div style={codeBlockStyles}>
-      <pre className="m-0 whitespace-pre-wrap">
-        {children}
-      </pre>
-    </div>
-  );
-};
-
-// Componente Exercise que recibe props y muestra children
-const Exercise = ({ number, title, color, code, children }) => {
-  const [showCode, setShowCode] = useState(false);
-
-  return (
-    <div className="mb-8">
-      <h4 className={`font-bold mb-3 text-${color}-600 text-lg`}>
-        <i className={`fas fa-${number} mr-2`}></i>
-        {title}
-      </h4>
-      
-      <button 
-        onClick={() => setShowCode(!showCode)}
-        className={`mb-3 px-4 py-2 bg-${color}-600 text-white rounded hover:bg-${color}-700 transition-colors border-none cursor-pointer`}
-      >
-        {showCode ? 'Ocultar' : 'Mostrar'} Código
-      </button>
-      
-      {showCode && (
-        <div>
-          <h5 className="font-semibold mb-2">Código del ejercicio:</h5>
-          <CodeBlock>{code}</CodeBlock>
-        </div>
-      )}
-      
-      <h5 className="font-semibold mb-2">Resultado:</h5>
-      <div className="p-4 bg-gray-50 rounded">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-// Componente hijo que recibe datos via props
-const UserProfile = ({ user, skills, onSkillClick }) => {
-  const profileStyles = {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    padding: '2rem',
-    borderRadius: '1rem',
-    color: 'white',
-    textAlign: 'center'
-  };
-
-  return (
-    <div style={profileStyles}>
-      <div className="mb-4">
-        <img 
-          src={`https://ui-avatars.com/api/?name=${user.name}&size=80&background=ffffff&color=667eea&bold=true`}
-          alt="Avatar" 
-          className="rounded-full mx-auto mb-3"
-        />
-        <h3 className="text-xl font-bold">{user.name}</h3>
-        <p className="opacity-90">{user.role}</p>
-        <p className="opacity-75 text-sm">{user.email}</p>
-      </div>
-      
-      <div className="mb-4">
-        <h4 className="font-semibold mb-2">Habilidades:</h4>
-        <div className="flex flex-wrap gap-2 justify-center">
-          {skills.map((skill, index) => (
-            <button
-              key={index}
-              onClick={() => onSkillClick(skill)}
-              className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm hover:bg-opacity-30 transition-all border-none cursor-pointer text-white"
-            >
-              {skill}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Componente principal
-const Semana3React = () => {
-  const [selectedSkill, setSelectedSkill] = useState('');
-  const [currentSection, setCurrentSection] = useState('Inicio');
-
-  // Datos del usuario para pasar como props
-  const userData = {
-    name: "Giampier Aliaga",
-    role: "Desarrollador Frontend",
-    email: "giampier@ejemplo.com"
-  };
-
-  const userSkills = ["React", "JavaScript", "HTML", "CSS", "Bootstrap", "Tailwind"];
-
-  const handleSkillClick = (skill) => {
-    setSelectedSkill(skill);
-    alert(`Has seleccionado: ${skill}`);
-  };
-
-  const handleNavigation = (section) => {
-    setCurrentSection(section);
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700">
-      <Header title="Portafolio React" onNavigate={handleNavigation} />
-      
-      <main className="pt-24 pb-12">
-        <div className="max-w-6xl mx-auto px-4">
-          
-          {/* Back Button */}
-          <div className="mb-8">
-            <button className="bg-transparent border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-purple-600 transition-all">
-              <i className="fas fa-arrow-left mr-2"></i>
-              Volver a proyectos
-            </button>
-          </div>
-          
-          {/* Hero Section */}
-          <div className="text-center mb-8">
-            <div className="mb-4">
-              <img 
-                src="https://ui-avatars.com/api/?name=Giampier+Aliaga&size=120&background=667eea&color=ffffff&bold=true" 
-                alt="Avatar" 
-                className="rounded-full border-4 border-white shadow-lg mx-auto"
-              />
-            </div>
-            <h1 className="text-5xl font-bold text-white mb-3">Semana 3 - React</h1>
-            <p className="text-xl text-white opacity-90 max-w-2xl mx-auto">
-              Framework JavaScript con React - Componentes, Props y Estilos
-            </p>
-          </div>
-          
-          {/* Learned Topics Card */}
-          <Card 
-            title="Temas Aprendidos" 
-            icon="fas fa-graduation-cap"
-            className="mb-8"
-          >
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-2">
-                <Badge color="blue">React JS</Badge>
-                <Badge color="green">JSX</Badge>
-                <Badge color="purple">Components</Badge>
-                <Badge color="red">Props</Badge>
-                <Badge color="yellow">Styles</Badge>
-              </div>
-            </div>
-            
-            <div>
-              <p className="text-gray-600 mb-3 text-lg leading-relaxed">
-                Framework JavaScript para desarrollo frontend con arquitectura basada en componentes.
-              </p>
-              <ul className="text-gray-600 space-y-1">
-                <li>• Estructura y operación de Framework</li>
-                <li>• Client Side Rendering</li>
-                <li>• Desarrollo basado en componentes</li>
-                <li>• JSX, Props y Children</li>
-                <li>• Gestión de estilos (inline, CSS, modules)</li>
-              </ul>
-            </div>
-          </Card>
-          
-          {/* Exercises Section */}
-          <Card 
-            title="Ejercicios y Resultados" 
-            icon="fas fa-code"
-            gradient="linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)"
-            className="mb-8"
-          >
-            <Exercise
-              number="1"
-              title="Componente Card Interactivo con Props"
-              color="purple"
-              code={`const InteractiveCard = ({ title, description, buttonText }) => {
-  const [clicked, setClicked] = useState(false);
-  
-  return (
-    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow">
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        <button 
-          onClick={() => setClicked(!clicked)}
-          className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-        >
-          {clicked ? 'Clickeado!' : buttonText}
-        </button>
-      </div>
-    </div>
-  );
-};`}
-            >
-              <InteractiveCard 
-                title="Tarjeta con React" 
-                description="Esta tarjeta usa props y estado de React"
-                buttonText="Hacer click"
-              />
-            </Exercise>
-
-            <hr className="my-6" />
-
-            <Exercise
-              number="2"
-              title="Layout Responsivo con Componentes"
-              color="blue"
-              code={`const ResponsiveLayout = ({ columns }) => (
-  <div className="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
-    {columns.map((column, index) => (
-      <LayoutColumn key={index} {...column} />
-    ))}
-  </div>
-);
-
-const LayoutColumn = ({ title, content, color }) => (
-  <div className="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
-    <h3 className={\`font-bold text-\${color}-600\`}>{title}</h3>
-    <p className="text-gray-600">{content}</p>
-  </div>
-);`}
-            >
-              <ResponsiveLayout 
-                columns={[
-                  { title: "Componente 1", content: "Usando props dinámicamente", color: "blue" },
-                  { title: "Componente 2", content: "Reutilizable y escalable", color: "purple" },
-                  { title: "Componente 3", content: "Layout con React", color: "green" }
-                ]}
-              />
-            </Exercise>
-
-            <hr className="my-6" />
-
-            <Exercise
-              number="3"
-              title="Pasar Datos con Props y Children"
-              color="green"
-              code={`const UserProfile = ({ user, skills, onSkillClick }) => (
-  <div style={profileStyles}>
-    <img src={user.avatar} alt="Avatar" />
-    <h3>{user.name}</h3>
-    <p>{user.role}</p>
-    <div>
-      {skills.map(skill => (
-        <button key={skill} onClick={() => onSkillClick(skill)}>
-          {skill}
-        </button>
-      ))}
-    </div>
-  </div>
-);
-<UserProfile 
-  user={userData} 
-  skills={userSkills} 
-  onSkillClick={handleSkillClick} 
-/>`}
-            >
-              <div>
-                <UserProfile 
-                  user={userData}
-                  skills={userSkills}
-                  onSkillClick={handleSkillClick}
-                />
-                {selectedSkill && (
-                  <div className="mt-4 p-3 bg-green-100 text-green-800 rounded">
-                    <strong>Última habilidad seleccionada:</strong> {selectedSkill}
-                  </div>
-                )}
-              </div>
-            </Exercise>
-          </Card>
-          
-          {/* Final Reflection */}
-          <Card 
-            title="Reflexión Final" 
-            icon="fas fa-lightbulb"
-            gradient="linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)"
-          >
-            <div className="space-y-4">
-              <div>
-                <h5 className="font-bold mb-2 text-gray-800">¿Qué aprendí?</h5>
-                <p className="text-gray-600 mb-4">
-                  React ha transformado mi enfoque del desarrollo frontend. He aprendido a crear componentes 
-                  reutilizables, manejar el estado con hooks, y pasar datos entre componentes usando props y 
-                  children. La arquitectura basada en componentes permite un código más modular y mantenible.
-                </p>
-              </div>
-              
-              <div>
-                <h5 className="font-bold mb-2 text-gray-800">¿Cómo aprendí?</h5>
-                <p className="text-gray-600 mb-4">
-                  A través de la práctica hands-on, creando componentes desde cero, experimentando con 
-                  diferentes tipos de estilos (inline, CSS classes, styled components), y implementando 
-                  la comunicación entre componentes padre e hijo mediante props y callbacks.
-                </p>
-              </div>
-
-              <div>
-                <h5 className="font-bold mb-2 text-gray-800">Conceptos Clave Implementados:</h5>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-blue-50 p-3 rounded">
-                    <strong className="text-blue-800">JSX & Componentes:</strong>
-                    <p className="text-sm text-blue-600 mt-1">Sintaxis declarativa para crear interfaces</p>
-                  </div>
-                  <div className="bg-purple-50 p-3 rounded">
-                    <strong className="text-purple-800">Props & Children:</strong>
-                    <p className="text-sm text-purple-600 mt-1">Comunicación entre componentes</p>
-                  </div>
-                  <div className="bg-green-50 p-3 rounded">
-                    <strong className="text-green-800">Estado & Hooks:</strong>
-                    <p className="text-sm text-green-600 mt-1">Manejo dinámico de datos</p>
-                  </div>
-                  <div className="bg-red-50 p-3 rounded">
-                    <strong className="text-red-800">Estilos Dinámicos:</strong>
-                    <p className="text-sm text-red-600 mt-1">CSS-in-JS y clases condicionales</p>
-                  </div>
+        // Componente de Header/Hero reutilizable
+        const HeroSection = ({ title, subtitle, avatarName }) => {
+            return (
+                <div className="row mb-5">
+                    <div className="col-12 text-center">
+                        <div className="d-flex justify-content-center mb-4">
+                            <div className="position-relative floating-animation">
+                                <img 
+                                    src={`https://ui-avatars.com/api/?name=${avatarName}&size=120&background=667eea&color=ffffff&bold=true`}
+                                    alt="Avatar" 
+                                    className="rounded-circle border-4 border-white custom-shadow"
+                                />
+                                <span className="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" 
+                                      style={{width: '30px', height: '30px'}}></span>
+                            </div>
+                        </div>
+                        <h1 className="display-3 fw-bold text-white mb-3 tracking-tight">{title}</h1>
+                        <p className="lead text-white opacity-90 max-w-2xl mx-auto">
+                            {subtitle}
+                        </p>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </Card>
+            );
+        };
+
+        // Componente de Badge tecnológico
+        const TechBadge = ({ tech, color = "info" }) => {
+            return (
+                <button type="button" className={`btn btn-outline-${color} me-2 mb-2`}>
+                    <i className={`fab fa-${tech.toLowerCase()} me-2`}></i>
+                    {tech}
+                </button>
+            );
+        };
+
+        // Componente Card con estilos inline
+        const InlineStyledCard = ({ title, content, buttonText }) => {
+            const cardStyle = {
+                background: 'linear-gradient(145deg, #ffffff, #f0f0f0)',
+                borderRadius: '15px',
+                padding: '20px',
+                boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
+                transition: 'all 0.3s ease',
+                margin: '10px 0'
+            };
+
+            const buttonStyle = {
+                background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                border: 'none',
+                borderRadius: '25px',
+                padding: '10px 20px',
+                color: 'white',
+                cursor: 'pointer',
+                transition: 'transform 0.2s ease'
+            };
+
+            return (
+                <div 
+                    style={cardStyle}
+                    onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-5px)';
+                        e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                    }}
+                >
+                    <h4 style={{color: '#333', marginBottom: '15px'}}>{title}</h4>
+                    <p style={{color: '#666', marginBottom: '20px'}}>{content}</p>
+                    <button 
+                        style={buttonStyle}
+                        onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                        onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                    >
+                        {buttonText}
+                    </button>
+                </div>
+            );
+        };
+
+        // Componente con CSS Modules simulado (usando clases)
+        const ModuleStyledCard = ({ title, children, type = "primary" }) => {
+            const getTypeClass = () => {
+                switch(type) {
+                    case 'success': return 'border-left-success';
+                    case 'warning': return 'border-left-warning';
+                    case 'danger': return 'border-left-danger';
+                    default: return 'border-left-primary';
+                }
+            };
+
+            return (
+                <div className={`card border-0 shadow-sm ${getTypeClass()}`} style={{borderLeft: '4px solid'}}>
+                    <div className="card-body">
+                        <h5 className="card-title fw-bold text-gray-800">{title}</h5>
+                        <div className="card-text">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Componente Styled Components simulado
+        const StyledComponent = ({ className, children, variant = "primary" }) => {
+            const variants = {
+                primary: 'bg-gradient-to-r from-purple-500 to-blue-500 text-white',
+                secondary: 'bg-gradient-to-r from-pink-500 to-rose-500 text-white',
+                success: 'bg-gradient-to-r from-green-500 to-emerald-500 text-white'
+            };
+
+            return (
+                <div className={`p-4 rounded-lg shadow-lg ${variants[variant]} ${className}`}>
+                    {children}
+                </div>
+            );
+        };
+
+        // Componente hijo que recibe props y children
+        const StudentProfile = ({ name, course, skills, children }) => {
+            return (
+                <div className="react-card">
+                    <div className="d-flex align-items-center mb-3">
+                        <img 
+                            src={`https://ui-avatars.com/api/?name=${name}&size=60&background=random`}
+                            alt={name}
+                            className="rounded-circle me-3"
+                        />
+                        <div>
+                            <h4 className="mb-1 fw-bold text-gray-800">{name}</h4>
+                            <p className="mb-0 text-muted">{course}</p>
+                        </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                        <h6 className="fw-semibold mb-2">Habilidades:</h6>
+                        <div className="d-flex flex-wrap gap-2">
+                            {skills.map((skill, index) => (
+                                <span key={index} className="badge bg-primary rounded-pill">
+                                    {skill}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                    
+                    {/* Aquí se renderizan los children */}
+                    <div className="mt-3 p-3 bg-light rounded">
+                        <h6 className="fw-semibold mb-2">Información adicional:</h6>
+                        {children}
+                    </div>
+                </div>
+            );
+        };
+
+        // Componente principal de la aplicación
+        const App = () => {
+            const [activeDemo, setActiveDemo] = useState('inline');
+            const [counter, setCounter] = useState(0);
+
+            // Datos para pasar como props
+            const studentData = {
+                name: "Giampier Aliaga",
+                course: "Desarrollo Web Frontend",
+                skills: ["React", "JavaScript", "HTML", "CSS", "Bootstrap", "Tailwind"]
+            };
+
+            return (
+                <main className="pt-20 pb-12">
+                    <div className="container mx-auto px-4 lg:px-8">
+                        
+                        {/* Back Button */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <a href="index.html#proyectos" className="btn btn-outline-light hover-lift d-inline-flex align-items-center">
+                                    <i className="fas fa-arrow-left me-2"></i>
+                                    <span>Volver a proyectos</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        {/* Hero Section usando componente */}
+                        <HeroSection 
+                            title="Semana 3 - React JS"
+                            subtitle="Framework JS con Client Side Rendering y desarrollo basado en componentes"
+                            avatarName="Giampier+Aliaga"
+                        />
+                        
+                        {/* Temas Aprendidos */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fab fa-react fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Temas Aprendidos</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        <div className="row mb-4">
+                                            <div className="col-12">
+                                                <div className="d-flex flex-wrap">
+                                                    <TechBadge tech="React" color="info" />
+                                                    <TechBadge tech="JavaScript" color="warning" />
+                                                    <TechBadge tech="JSX" color="success" />
+                                                    <TechBadge tech="CSS" color="primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="row">
+                                            <div className="col-lg-8">
+                                                <p className="fs-5 text-muted mb-3 leading-relaxed">
+                                                    Framework JavaScript para crear interfaces de usuario interactivas con:
+                                                </p>
+                                                <ul className="text-muted">
+                                                    <li><strong>Client Side Rendering:</strong> Renderizado en el navegador</li>
+                                                    <li><strong>Componentes:</strong> JSX, Props y Children</li>
+                                                    <li><strong>Estilos:</strong> Inline, Stylesheets, Modules y Components</li>
+                                                    <li><strong>Estado:</strong> useState y gestión de estado</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Ejercicios y Resultados */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fas fa-code fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Ejercicios React JS</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        
+                                        {/* Ejercicio 1: Componente con Estado */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-purple-600">
+                                                <i className="fas fa-1 me-2"></i>Componente con Estado (useState)
+                                            </h4>
+                                            
+                                            <h5 className="fw-semibold mb-2">Código JSX:</h5>
+                                            <div className="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+                                                <pre className="mb-0">{`const Counter = () => {
+    const [count, setCount] = useState(0);
+    
+    return (
+        <div className="text-center p-4 bg-light rounded">
+            <h3>Contador: {count}</h3>
+            <button onClick={() => setCount(count + 1)} 
+                    className="btn btn-primary me-2">
+                Incrementar
+            </button>
+            <button onClick={() => setCount(count - 1)} 
+                    className="btn btn-secondary">
+                Decrementar
+            </button>
         </div>
-      </main>
-    </div>
-  );
+    );
+};`}</pre>
+                                            </div>
+                                            
+                                            <h5 className="fw-semibold mb-2">Resultado:</h5>
+                                            <div className="component-demo">
+                                                <div className="text-center p-4 bg-light rounded">
+                                                    <h3>Contador: {counter}</h3>
+                                                    <button 
+                                                        onClick={() => setCounter(counter + 1)} 
+                                                        className="btn btn-primary me-2"
+                                                    >
+                                                        Incrementar
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => setCounter(counter - 1)} 
+                                                        className="btn btn-secondary"
+                                                    >
+                                                        Decrementar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr className="my-4" />
+
+                                        {/* Ejercicio 2: Estilos en React */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-blue-600">
+                                                <i className="fas fa-2 me-2"></i>Diferentes Tipos de Estilos
+                                            </h4>
+                                            
+                                            <div className="row">
+                                                <div className="col-md-6 mb-3">
+                                                    <h6 className="fw-semibold">1. Estilos Inline:</h6>
+                                                    <InlineStyledCard 
+                                                        title="Card con Estilos Inline"
+                                                        content="Estilos aplicados directamente en el JSX usando el atributo style."
+                                                        buttonText="Botón Inline"
+                                                    />
+                                                </div>
+                                                
+                                                <div className="col-md-6 mb-3">
+                                                    <h6 className="fw-semibold">2. CSS Modules (simulado):</h6>
+                                                    <ModuleStyledCard title="Card con Clases CSS" type="success">
+                                                        <p>Usando clases CSS tradicionales con Bootstrap y Tailwind.</p>
+                                                        <div className="mt-2">
+                                                            <span className="badge bg-success">Modular</span>
+                                                            <span className="badge bg-info ms-2">Reutilizable</span>
+                                                        </div>
+                                                    </ModuleStyledCard>
+                                                </div>
+                                            </div>
+
+                                            <div className="row mt-3">
+                                                <div className="col-12">
+                                                    <h6 className="fw-semibold">3. Styled Components (simulado):</h6>
+                                                    <div className="d-flex flex-wrap gap-3">
+                                                        <StyledComponent variant="primary" className="flex-1">
+                                                            <h6 className="mb-2">Componente Primary</h6>
+                                                            <p className="mb-0">Estilo con gradiente purple-blue</p>
+                                                        </StyledComponent>
+                                                        <StyledComponent variant="secondary" className="flex-1">
+                                                            <h6 className="mb-2">Componente Secondary</h6>
+                                                            <p className="mb-0">Estilo con gradiente pink-rose</p>
+                                                        </StyledComponent>
+                                                        <StyledComponent variant="success" className="flex-1">
+                                                            <h6 className="mb-2">Componente Success</h6>
+                                                            <p className="mb-0">Estilo con gradiente green-emerald</p>
+                                                        </StyledComponent>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr className="my-4" />
+
+                                        {/* Ejercicio 3: Props y Children */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-green-600">
+                                                <i className="fas fa-3 me-2"></i>Componente con Props y Children
+                                            </h4>
+                                            
+                                            <h5 className="fw-semibold mb-2">Código del Componente Padre:</h5>
+                                            <div className="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+                                                <pre className="mb-0">{`// Datos pasados como props
+const studentData = {
+    name: "Giampier Aliaga",
+    course: "Desarrollo Web Frontend",
+    skills: ["React", "JavaScript", "HTML", "CSS"]
 };
 
-const InteractiveCard = ({ title, description, buttonText }) => {
-  const [clicked, setClicked] = useState(false);
-  
-  return (
-    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        <button 
-          onClick={() => setClicked(!clicked)}
-          className={`px-4 py-2 ${clicked ? 'bg-green-600' : 'bg-purple-600'} text-white rounded hover:opacity-80 transition-colors border-none cursor-pointer`}
-        >
-          {clicked ? '¡Clickeado!' : buttonText}
-        </button>
-      </div>
+// Uso del componente con props y children
+<StudentProfile 
+    name={studentData.name}
+    course={studentData.course} 
+    skills={studentData.skills}
+>
+    {/* Children content */}
+    <p>Estudiante dedicado al aprendizaje de tecnologías frontend.</p>
+    <div className="d-flex align-items-center">
+        <i className="fas fa-star text-warning"></i>
+        <span className="ms-2">Progreso: Avanzado</span>
     </div>
-  );
-};
+</StudentProfile>`}</pre>
+                                            </div>
+                                            
+                                            <h5 className="fw-semibold mb-2">Resultado:</h5>
+                                            <div className="component-demo">
+                                                <StudentProfile 
+                                                    name={studentData.name}
+                                                    course={studentData.course}
+                                                    skills={studentData.skills}
+                                                >
+                                                    {/* Children - contenido pasado al componente */}
+                                                    <p className="mb-2">
+                                                        Estudiante dedicado al aprendizaje de tecnologías frontend 
+                                                        modernas con especial enfoque en React y desarrollo de interfaces interactivas.
+                                                    </p>
+                                                    <div className="d-flex align-items-center justify-content-between">
+                                                        <div className="d-flex align-items-center">
+                                                            <i className="fas fa-star text-warning"></i>
+                                                            <span className="ms-2 fw-semibold">Progreso: Avanzado</span>
+                                                        </div>
+                                                        <div className="d-flex align-items-center">
+                                                            <i className="fas fa-calendar text-info"></i>
+                                                            <span className="ms-2 text-muted">Semana 3</span>
+                                                        </div>
+                                                    </div>
+                                                </StudentProfile>
+                                            </div>
+                                        </div>
 
-const ResponsiveLayout = ({ columns }) => (
-  <div className="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
-    {columns.map((column, index) => (
-      <LayoutColumn key={index} {...column} />
-    ))}
-  </div>
-);
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-const LayoutColumn = ({ title, content, color }) => (
-  <div className="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
-    <h3 className={`font-bold text-${color}-600`}>{title}</h3>
-    <p className="text-gray-600">{content}</p>
-  </div>
-);
+                        {/* Reflexión Final */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-pink-600 to-rose-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fas fa-lightbulb fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Reflexión Final</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        <div className="row">
+                                            <div className="col-lg-8">
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Qué aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    React JS ha transformado completamente mi perspectiva sobre el desarrollo frontend. 
+                                                    El concepto de componentes reutilizables, el manejo de estado con useState, y 
+                                                    la comunicación entre componentes mediante props y children, proporcionan una 
+                                                    arquitectura sólida y escalable para aplicaciones web modernas.
+                                                </p>
+                                                
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Cómo aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    Mediante la práctica directa, creando componentes funcionales, implementando 
+                                                    diferentes estrategias de estilización (inline, CSS modules, styled components), 
+                                                    y experimentando con el Client Side Rendering. La combinación de JSX con 
+                                                    frameworks CSS como Bootstrap y Tailwind demostró ser muy poderosa.
+                                                </p>
+                                                
+                                                <h5 className="fw-bold mb-3 text-gray-800">Conceptos Clave Dominados:</h5>
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <ul className="text-muted">
+                                                            <li>JSX y sintaxis de React</li>
+                                                            <li>Props y Children</li>
+                                                            <li>useState Hook</li>
+                                                            <li>Componentes funcionales</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <ul className="text-muted">
+                                                            <li>Client Side Rendering</li>
+                                                            <li>Estilos inline y CSS</li>
+                                                            <li>Event handling</li>
+                                                            <li>Desarrollo basado en componentes</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-export default Semana3React;
+                    </div>
+                </main>
+            );
+        };
+
+        // Renderizar la aplicación
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
