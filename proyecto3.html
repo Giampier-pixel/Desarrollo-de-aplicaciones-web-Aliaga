@@ -77,46 +77,48 @@
 </head>
 <body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 min-h-screen">
     
-    <!-- Navigation with Bootstrap + Tailwind -->
-    <nav class="navbar navbar-expand-lg fixed-top glass-effect">
-        <div class="container-fluid px-4 lg:px-8">
-            <a class="navbar-brand fw-bold text-2xl gradient-text" href="index.html">
-                <i class="fas fa-code mr-2"></i>Portafolio
+<!-- Header with Bootstrap + Tailwind Styling -->
+<header class="fixed-top bg-white shadow-lg border-b-4 border-gradient-to-r from-purple-500 to-blue-500 z-50">
+    <div class="container mx-auto px-4 lg:px-8">
+        <nav class="d-flex justify-content-between align-items-center py-3">
+            <a href="index.html" class="text-decoration-none">
+                <span class="fs-3 fw-bold gradient-text d-flex align-items-center">
+                    <i class="fas fa-code me-2 text-purple-600"></i>
+                    Portafolio
+                </span>
             </a>
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto space-x-6">
-                    <li class="nav-item">
-                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html">
-                            <i class="fas fa-home mr-1"></i>Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#sobre-mi">
-                            <i class="fas fa-user mr-1"></i>Sobre mí
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#proyectos">
-                            <i class="fas fa-project-diagram mr-1"></i>Proyectos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white hover:text-purple-300 transition-colors duration-300" href="index.html#contactame">
-                            <i class="fas fa-envelope mr-1"></i>Contáctame
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+            <ul class="list-unstyled d-flex align-items-center mb-0 space-x-8">
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html">
+                        <i class="fas fa-home me-1"></i>Inicio
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#sobre-mi">
+                        <i class="fas fa-user me-1"></i>Sobre mí
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#proyectos">
+                        <i class="fas fa-project-diagram me-1"></i>Proyectos
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#contactame">
+                        <i class="fas fa-envelope me-1"></i>Contáctame
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
     <!-- Main Content -->
-    <main class="pt-24 pb-12">
+    <main class="pt-20 pb-12">
         <div class="container mx-auto px-4 lg:px-8">
             
             <!-- Back Button with Badge -->
