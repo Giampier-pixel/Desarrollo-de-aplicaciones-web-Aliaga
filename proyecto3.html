@@ -184,273 +184,153 @@
                 </div>
             </div>
             
-            <!-- Exercise Section with Flexbox Layout -->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card border-0 custom-shadow hover-lift bg-white">
-                        <div class="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-code fs-4 mr-3"></i>
-                                    <h2 class="card-title mb-0 fs-3 fw-bold">Ejercicio</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <!-- Tabs for Code Display -->
-                            <ul class="nav nav-tabs nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#html-tab">
-                                        <i class="fab fa-html5 mr-2"></i>HTML
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#css-tab">
-                                        <i class="fab fa-css3-alt mr-2"></i>CSS
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#js-tab">
-                                        <i class="fab fa-js-square mr-2"></i>JavaScript
-                                    </button>
-                                </li>
-                            </ul>
-                            
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="html-tab">
-                                    <div class="bg-gray-900 text-green-400 p-4 code-font text-sm overflow-x-auto">
+   <!-- Ejercicios y Resultados Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card border-0 custom-shadow hover-lift bg-white">
+            <div class="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-code fs-4 mr-3"></i>
+                    <h2 class="card-title mb-0 fs-3 fw-bold">Ejercicios y Resultados</h2>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                
+                <!-- Ejercicio 1: Card con Hover Effects -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-purple-600">
+                        <i class="fas fa-1 me-2"></i>Card con Efectos Hover
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
 <pre class="mb-0">
-&lt;!DOCTYPE html&gt;
-&lt;html lang="es"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Proyecto Semana 2&lt;/title&gt;
-    &lt;link rel="stylesheet" href="styles.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app" class="container"&gt;
-        &lt;header class="header"&gt;
-            &lt;h1 class="title"&gt;Mi Aplicación Interactiva&lt;/h1&gt;
-            &lt;nav class="navigation"&gt;
-                &lt;ul class="nav-list"&gt;
-                    &lt;li&gt;&lt;a href="#home"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a href="#about"&gt;Acerca&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a href="#contact"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/nav&gt;
-        &lt;/header&gt;
-        &lt;main class="main-content"&gt;
-            &lt;section class="hero"&gt;
-                &lt;h2&gt;Bienvenido a mi proyecto&lt;/h2&gt;
-                &lt;p&gt;Una aplicación web moderna y responsiva&lt;/p&gt;
-                &lt;button id="interactive-btn"&gt;Interactuar&lt;/button&gt;
-            &lt;/section&gt;
-        &lt;/main&gt;
-    &lt;/div&gt;
-    &lt;script src="script.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+&lt;div class="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"&gt;
+  &lt;div class="p-6"&gt;
+    &lt;div class="text-xl font-semibold text-gray-900 mb-2"&gt;Tarjeta Interactiva&lt;/div&gt;
+    &lt;p class="text-gray-600"&gt;Esta tarjeta cambia su sombra al hacer hover&lt;/p&gt;
+    &lt;button class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"&gt;
+      Botón
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 </pre>
-                                    </div>
-                                </div>
-                                
-                                <div class="tab-pane fade" id="css-tab">
-                                    <div class="bg-gray-900 text-blue-400 p-4 code-font text-sm overflow-x-auto">
-<pre class="mb-0">
-/* Estilos CSS Modernos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-}
-
-.title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.navigation ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.navigation a {
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.navigation a:hover {
-    color: #f093fb;
-    transform: translateY(-2px);
-}
-</pre>
-                                    </div>
-                                </div>
-                                
-                                <div class="tab-pane fade" id="js-tab">
-                                    <div class="bg-gray-900 text-yellow-400 p-4 code-font text-sm overflow-x-auto">
-<pre class="mb-0">
-// JavaScript Interactivo
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos del DOM
-    const interactiveBtn = document.getElementById('interactive-btn');
-    const title = document.querySelector('.title');
-    
-    // Función para cambiar colores dinámicamente
-    function changeColors() {
-        const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        title.style.color = randomColor;
-    }
-    
-    // Event Listeners
-    interactiveBtn.addEventListener('click', function() {
-        changeColors();
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = 'scale(1)';
-        }, 150);
-    });
-    
-    // Animación de entrada
-    window.addEventListener('load', function() {
-        title.style.opacity = '0';
-        title.style.transform = 'translateY(-30px)';
-        
-        setTimeout(() => {
-            title.style.transition = 'all 0.8s ease';
-            title.style.opacity = '1';
-            title.style.transform = 'translateY(0)';
-        }, 100);
-    });
-});
-</pre>
-                                    </div>
-                                </div>
+                    </div>
+                    
+                    <h5 class="fw-semibold mb-2">Resultado:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                            <div class="p-6">
+                                <div class="text-xl font-semibold text-gray-900 mb-2">Tarjeta Interactiva</div>
+                                <p class="text-gray-600">Esta tarjeta cambia su sombra al hacer hover</p>
+                                <button class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors">
+                                    Botón
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Results with Flex and Grid Layout -->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card border-0 custom-shadow hover-lift bg-white">
-                        <div class="card-header bg-gradient-to-r from-green-600 to-teal-600 text-white border-0">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-chart-line fs-4 mr-3"></i>
-                                <h2 class="card-title mb-0 fs-3 fw-bold">Resultados del Proyecto</h2>
+
+                <hr class="my-4">
+
+                <!-- Ejercicio 2: Flexbox Layout -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-blue-600">
+                        <i class="fas fa-2 me-2"></i>Layout con Flexbox
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+<pre class="mb-0">
+&lt;div class="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg"&gt;
+  &lt;div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold text-blue-600"&gt;Columna 1&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Contenido flexible&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold text-purple-600"&gt;Columna 2&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Se adapta automáticamente&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold text-green-600"&gt;Columna 3&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Layout responsivo&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
+                    <h5 class="fw-semibold mb-2">Resultado:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
+                            <div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-blue-600">Columna 1</h3>
+                                <p class="text-gray-600">Contenido flexible</p>
                             </div>
-                        </div>
-                        <div class="card-body p-4">
-                            <!-- Feature Grid -->
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100">
-                                        <i class="fas fa-mobile-alt fs-2 text-purple-600 mb-2"></i>
-                                        <h5 class="fw-bold">Responsive</h5>
-                                        <p class="small text-muted mb-0">Diseño adaptable</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100">
-                                        <i class="fas fa-code fs-2 text-blue-600 mb-2"></i>
-                                        <h5 class="fw-bold">Interactivo</h5>
-                                        <p class="small text-muted mb-0">JavaScript dinámico</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-green-100 to-emerald-100">
-                                        <i class="fas fa-paint-brush fs-2 text-green-600 mb-2"></i>
-                                        <h5 class="fw-bold">Moderno</h5>
-                                        <p class="small text-muted mb-0">CSS avanzado</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="text-center p-3 rounded-lg bg-gradient-to-r from-orange-100 to-red-100">
-                                        <i class="fas fa-rocket fs-2 text-orange-600 mb-2"></i>
-                                        <h5 class="fw-bold">Optimizado</h5>
-                                        <p class="small text-muted mb-0">Alto rendimiento</p>
-                                    </div>
-                                </div>
+                            <div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-purple-600">Columna 2</h3>
+                                <p class="text-gray-600">Se adapta automáticamente</p>
                             </div>
-                            
-                            <!-- Features Table -->
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped">
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th scope="col">Funcionalidad</th>
-                                            <th scope="col">Tecnología</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Complejidad</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Interfaz Responsiva</td>
-                                            <td><span class="badge bg-info">CSS Grid</span></td>
-                                            <td><span class="badge bg-success">Completado</span></td>
-                                            <td>
-                                                <div class="progress" style="height: 8px;">
-                                                    <div class="progress-bar bg-info" style="width: 85%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Manipulación DOM</td>
-                                            <td><span class="badge bg-warning">JavaScript</span></td>
-                                            <td><span class="badge bg-success">Completado</span></td>
-                                            <td>
-                                                <div class="progress" style="height: 8px;">
-                                                    <div class="progress-bar bg-warning" style="width: 90%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Animaciones CSS</td>
-                                            <td><span class="badge bg-primary">CSS3</span></td>
-                                            <td><span class="badge bg-success">Completado</span></td>
-                                            <td>
-                                                <div class="progress" style="height: 8px;">
-                                                    <div class="progress-bar bg-primary" style="width: 75%"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-green-600">Columna 3</h3>
+                                <p class="text-gray-600">Layout responsivo</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <hr class="my-4">
+
+                <!-- Ejercicio 3: Badges y Botones -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-green-600">
+                        <i class="fas fa-3 me-2"></i>Badges y Grupos de Botones
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+<pre class="mb-0">
+&lt;div class="space-y-4"&gt;
+  &lt;!-- Badges --&gt;
+  &lt;div class="flex flex-wrap gap-2"&gt;
+    &lt;span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium"&gt;HTML&lt;/span&gt;
+    &lt;span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"&gt;CSS&lt;/span&gt;
+    &lt;span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium"&gt;JavaScript&lt;/span&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Button Group --&gt;
+  &lt;div class="inline-flex rounded-lg shadow-sm"&gt;
+    &lt;button class="px-4 py-2 bg-purple-600 text-white rounded-l-lg hover:bg-purple-700"&gt;Inicio&lt;/button&gt;
+    &lt;button class="px-4 py-2 bg-purple-500 text-white hover:bg-purple-600"&gt;Medio&lt;/button&gt;
+    &lt;button class="px-4 py-2 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700"&gt;Fin&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
+                    <h5 class="fw-semibold mb-2">Resultado:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="space-y-4">
+                            <!-- Badges -->
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">HTML</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">CSS</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
+                            </div>
+                            
+                            <!-- Button Group -->
+                            <div class="inline-flex rounded-lg shadow-sm">
+                                <button class="px-4 py-2 bg-purple-600 text-white rounded-l-lg hover:bg-purple-700">Inicio</button>
+                                <button class="px-4 py-2 bg-purple-500 text-white hover:bg-purple-600">Medio</button>
+                                <button class="px-4 py-2 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700">Fin</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
             <!-- Final Reflection Section -->
             <div class="row mb-5">
                 <div class="col-12">
