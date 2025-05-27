@@ -1,342 +1,477 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 5 - Portafolio de Giampier</title>
-    <style>
-        :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6a8caf;
-            --accent-color: #166088;
-            --light-gray: #f5f7fa;
-            --dark-gray: #333;
-            --white: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
-        }
-        
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-gray);
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--accent-color);
-        }
-        
-        .card {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-        
-        .card-body {
-            padding: 1.5rem;
-        }
-        
-        .code-container {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 1rem 0;
-        }
-        
-        .code-container pre {
-            margin: 0;
-        }
-        
-        .description {
-            margin-top: 1rem;
-            line-height: 1.7;
-        }
-        
-        .tag {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .demo-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        footer {
-            background-color: var(--dark-gray);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .social-links {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-        
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">Portafolio</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="index.html#sobre-mi">Sobre mí</a></li>
-                    <li><a href="index.html#proyectos">Proyectos</a></li>
-                    <li><a href="index.html#contactame">Contáctame</a></li>
-                </ul>
-            </nav>
+import React, { useState } from 'react';
+const Header = ({ title, onNavigate }) => {
+  const headerStyles = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    borderBottom: '4px solid transparent',
+    borderImage: 'linear-gradient(to right, #8b5cf6, #3b82f6) 1',
+    zIndex: 50,
+    padding: '1rem 0'
+  };
+
+  const navStyles = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 2rem'
+  };
+
+  return (
+    <header style={headerStyles}>
+      <nav style={navStyles}>
+        <div className="flex items-center space-x-2">
+          <i className="fas fa-code text-purple-600 text-2xl"></i>
+          <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            {title}
+          </span>
         </div>
+        
+        <ul className="flex items-center space-x-6 list-none m-0">
+          {['Inicio', 'Sobre mí', 'Proyectos', 'Contáctame'].map((item, index) => (
+            <li key={index}>
+              <button 
+                onClick={() => onNavigate(item)}
+                className="text-gray-700 hover:text-purple-600 font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50 border-none bg-transparent cursor-pointer"
+              >
+                <i className={`fas fa-${['home', 'user', 'project-diagram', 'envelope'][index]} mr-1`}></i>
+                {item}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
+  );
+};
+const Card = ({ title, icon, gradient, children, className = "" }) => {
+  const cardStyles = {
+    border: 'none',
+    borderRadius: '10px',
+    boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    backgroundColor: 'white',
+    overflow: 'hidden'
+  };
 
-    <main class="section">
-        <div class="container">
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
-            
-            <h1 class="section-title">Semana 5</h1>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Temas aprendidos</h2>
-                </div>
-                <div class="card-body">
-                    <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                    <p class="description">
-                        Este proyecto consiste en una aplicación web interactiva que permite a los usuarios [descripción breve del proyecto]. 
-                        Fue desarrollado utilizando HTML para la estructura, CSS para el diseño y JavaScript para la funcionalidad interactiva.
-                    </p>
-                    <a href="https://github.com/tuusuario/turepositorio/tree/main/proyecto1" target="_blank" class="btn">Ver en GitHub</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Ejercicio</h2>
-                </div>
-                <div class="card-body">
-                    <h3>HTML</h3>
-                    <div class="code-container">
-<pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="es"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Proyecto 1&lt;/title&gt;
-    &lt;link rel="stylesheet" href="styles.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        &lt;h1&gt;Mi Aplicación&lt;/h1&gt;
-        &lt;div class="container"&gt;
-            &lt;!-- Contenido del proyecto --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;script src="script.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Resultado</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Este proyecto implementa las siguientes funcionalidades:
-                    </p>
-                    <ul>
-                        <li>Interfaz de usuario intuitiva y responsive</li>
-                        <li>Manipulación dinámica del DOM con JavaScript</li>
-                        <li>Diseño moderno utilizando CSS personalizado</li>
-                        <li>Optimización para distintos dispositivos y tamaños de pantalla</li>
-                    </ul>
-                    
-                    <div class="demo-container">
-                        <h3>Demo Interactiva</h3>
-                        <p>Aquí podrías incluir una versión interactiva o capturas de pantalla del proyecto.</p>
-                        <img src="/api/placeholder/600/300" alt="Demo del Proyecto 1" style="max-width: 100%; margin-top: 1rem; border-radius: 5px;">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Reflexion final</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Durante el desarrollo de este proyecto, aprendí y puse en práctica varios conceptos importantes:
-                    </p>
-                    <ul>
-                        <li>Estructura semántica HTML para mejorar la accesibilidad</li>
-                        <li>Uso de CSS moderno para crear diseños atractivos</li>
-                        <li>Programación JavaScript para agregar interactividad</li>
-                        <li>Principios de diseño responsive para adaptarse a múltiples dispositivos</li>
-                    </ul>
-                    
-                    <p class="description">
-                        Los mayores desafíos fueron [describe los desafíos] y los resolví mediante [explica cómo los resolviste].
-                    </p>
-                </div>
-            </div>
-            
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
-        </div>
-    </main>
+  const headerStyles = {
+    background: gradient || 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
+    color: 'white',
+    padding: '1rem',
+    border: 'none'
+  };
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aliaga Esquivel Giampier</p>
-            <div class="social-links">
-                <a href="https://github.com/tuusuario" target="_blank" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                </a>
-                <a href="https://linkedin.com/in/tuusuario" target="_blank" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <a href="https://twitter.com/tuusuario" target="_blank" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                    </svg>
-                </a>
-            </div>
+  return (
+    <div 
+      className={`hover:-translate-y-2 hover:shadow-2xl ${className}`}
+      style={cardStyles}
+    >
+      <div style={headerStyles}>
+        <div className="flex items-center">
+          <i className={`${icon} text-xl mr-3`}></i>
+          <h2 className="text-xl font-bold m-0">{title}</h2>
         </div>
-    </footer>
-</body>
-</html>
+      </div>
+      <div className="p-4">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const Badge = ({ children, color = "purple" }) => {
+  const colorMap = {
+    purple: "bg-purple-100 text-purple-800",
+    blue: "bg-blue-100 text-blue-800",
+    green: "bg-green-100 text-green-800",
+    red: "bg-red-100 text-red-800",
+    yellow: "bg-yellow-100 text-yellow-800"
+  };
+
+  return (
+    <span className={`${colorMap[color]} px-3 py-1 rounded-full text-sm font-medium inline-block`}>
+      {children}
+    </span>
+  );
+};
+
+const CodeBlock = ({ children, language = "html" }) => {
+  const codeBlockStyles = {
+    backgroundColor: '#1f2937',
+    color: '#10b981',
+    padding: '1rem',
+    borderRadius: '0.5rem',
+    fontFamily: 'JetBrains Mono, monospace',
+    fontSize: '0.875rem',
+    overflow: 'auto',
+    margin: '1rem 0'
+  };
+
+  return (
+    <div style={codeBlockStyles}>
+      <pre className="m-0 whitespace-pre-wrap">
+        {children}
+      </pre>
+    </div>
+  );
+};
+
+// Componente Exercise que recibe props y muestra children
+const Exercise = ({ number, title, color, code, children }) => {
+  const [showCode, setShowCode] = useState(false);
+
+  return (
+    <div className="mb-8">
+      <h4 className={`font-bold mb-3 text-${color}-600 text-lg`}>
+        <i className={`fas fa-${number} mr-2`}></i>
+        {title}
+      </h4>
+      
+      <button 
+        onClick={() => setShowCode(!showCode)}
+        className={`mb-3 px-4 py-2 bg-${color}-600 text-white rounded hover:bg-${color}-700 transition-colors border-none cursor-pointer`}
+      >
+        {showCode ? 'Ocultar' : 'Mostrar'} Código
+      </button>
+      
+      {showCode && (
+        <div>
+          <h5 className="font-semibold mb-2">Código del ejercicio:</h5>
+          <CodeBlock>{code}</CodeBlock>
+        </div>
+      )}
+      
+      <h5 className="font-semibold mb-2">Resultado:</h5>
+      <div className="p-4 bg-gray-50 rounded">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+// Componente hijo que recibe datos via props
+const UserProfile = ({ user, skills, onSkillClick }) => {
+  const profileStyles = {
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    padding: '2rem',
+    borderRadius: '1rem',
+    color: 'white',
+    textAlign: 'center'
+  };
+
+  return (
+    <div style={profileStyles}>
+      <div className="mb-4">
+        <img 
+          src={`https://ui-avatars.com/api/?name=${user.name}&size=80&background=ffffff&color=667eea&bold=true`}
+          alt="Avatar" 
+          className="rounded-full mx-auto mb-3"
+        />
+        <h3 className="text-xl font-bold">{user.name}</h3>
+        <p className="opacity-90">{user.role}</p>
+        <p className="opacity-75 text-sm">{user.email}</p>
+      </div>
+      
+      <div className="mb-4">
+        <h4 className="font-semibold mb-2">Habilidades:</h4>
+        <div className="flex flex-wrap gap-2 justify-center">
+          {skills.map((skill, index) => (
+            <button
+              key={index}
+              onClick={() => onSkillClick(skill)}
+              className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm hover:bg-opacity-30 transition-all border-none cursor-pointer text-white"
+            >
+              {skill}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Componente principal
+const Semana3React = () => {
+  const [selectedSkill, setSelectedSkill] = useState('');
+  const [currentSection, setCurrentSection] = useState('Inicio');
+
+  // Datos del usuario para pasar como props
+  const userData = {
+    name: "Giampier Aliaga",
+    role: "Desarrollador Frontend",
+    email: "giampier@ejemplo.com"
+  };
+
+  const userSkills = ["React", "JavaScript", "HTML", "CSS", "Bootstrap", "Tailwind"];
+
+  const handleSkillClick = (skill) => {
+    setSelectedSkill(skill);
+    alert(`Has seleccionado: ${skill}`);
+  };
+
+  const handleNavigation = (section) => {
+    setCurrentSection(section);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700">
+      <Header title="Portafolio React" onNavigate={handleNavigation} />
+      
+      <main className="pt-24 pb-12">
+        <div className="max-w-6xl mx-auto px-4">
+          
+          {/* Back Button */}
+          <div className="mb-8">
+            <button className="bg-transparent border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-purple-600 transition-all">
+              <i className="fas fa-arrow-left mr-2"></i>
+              Volver a proyectos
+            </button>
+          </div>
+          
+          {/* Hero Section */}
+          <div className="text-center mb-8">
+            <div className="mb-4">
+              <img 
+                src="https://ui-avatars.com/api/?name=Giampier+Aliaga&size=120&background=667eea&color=ffffff&bold=true" 
+                alt="Avatar" 
+                className="rounded-full border-4 border-white shadow-lg mx-auto"
+              />
+            </div>
+            <h1 className="text-5xl font-bold text-white mb-3">Semana 3 - React</h1>
+            <p className="text-xl text-white opacity-90 max-w-2xl mx-auto">
+              Framework JavaScript con React - Componentes, Props y Estilos
+            </p>
+          </div>
+          
+          {/* Learned Topics Card */}
+          <Card 
+            title="Temas Aprendidos" 
+            icon="fas fa-graduation-cap"
+            className="mb-8"
+          >
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-2">
+                <Badge color="blue">React JS</Badge>
+                <Badge color="green">JSX</Badge>
+                <Badge color="purple">Components</Badge>
+                <Badge color="red">Props</Badge>
+                <Badge color="yellow">Styles</Badge>
+              </div>
+            </div>
+            
+            <div>
+              <p className="text-gray-600 mb-3 text-lg leading-relaxed">
+                Framework JavaScript para desarrollo frontend con arquitectura basada en componentes.
+              </p>
+              <ul className="text-gray-600 space-y-1">
+                <li>• Estructura y operación de Framework</li>
+                <li>• Client Side Rendering</li>
+                <li>• Desarrollo basado en componentes</li>
+                <li>• JSX, Props y Children</li>
+                <li>• Gestión de estilos (inline, CSS, modules)</li>
+              </ul>
+            </div>
+          </Card>
+          
+          {/* Exercises Section */}
+          <Card 
+            title="Ejercicios y Resultados" 
+            icon="fas fa-code"
+            gradient="linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)"
+            className="mb-8"
+          >
+            <Exercise
+              number="1"
+              title="Componente Card Interactivo con Props"
+              color="purple"
+              code={`const InteractiveCard = ({ title, description, buttonText }) => {
+  const [clicked, setClicked] = useState(false);
+  
+  return (
+    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow">
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
+        <p className="text-gray-600 mb-4">{description}</p>
+        <button 
+          onClick={() => setClicked(!clicked)}
+          className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+        >
+          {clicked ? 'Clickeado!' : buttonText}
+        </button>
+      </div>
+    </div>
+  );
+};`}
+            >
+              <InteractiveCard 
+                title="Tarjeta con React" 
+                description="Esta tarjeta usa props y estado de React"
+                buttonText="Hacer click"
+              />
+            </Exercise>
+
+            <hr className="my-6" />
+
+            <Exercise
+              number="2"
+              title="Layout Responsivo con Componentes"
+              color="blue"
+              code={`const ResponsiveLayout = ({ columns }) => (
+  <div className="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
+    {columns.map((column, index) => (
+      <LayoutColumn key={index} {...column} />
+    ))}
+  </div>
+);
+
+const LayoutColumn = ({ title, content, color }) => (
+  <div className="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
+    <h3 className={\`font-bold text-\${color}-600\`}>{title}</h3>
+    <p className="text-gray-600">{content}</p>
+  </div>
+);`}
+            >
+              <ResponsiveLayout 
+                columns={[
+                  { title: "Componente 1", content: "Usando props dinámicamente", color: "blue" },
+                  { title: "Componente 2", content: "Reutilizable y escalable", color: "purple" },
+                  { title: "Componente 3", content: "Layout con React", color: "green" }
+                ]}
+              />
+            </Exercise>
+
+            <hr className="my-6" />
+
+            <Exercise
+              number="3"
+              title="Pasar Datos con Props y Children"
+              color="green"
+              code={`const UserProfile = ({ user, skills, onSkillClick }) => (
+  <div style={profileStyles}>
+    <img src={user.avatar} alt="Avatar" />
+    <h3>{user.name}</h3>
+    <p>{user.role}</p>
+    <div>
+      {skills.map(skill => (
+        <button key={skill} onClick={() => onSkillClick(skill)}>
+          {skill}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+<UserProfile 
+  user={userData} 
+  skills={userSkills} 
+  onSkillClick={handleSkillClick} 
+/>`}
+            >
+              <div>
+                <UserProfile 
+                  user={userData}
+                  skills={userSkills}
+                  onSkillClick={handleSkillClick}
+                />
+                {selectedSkill && (
+                  <div className="mt-4 p-3 bg-green-100 text-green-800 rounded">
+                    <strong>Última habilidad seleccionada:</strong> {selectedSkill}
+                  </div>
+                )}
+              </div>
+            </Exercise>
+          </Card>
+          
+          {/* Final Reflection */}
+          <Card 
+            title="Reflexión Final" 
+            icon="fas fa-lightbulb"
+            gradient="linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)"
+          >
+            <div className="space-y-4">
+              <div>
+                <h5 className="font-bold mb-2 text-gray-800">¿Qué aprendí?</h5>
+                <p className="text-gray-600 mb-4">
+                  React ha transformado mi enfoque del desarrollo frontend. He aprendido a crear componentes 
+                  reutilizables, manejar el estado con hooks, y pasar datos entre componentes usando props y 
+                  children. La arquitectura basada en componentes permite un código más modular y mantenible.
+                </p>
+              </div>
+              
+              <div>
+                <h5 className="font-bold mb-2 text-gray-800">¿Cómo aprendí?</h5>
+                <p className="text-gray-600 mb-4">
+                  A través de la práctica hands-on, creando componentes desde cero, experimentando con 
+                  diferentes tipos de estilos (inline, CSS classes, styled components), y implementando 
+                  la comunicación entre componentes padre e hijo mediante props y callbacks.
+                </p>
+              </div>
+
+              <div>
+                <h5 className="font-bold mb-2 text-gray-800">Conceptos Clave Implementados:</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-blue-50 p-3 rounded">
+                    <strong className="text-blue-800">JSX & Componentes:</strong>
+                    <p className="text-sm text-blue-600 mt-1">Sintaxis declarativa para crear interfaces</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded">
+                    <strong className="text-purple-800">Props & Children:</strong>
+                    <p className="text-sm text-purple-600 mt-1">Comunicación entre componentes</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded">
+                    <strong className="text-green-800">Estado & Hooks:</strong>
+                    <p className="text-sm text-green-600 mt-1">Manejo dinámico de datos</p>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded">
+                    <strong className="text-red-800">Estilos Dinámicos:</strong>
+                    <p className="text-sm text-red-600 mt-1">CSS-in-JS y clases condicionales</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+const InteractiveCard = ({ title, description, buttonText }) => {
+  const [clicked, setClicked] = useState(false);
+  
+  return (
+    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
+        <p className="text-gray-600 mb-4">{description}</p>
+        <button 
+          onClick={() => setClicked(!clicked)}
+          className={`px-4 py-2 ${clicked ? 'bg-green-600' : 'bg-purple-600'} text-white rounded hover:opacity-80 transition-colors border-none cursor-pointer`}
+        >
+          {clicked ? '¡Clickeado!' : buttonText}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const ResponsiveLayout = ({ columns }) => (
+  <div className="flex flex-wrap gap-4 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
+    {columns.map((column, index) => (
+      <LayoutColumn key={index} {...column} />
+    ))}
+  </div>
+);
+
+const LayoutColumn = ({ title, content, color }) => (
+  <div className="flex-1 min-w-48 bg-white p-4 rounded-lg shadow">
+    <h3 className={`font-bold text-${color}-600`}>{title}</h3>
+    <p className="text-gray-600">{content}</p>
+  </div>
+);
+
+export default Semana3React;
