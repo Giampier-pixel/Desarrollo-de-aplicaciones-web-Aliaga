@@ -725,4 +725,269 @@
                         />
                         
                         {/* Temas Aprendidos */}
-                        <div className="row mb-5
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fab fa-react fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Temas Aprendidos</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        <div className="row mb-4">
+                                            <div className="col-12">
+                                                <div className="d-flex flex-wrap">
+                                                    <TechBadge tech="React" color="info" />
+                                                    <TechBadge tech="JavaScript" color="warning" />
+                                                    <TechBadge tech="API" color="success" />
+                                                    <TechBadge tech="Axios" color="primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="row">
+                                            <div className="col-lg-8">
+                                                <p className="fs-5 text-muted mb-3 leading-relaxed">
+                                                    Manejo avanzado de React con eventos, renderizado y APIs:
+                                                </p>
+                                                <ul className="text-muted">
+                                                    <li><strong>Eventos:</strong> onClick, onChange, onSubmit con manejo de estado</li>
+                                                    <li><strong>Renderizado Condicional:</strong> Operadores ternarios y && lógico</li>
+                                                    <li><strong>Renderizado Iterativo:</strong> map(), filter(), sort() con arrays</li>
+                                                    <li><strong>Formularios:</strong> Inputs controlados, validación y submit</li>
+                                                    <li><strong>APIs:</strong> Axios, Promises, async/await, manejo de errores</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Ejercicios y Resultados */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fas fa-code fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Ejercicios React JS Avanzados</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        
+                                        {/* Ejercicio 1: Eventos y Renderizado Condicional */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-purple-600">
+                                                <i className="fas fa-1 me-2"></i>Eventos y Renderizado Condicional
+                                            </h4>
+                                            
+                                            <h5 className="fw-semibold mb-2">Características implementadas:</h5>
+                                            <div className="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+                                                <pre className="mb-0">{`// Eventos: onClick, onChange, onSubmit
+const addTask = (e) => {
+    e.preventDefault();
+    if (newTask.trim()) {
+        setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
+        setNewTask('');
+    }
+};
+
+// Renderizado Condicional
+{getFilteredTasks().length === 0 ? (
+    <div className="text-center text-muted py-4">
+        <p>No hay tareas {filter === 'completed' ? 'completadas' : 'pendientes'}</p>
+    </div>
+) : (
+    // Renderizado Iterativo con map()
+    getFilteredTasks().map(task => (
+        <TaskItem key={task.id} task={task} onToggle={toggleTask} />
+    ))
+)}`}</pre>
+                                            </div>
+                                            
+                                            <h5 className="fw-semibold mb-2">Resultado - Gestor de Tareas:</h5>
+                                            <div className="component-demo">
+                                                <TaskManager />
+                                            </div>
+                                        </div>
+
+                                        <hr className="my-4" />
+
+                                        {/* Ejercicio 2: Formularios y Renderizado Iterativo */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-blue-600">
+                                                <i className="fas fa-2 me-2"></i>Formularios y Renderizado Iterativo
+                                            </h4>
+                                            
+                                            <h5 className="fw-semibold mb-2">Funcionalidades CRUD:</h5>
+                                            <div className="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+                                                <pre className="mb-0">{`// Formulario controlado
+const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+// CRUD Operations
+const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editingId) {
+        // Update
+        setStudents(students.map(student => 
+            student.id === editingId ? { ...student, ...formData } : student
+        ));
+    } else {
+        // Create
+        setStudents([...students, { id: Date.now(), ...formData }]);
+    }
+};
+
+// Ordenamiento dinámico
+const getSortedStudents = () => {
+    return [...students].sort((a, b) => {
+        if (sortBy === 'grade') return b.grade - a.grade;
+        return a[sortBy].localeCompare(b[sortBy]);
+    });
+};`}</pre>
+                                            </div>
+                                            
+                                            <h5 className="fw-semibold mb-2">Resultado - Sistema de Estudiantes:</h5>
+                                            <div className="component-demo">
+                                                <StudentForm />
+                                            </div>
+                                        </div>
+
+                                        <hr className="my-4" />
+
+                                        {/* Ejercicio 3: Consumo de APIs */}
+                                        <div className="mb-5">
+                                            <h4 className="fw-bold mb-3 text-green-600">
+                                                <i className="fas fa-3 me-2"></i>Consumo de APIs con Axios y Async/Await
+                                            </h4>
+                                            
+                                            <h5 className="fw-semibold mb-2">Implementación con Promises:</h5>
+                                            <div className="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+                                                <pre className="mb-0">{`// Consumo de API con Axios y manejo de errores
+const fetchUsers = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+        setUsers(response.data);
+    } catch (err) {
+        setError('Error al cargar usuarios: ' + err.message);
+    } finally {
+        setLoading(false);
+    }
+};
+
+// Múltiples requests con Promise.all
+const fetchUserPosts = async (userId) => {
+    try {
+        const [userResponse, postsResponse] = await Promise.all([
+            axios.get(\`https://jsonplaceholder.typicode.com/users/\${userId}\`),
+            axios.get(\`https://jsonplaceholder.typicode.com/posts?userId=\${userId}\`)
+        ]);
+        
+        setSelectedUser({
+            ...userResponse.data,
+            posts: postsResponse.data
+        });
+    } catch (err) {
+        setError('Error al cargar detalles del usuario');
+    }
+};
+
+// useEffect para carga inicial
+useEffect(() => {
+    fetchUsers();
+}, []);`}</pre>
+                                            </div>
+                                            
+                                            <h5 className="fw-semibold mb-2">Resultado - Gestión de Usuarios (API):</h5>
+                                            <div className="component-demo">
+                                                <APIUserManager />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Reflexión Final */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-pink-600 to-rose-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fas fa-lightbulb fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Reflexión Final</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        <div className="row">
+                                            <div className="col-lg-8">
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Qué aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    Esta semana profundicé en los aspectos más avanzados de React, dominando el manejo de eventos,
+                                                    renderizado condicional e iterativo, formularios controlados y consumo de APIs. La integración
+                                                    de Axios para realizar peticiones HTTP asíncronas y el manejo adecuado de estados de carga y 
+                                                    errores son fundamentales para aplicaciones web modernas.
+                                                </p>
+                                                
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Cómo aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    A través de la implementación práctica de tres ejercicios progressivos: un gestor de tareas 
+                                                    con eventos y renderizado condicional, un sistema CRUD de estudiantes con formularios, y 
+                                                    finalmente una aplicación que consume datos de una API externa. Cada ejercicio construye 
+                                                    sobre los conceptos del anterior, creando una experiencia de aprendizaje integral.
+                                                </p>
+                                                
+                                                <h5 className="fw-bold mb-3 text-gray-800">Conceptos Clave Dominados:</h5>
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <ul className="text-muted">
+                                                            <li>Event Handling (onClick, onChange, onSubmit)</li>
+                                                            <li>Renderizado Condicional (ternario, &&)</li>
+                                                            <li>Renderizado de Listas (map, filter, sort)</li>
+                                                            <li>Formularios Controlados</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <ul className="text-muted">
+                                                            <li>Consumo de APIs con Axios</li>
+                                                            <li>Async/Await y Promises</li>
+                                                            <li>Manejo de Estados (loading, error)</li>
+                                                            <li>CRUD Operations con React</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="mt-4 p-3 bg-light rounded">
+                                                    <h6 className="fw-bold mb-2">🎯 Logros Alcanzados:</h6>
+                                                    <div className="d-flex flex-wrap gap-2">
+                                                        <span className="badge bg-success">✅ Eventos Avanzados</span>
+                                                        <span className="badge bg-info">✅ Renderizado Dinámico</span>
+                                                        <span className="badge bg-warning">✅ Formularios CRUD</span>
+                                                        <span className="badge bg-primary">✅ Integración APIs</span>
+                                                        <span className="badge bg-secondary">✅ Manejo de Errores</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+            );
+        };
+
+        // Renderizar la aplicación
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
