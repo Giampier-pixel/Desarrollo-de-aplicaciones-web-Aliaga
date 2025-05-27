@@ -3,340 +3,601 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 4 - Portafolio de Giampier</title>
+    <title>Semana 4</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6a8caf;
-            --accent-color: #166088;
-            --light-gray: #f5f7fa;
-            --dark-gray: #333;
-            --white: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         }
         
         body {
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
         }
         
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
         
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-gray);
-            text-decoration: none;
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
-        .nav-links {
-            display: flex;
-            list-style: none;
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .nav-links li {
-            margin-left: 2rem;
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
         }
         
-        .nav-links a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            transition: color 0.3s;
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
-        .nav-links a:hover {
-            color: var(--accent-color);
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
         }
         
-        .section {
-            padding: 5rem 0;
+        .bg-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
         }
         
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--accent-color);
-        }
-        
-        .card {
-            background-color: var(--white);
+        /* Canvas styles */
+        #animationCanvas {
+            border: 2px solid #4f46e5;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
-        .card-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem;
+        /* Particle animation */
+        .particle {
+            position: absolute;
+            background: #f59e0b;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 3s ease-in-out infinite;
         }
         
-        .card-title {
-            margin: 0;
-            font-size: 1.8rem;
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.5; }
         }
         
-        .card-body {
-            padding: 1.5rem;
+        /* Interactive button animation */
+        .pulse-btn {
+            animation: pulse 2s infinite;
         }
         
-        .code-container {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 1rem 0;
-        }
-        
-        .code-container pre {
-            margin: 0;
-        }
-        
-        .description {
-            margin-top: 1rem;
-            line-height: 1.7;
-        }
-        
-        .tag {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .demo-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        footer {
-            background-color: var(--dark-gray);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .social-links {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-        
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">Portafolio</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="index.html#sobre-mi">Sobre mí</a></li>
-                    <li><a href="index.html#proyectos">Proyectos</a></li>
-                    <li><a href="index.html#contactame">Contáctame</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 min-h-screen">
+    
+<!-- Header with Bootstrap + Tailwind Styling -->
+<header class="fixed-top bg-white shadow-lg border-b-4 border-gradient-to-r from-purple-500 to-blue-500 z-50">
+    <div class="container mx-auto px-4 lg:px-8">
+        <nav class="d-flex justify-content-between align-items-center py-3">
+            <a href="index.html" class="text-decoration-none">
+                <span class="fs-3 fw-bold gradient-text d-flex align-items-center">
+                    <i class="fas fa-code me-2 text-purple-600"></i>
+                    Portafolio
+                </span>
+            </a>
+            
+            <ul class="list-unstyled d-flex align-items-center mb-0 space-x-8">
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html">
+                        <i class="fas fa-home me-1"></i>Inicio
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#sobre-mi">
+                        <i class="fas fa-user me-1"></i>Sobre mí
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#proyectos">
+                        <i class="fas fa-project-diagram me-1"></i>Proyectos
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link text-gray-700 hover:text-purple-600 fw-medium px-3 py-2 rounded-lg transition-all duration-300 hover:bg-purple-50" 
+                       href="index.html#contactame">
+                        <i class="fas fa-envelope me-1"></i>Contáctame
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <main class="section">
-        <div class="container">
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
+    <!-- Main Content -->
+    <main class="pt-20 pb-12">
+        <div class="container mx-auto px-4 lg:px-8">
             
-            <h1 class="section-title">Semana 4</h1>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Temas aprendidos</h2>
-                </div>
-                <div class="card-body">
-                    <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                    <p class="description">
-                        Este proyecto consiste en una aplicación web interactiva que permite a los usuarios [descripción breve del proyecto]. 
-                        Fue desarrollado utilizando HTML para la estructura, CSS para el diseño y JavaScript para la funcionalidad interactiva.
-                    </p>
-                    <a href="https://github.com/tuusuario/turepositorio/tree/main/proyecto1" target="_blank" class="btn">Ver en GitHub</a>
+            <!-- Back Button with Badge -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <a href="index.html#proyectos" class="btn btn-outline-light hover-lift d-inline-flex align-items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Volver a proyectos</span>
+                    </a>
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Ejercicio</h2>
+            <!-- Hero Section with Avatar -->
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="position-relative floating-animation">
+                            <img src="https://ui-avatars.com/api/?name=Giampier+Aliaga&size=120&background=667eea&color=ffffff&bold=true" 
+                                 alt="Avatar" class="rounded-circle border-4 border-white custom-shadow">
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" 
+                                  style="width: 30px; height: 30px;"></span>
+                        </div>
+                    </div>
+                    <h1 class="display-3 fw-bold text-white mb-3 tracking-tight">Semana 4</h1>
+                    <p class="lead text-white opacity-90 max-w-2xl mx-auto">
+                         Programación interactiva con JavaScript
+                    </p>
                 </div>
-                <div class="card-body">
-                    <h3>HTML</h3>
-                    <div class="code-container">
-<pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="es"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Proyecto 1&lt;/title&gt;
-    &lt;link rel="stylesheet" href="styles.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        &lt;h1&gt;Mi Aplicación&lt;/h1&gt;
-        &lt;div class="container"&gt;
-            &lt;!-- Contenido del proyecto --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;script src="script.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+            </div>
+            
+            <!-- Learned Topics Card -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap fs-4 mr-3"></i>
+                                <h2 class="card-title mb-0 fs-3 fw-bold">Temas Aprendidos</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Technology Badges -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-warning">
+                                            <i class="fab fa-js-square mr-2"></i>JavaScript
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Description with Typography -->
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <p class="fs-5 text-muted mb-3 leading-relaxed">
+                                        Motores JavaScript, variables y operadores. Tipos: Números / Strings / Objetos y métodos / Booleanos y otros. Estructuras de control y bucles. Funciones: sintaxis, invocación, funciones anónimas, función objeto, funciones flecha, funciones auto invocadas, funciones closures. Métodos y propiedades, Elementos / Estilos con JavaScript, Animaciones y gráficos con canvas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+   <!-- Ejercicios y Resultados Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card border-0 custom-shadow hover-lift bg-white">
+            <div class="card-header bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-code fs-4 mr-3"></i>
+                    <h2 class="card-title mb-0 fs-3 fw-bold">Ejercicios y Resultados</h2>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                
+                <!-- Ejercicio 1: Variables, Operadores y Funciones -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-purple-600">
+                        <i class="fas fa-1 me-2"></i>Variables, Operadores y Funciones JavaScript
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+<pre class="mb-0">
+// Variables y tipos de datos
+let nombre = "JavaScript";
+const edad = 28;
+let esActivo = true;
+let usuario = {
+    nombre: "Juan",
+    email: "juan@email.com",
+    saludar: () => `Hola, soy ${usuario.nombre}`
+};
+
+// Función tradicional
+function calcular(a, b, operacion) {
+    switch(operacion) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return b !== 0 ? a / b : 'Error: División por cero';
+        default: return 'Operación no válida';
+    }
+}
+
+// Función flecha y closure
+const crearContador = () => {
+    let count = 0;
+    return {
+        incrementar: () => ++count,
+        decrementar: () => --count,
+        obtener: () => count
+    };
+};
+
+// Función auto-invocada (IIFE)
+(function() {
+    console.log("Función ejecutada inmediatamente");
+})();
 </pre>
                     </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Resultado</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Este proyecto implementa las siguientes funcionalidades:
-                    </p>
-                    <ul>
-                        <li>Interfaz de usuario intuitiva y responsive</li>
-                        <li>Manipulación dinámica del DOM con JavaScript</li>
-                        <li>Diseño moderno utilizando CSS personalizado</li>
-                        <li>Optimización para distintos dispositivos y tamaños de pantalla</li>
-                    </ul>
                     
-                    <div class="demo-container">
-                        <h3>Demo Interactiva</h3>
-                        <p>Aquí podrías incluir una versión interactiva o capturas de pantalla del proyecto.</p>
-                        <img src="/api/placeholder/600/300" alt="Demo del Proyecto 1" style="max-width: 100%; margin-top: 1rem; border-radius: 5px;">
+                    <h5 class="fw-semibold mb-2">Resultado Interactivo:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Calculadora JavaScript</label>
+                                    <div class="input-group mb-2">
+                                        <input type="number" id="num1" class="form-control" placeholder="Número 1" value="10">
+                                        <select id="operacion" class="form-select">
+                                            <option value="+">+</option>
+                                            <option value="-">-</option>
+                                            <option value="*">×</option>
+                                            <option value="/">/</option>
+                                        </select>
+                                        <input type="number" id="num2" class="form-control" placeholder="Número 2" value="5">
+                                    </div>
+                                    <button onclick="realizarCalculo()" class="btn btn-purple-600 bg-purple-600 text-white">Calcular</button>
+                                    <div id="resultado" class="mt-2 p-2 bg-white rounded border fw-bold">Resultado: 15</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contador con Closure</label>
+                                    <div class="d-flex gap-2 mb-2">
+                                        <button onclick="contador.decrementar(); actualizarContador()" class="btn btn-danger">-</button>
+                                        <span id="contadorValor" class="px-3 py-2 bg-white rounded border fw-bold">0</span>
+                                        <button onclick="contador.incrementar(); actualizarContador()" class="btn btn-success">+</button>
+                                    </div>
+                                    <button onclick="resetearContador()" class="btn btn-secondary btn-sm">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 p-3 bg-blue-50 rounded">
+                            <div id="infoUsuario" class="fw-bold text-blue-700"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Ejercicio 2: Manipulación del DOM y Canvas -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-blue-600">
+                        <i class="fas fa-2 me-2"></i>Manipulación del DOM y Gráficos Canvas
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+<pre class="mb-0">
+// Manipulación de elementos y estilos
+function cambiarEstilos() {
+    const elemento = document.getElementById('elementoDinamico');
+    elemento.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+    elemento.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+    elemento.textContent = `Transformado ${Math.floor(Math.random() * 100)}`;
+}
+
+// Canvas y animaciones
+function dibujarEnCanvas() {
+    const canvas = document.getElementById('animationCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Limpiar canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Dibujar círculos animados
+    const tiempo = Date.now() * 0.002;
+    for(let i = 0; i < 5; i++) {
+        const x = 150 + Math.sin(tiempo + i) * 80;
+        const y = 75 + Math.cos(tiempo + i * 0.5) * 30;
+        const radio = 10 + Math.sin(tiempo * 2 + i) * 5;
+        
+        ctx.fillStyle = `hsl(${(tiempo * 50 + i * 60) % 360}, 70%, 60%)`;
+        ctx.beginPath();
+        ctx.arc(x, y, radio, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    requestAnimationFrame(dibujarEnCanvas);
+}
+</pre>
+                    </div>
+                    
+                    <h5 class="fw-semibold mb-2">Resultado Interactivo:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Manipulación de Estilos</label>
+                                    <div id="elementoDinamico" class="p-4 bg-purple-500 text-white rounded text-center mb-3 transition-all duration-300">
+                                        Elemento Dinámico
+                                    </div>
+                                    <button onclick="cambiarEstilos()" class="btn btn-primary">Cambiar Estilos</button>
+                                    <button onclick="resetearElemento()" class="btn btn-secondary ms-2">Reset</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Animación Canvas</label>
+                                    <canvas id="animationCanvas" width="300" height="150" class="d-block mb-2"></canvas>
+                                    <button onclick="iniciarAnimacion()" class="btn btn-success">Iniciar Animación</button>
+                                    <button onclick="detenerAnimacion()" class="btn btn-danger ms-2">Detener</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Ejercicio 3: Animaciones Avanzadas con JavaScript -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3 text-green-600">
+                        <i class="fas fa-3 me-2"></i>Animaciones Avanzadas y Efectos Interactivos
+                    </h4>
+                    
+                    <h5 class="fw-semibold mb-2">Código del ejercicio:</h5>
+                    <div class="bg-gray-900 text-green-400 p-3 rounded code-font text-sm overflow-x-auto mb-3">
+<pre class="mb-0">
+// Sistema de partículas
+function crearParticula(x, y) {
+    const particula = document.createElement('div');
+    particula.className = 'particle';
+    particula.style.left = x + 'px';
+    particula.style.top = y + 'px';
+    particula.style.width = Math.random() * 8 + 4 + 'px';
+    particula.style.height = particula.style.width;
+    
+    document.getElementById('areaParticulas').appendChild(particula);
+    
+    setTimeout(() => {
+        if (particula.parentNode) {
+            particula.parentNode.removeChild(particula);
+        }
+    }, 3000);
+}
+
+// Animación de texto dinámico
+function animarTexto() {
+    const texto = "¡JavaScript es increíble!";
+    const contenedor = document.getElementById('textoAnimado');
+    contenedor.innerHTML = '';
+    
+    [...texto].forEach((letra, i) => {
+        const span = document.createElement('span');
+        span.textContent = letra === ' ' ? '\u00A0' : letra;
+        span.style.animationDelay = i * 100 + 'ms';
+        span.classList.add('letra-animada');
+        contenedor.appendChild(span);
+    });
+}
+
+// Efecto de ondas
+function crearOnda(evento) {
+    const boton = evento.target;
+    const rect = boton.getBoundingClientRect();
+    const x = evento.clientX - rect.left;
+    const y = evento.clientY - rect.top;
+    
+    const onda = document.createElement('span');
+    onda.style.cssText = `
+        position: absolute; left: ${x}px; top: ${y}px;
+        width: 0; height: 0; border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+        transform: translate(-50%, -50%);
+        animation: onda 0.6s ease-out;
+    `;
+    
+    boton.style.position = 'relative';
+    boton.appendChild(onda);
+    
+    setTimeout(() => onda.remove(), 600);
+}
+</pre>
+                    </div>
+                    
+                    <h5 class="fw-semibold mb-2">Resultado Interactivo:</h5>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Sistema de Partículas</label>
+                                    <div id="areaParticulas" class="position-relative bg-dark rounded" style="height: 120px; overflow: hidden; cursor: crosshair;" 
+                                         onclick="crearParticula(event.offsetX, event.offsetY)">
+                                        <div class="text-white text-center pt-5">
+                                            <small>Haz clic para crear partículas</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Texto Animado</label>
+                                    <div id="textoAnimado" class="p-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded text-center fw-bold" style="min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                                        ¡JavaScript es increíble!
+                                    </div>
+                                    <button onclick="animarTexto()" class="btn btn-purple-600 bg-purple-600 text-white mt-2">Animar Texto</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Botón con Efecto Onda</label>
+                                    <div class="d-grid gap-2">
+                                        <button onclick="crearOnda(event)" class="btn btn-lg pulse-btn" style="background: linear-gradient(45deg, #8b5cf6, #a855f7); color: white; border: none; overflow: hidden;">
+                                            <i class="fas fa-magic me-2"></i>Efecto Onda
+                                        </button>
+                                        <button onclick="togglePulse()" class="btn btn-outline-primary" id="pulseToggle">Activar Pulso</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Final Reflection Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 custom-shadow hover-lift bg-white">
+                        <div class="card-header bg-gradient-to-r from-pink-600 to-rose-600 text-white border-0">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-lightbulb fs-4 mr-3"></i>
+                                <h2 class="card-title mb-0 fs-3 fw-bold">Reflexión Final</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h5 class="fw-bold mb-3 text-gray-800">¿Qué aprendí?</h5>
+                                    <p class="text-muted mb-4">
+                                        Durante esta semana he profundizado en los fundamentos de JavaScript, explorando desde los conceptos 
+                                        básicos como variables, operadores y tipos de datos, hasta conceptos avanzados como closures, funciones 
+                                        flecha y manipulación del DOM. La comprensión de los diferentes tipos de funciones (tradicionales, 
+                                        anónimas, auto-invocadas y arrow functions) me ha permitido escribir código más eficiente y modular.
+                                    </p>
+                                    
+                                    <h5 class="fw-bold mb-3 text-gray-800">¿Cómo aprendí?</h5>
+                                    <p class="text-muted mb-4">
+                                        El aprendizaje se basó en la práctica constante con ejemplos interactivos. Comencé con ejercicios 
+                                        simples de variables y operadores, luego avancé hacia la manipulación del DOM y finalmente exploré 
+                                        las capacidades de Canvas para crear animaciones. La implementación de sistemas de partículas y 
+                                        efectos visuales me ayudó a comprender cómo JavaScript puede crear experiencias de usuario dinámicas 
+                                        y envolventes. Cada ejercicio me permitió aplicar múltiples conceptos simultáneamente.
+                                    </p>
+                                    
+                                    <h5 class="fw-bold mb-3 text-gray-800">Logros Técnicos</h5>
+                                    <p class="text-muted mb-4">
+                                        Logré implementar un sistema completo de funciones con closures para manejar estado, crear 
+                                        animaciones fluidas con Canvas utilizando requestAnimationFrame, y desarrollar un sistema de 
+                                        partículas interactivo. La combinación de manipulación del DOM, eventos y animaciones CSS 
+                                        controladas por JavaScript me ha dado una base sólida para crear interfaces web modernas e interactivas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Reflexion final</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Durante el desarrollo de este proyecto, aprendí y puse en práctica varios conceptos importantes:
-                    </p>
-                    <ul>
-                        <li>Estructura semántica HTML para mejorar la accesibilidad</li>
-                        <li>Uso de CSS moderno para crear diseños atractivos</li>
-                        <li>Programación JavaScript para agregar interactividad</li>
-                        <li>Principios de diseño responsive para adaptarse a múltiples dispositivos</li>
-                    </ul>
-                    
-                    <p class="description">
-                        Los mayores desafíos fueron [describe los desafíos] y los resolví mediante [explica cómo los resolviste].
-                    </p>
-                </div>
-            </div>
-            
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aliaga Esquivel Giampier</p>
-            <div class="social-links">
-                <a href="https://github.com/tuusuario" target="_blank" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                </a>
-                <a href="https://linkedin.com/in/tuusuario" target="_blank" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <a href="https://twitter.com/tuusuario" target="_blank" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+    <!-- JavaScript -->
+    <script>
+        // Variables globales
+        let contador = crearContador();
+        let animacionActiva = false;
+        let animacionId;
+        
+        // Función para crear contador con closure
+        function crearContador() {
+            let count = 0;
+            return {
+                incrementar: () => ++count,
+                decrementar: () => --count,
+                obtener: () => count,
+                reset: () => count = 0
+            };
+        }
+        
+        // Ejercicio 1: Calculadora y contador
+        function realizarCalculo() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const operacion = document.getElementById('operacion').value;
+            
+            function calcular(a, b, op) {
+                switch(op) {
+                    case '+': return a + b;
+                    case '-': return a - b;
+                    case '*': return a * b;
+                    case '/': return b !== 0 ? a / b : 'Error: División por cero';
+                    default: return 'Operación no válida';
+                }
+            }
+            
+            const resultado = calcular(num1, num2, operacion);
+            document.getElementById('resultado').textContent = `Resultado: ${resultado}`;
+        }
+        
+        function actualizarContador() {
+            document.getElementById('contadorValor').textContent = contador.obtener();
+        }
+        
+        function resetearContador() {
+            contador.reset();
+            actualizarContador();
+        }
+        
+        // Ejercicio 2: Manipulación DOM y Canvas
+        function cambiarEstilos() {
+            const elemento = document.getElementById('elementoDinamico');
+            elemento.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            elemento.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+            elemento.textContent = `Transformado ${Math.floor(Math.random() * 100)}`;
+        }
+        
+        function resetearElemento() {
+            const elemento = document.getElementById('elementoDinamico');
+            elemento.style.backgroundColor = '#8b5cf6';
+            elemento.style.transform = 'none';
+            elemento
