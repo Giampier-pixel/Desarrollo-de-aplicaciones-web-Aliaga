@@ -600,4 +600,188 @@ function crearOnda(evento) {
             const elemento = document.getElementById('elementoDinamico');
             elemento.style.backgroundColor = '#8b5cf6';
             elemento.style.transform = 'none';
-            elemento
+            elemento.textContent = 'Elemento Dinámico';
+        }
+        
+        function iniciarAnimacion() {
+            if (!animacionActiva) {
+                animacionActiva = true;
+                dibujarEnCanvas();
+            }
+        }
+        
+        function detenerAnimacion() {
+            animacionActiva = false;
+            if (animacionId) {
+                cancelAnimationFrame(animacionId);
+            }
+        }
+        
+        function dibujarEnCanvas() {
+            if (!animacionActiva) return;
+            
+            const canvas = document.getElementById('animationCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar círculos animados
+            const tiempo = Date.now() * 0.002;
+            for(let i = 0; i < 5; i++) {
+                const x = 150 + Math.sin(tiempo + i) * 80;
+                const y = 75 + Math.cos(tiempo + i * 0.5) * 30;
+                const radio = 10 + Math.sin(tiempo * 2 + i) * 5;
+                
+                ctx.fillStyle = `hsl(${(tiempo * 50 + i * 60) % 360}, 70%, 60%)`;
+                ctx.beginPath();
+                ctx.arc(x, y, radio, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            animacionId = requestAnimationFrame(dibujarEnCanvas);
+        }
+        
+        // Ejercicio 3: Animaciones avanzadas
+        function crearParticula(x, y) {
+            const particula = document.createElement('div');
+            particula.className = 'particle';
+            particula.style.left = x + 'px';
+            particula.style.top = y + 'px';
+            particula.style.width = Math.random() * 8 + 4 + 'px';
+            particula.style.height = particula.style.width;
+            
+            document.getElementById('areaParticulas').appendChild(particula);
+            
+            setTimeout(() => {
+                if (particula.parentNode) {
+                    particula.parentNode.removeChild(particula);
+                }
+            }, 3000);
+        }
+        
+        function animarTexto() {
+            const texto = "¡JavaScript es increíble!";
+            const contenedor = document.getElementById('textoAnimado');
+            contenedor.innerHTML = '';
+            
+            // Agregar estilos dinámicos para la animación de letras
+            const style = document.createElement('style');
+            style.textContent = `
+                .letra-animada {
+                    display: inline-block;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    animation: aparecer 0.6s ease-out forwards;
+                }
+                @keyframes aparecer {
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            [...texto].forEach((letra, i) => {
+                const span = document.createElement('span');
+                span.textContent = letra === ' ' ? '\u00A0' : letra;
+                span.style.animationDelay = i * 100 + 'ms';
+                span.classList.add('letra-animada');
+                contenedor.appendChild(span);
+            });
+        }
+        
+        function crearOnda(evento) {
+            const boton = evento.target;
+            const rect = boton.getBoundingClientRect();
+            const x = evento.clientX - rect.left;
+            const y = evento.clientY - rect.top;
+            
+            const onda = document.createElement('span');
+            onda.style.cssText = `
+                position: absolute; left: ${x}px; top: ${y}px;
+                width: 0; height: 0; border-radius: 50%;
+                background: rgba(255,255,255,0.5);
+                transform: translate(-50%, -50%);
+                animation: onda 0.6s ease-out;
+                pointer-events: none;
+            `;
+            
+            // Agregar keyframes para la animación de onda
+            if (!document.getElementById('ondaStyles')) {
+                const ondaStyle = document.createElement('style');
+                ondaStyle.id = 'ondaStyles';
+                ondaStyle.textContent = `
+                    @keyframes onda {
+                        to {
+                            width: 100px;
+                            height: 100px;
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(ondaStyle);
+            }
+            
+            boton.style.position = 'relative';
+            boton.style.overflow = 'hidden';
+            boton.appendChild(onda);
+            
+            setTimeout(() => {
+                if (onda.parentNode) {
+                    onda.remove();
+                }
+            }, 600);
+        }
+        
+        function togglePulse() {
+            const boton = document.querySelector('.pulse-btn');
+            const toggleBtn = document.getElementById('pulseToggle');
+            
+            if (boton.classList.contains('pulse-btn')) {
+                boton.classList.remove('pulse-btn');
+                toggleBtn.textContent = 'Activar Pulso';
+            } else {
+                boton.classList.add('pulse-btn');
+                toggleBtn.textContent = 'Desactivar Pulso';
+            }
+        }
+        
+        // Inicialización cuando carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar información del usuario usando objetos y métodos
+            const usuario = {
+                nombre: "Juan Pérez",
+                email: "juan@email.com",
+                edad: 25,
+                activo: true,
+                saludar: function() {
+                    return `¡Hola! Soy ${this.nombre}, tengo ${this.edad} años y mi email es ${this.email}`;
+                },
+                // Método usando arrow function
+                obtenerEstado: () => {
+                    return usuario.activo ? "Usuario activo" : "Usuario inactivo";
+                }
+            };
+            
+            document.getElementById('infoUsuario').innerHTML = `
+                <div>${usuario.saludar()}</div>
+                <div class="mt-1"><small>${usuario.obtenerEstado()}</small></div>
+            `;
+            
+            // Ejecutar función auto-invocada para mostrar en consola
+            (function() {
+                console.log("Página de JavaScript cargada correctamente");
+                console.log("Demostrando IIFE (Immediately Invoked Function Expression)");
+            })();
+            
+            // Inicializar calculadora con valores por defecto
+            realizarCalculo();
+            
+            // Inicializar canvas
+            iniciarAnimacion();
+        });
+    </script>
+</body>
+</html>
