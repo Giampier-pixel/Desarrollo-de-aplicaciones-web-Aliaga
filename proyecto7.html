@@ -1,342 +1,912 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 7</title>
+    <title>Semana 3 - React Hooks</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6a8caf;
-            --accent-color: #166088;
-            --light-gray: #f5f7fa;
-            --dark-gray: #333;
-            --white: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            --warning-gradient: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            color: #333;
             line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
         }
-        
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 20px;
         }
-        
-        nav {
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 4px solid;
+            border-image: var(--primary-gradient) 1;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .main {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+            color: white;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+        }
+
+        .exercise {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .exercise:last-child {
+            border-bottom: none;
+        }
+
+        .exercise-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid #333;
+        }
+
+        .demo-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-secondary {
+            background: var(--secondary-gradient);
+        }
+
+        .button-success {
+            background: var(--success-gradient);
+        }
+
+        .input {
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .counter-display {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .todo-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-gray);
-            text-decoration: none;
+
+        .todo-completed {
+            opacity: 0.6;
+            text-decoration: line-through;
         }
-        
-        .nav-links {
+
+        .profile-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+
+        .profile-header {
             display: flex;
-            list-style: none;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        
-        .nav-links li {
-            margin-left: 2rem;
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
         }
-        
-        .nav-links a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--accent-color);
-        }
-        
-        .card {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-        
-        .card-body {
-            padding: 1.5rem;
-        }
-        
-        .code-container {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 1rem 0;
-        }
-        
-        .code-container pre {
-            margin: 0;
-        }
-        
-        .description {
-            margin-top: 1rem;
-            line-height: 1.7;
-        }
-        
-        .tag {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .demo-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        footer {
-            background-color: var(--dark-gray);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .social-links {
-            margin-top: 1rem;
+
+        .skills-container {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
         }
-        
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
+
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    
+    <!-- Header -->
+    <header class="header">
         <div class="container">
-            <nav>
-                <a href="index.html" class="logo">Portafolio</a>
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <i class="fab fa-react"></i>
+                    React Portfolio
+                </a>
+                
                 <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="index.html#sobre-mi">Sobre mí</a></li>
-                    <li><a href="index.html#proyectos">Proyectos</a></li>
-                    <li><a href="index.html#contactame">Contáctame</a></li>
+                    <li><a class="nav-link" href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a class="nav-link" href="index.html#sobre-mi"><i class="fas fa-user"></i> Sobre mí</a></li>
+                    <li><a class="nav-link" href="index.html#proyectos"><i class="fas fa-project-diagram"></i> Proyectos</a></li>
+                    <li><a class="nav-link" href="index.html#contactame"><i class="fas fa-envelope"></i> Contáctame</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="section">
-        <div class="container">
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
-            
-            <h1 class="section-title">Semana 7</h1>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Temas aprendidos</h2>
-                </div>
-                <div class="card-body">
-                    <div class="tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                    <p class="description">
-                        Este proyecto consiste en una aplicación web interactiva que permite a los usuarios [descripción breve del proyecto]. 
-                        Fue desarrollado utilizando HTML para la estructura, CSS para el diseño y JavaScript para la funcionalidad interactiva.
-                    </p>
-                    <a href="https://github.com/tuusuario/turepositorio/tree/main/proyecto1" target="_blank" class="btn">Ver en GitHub</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Ejercicio</h2>
-                </div>
-                <div class="card-body">
-                    <h3>HTML</h3>
-                    <div class="code-container">
-<pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="es"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Proyecto 1&lt;/title&gt;
-    &lt;link rel="stylesheet" href="styles.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        &lt;h1&gt;Mi Aplicación&lt;/h1&gt;
-        &lt;div class="container"&gt;
-            &lt;!-- Contenido del proyecto --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;script src="script.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Resultado</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Este proyecto implementa las siguientes funcionalidades:
-                    </p>
-                    <ul>
-                        <li>Interfaz de usuario intuitiva y responsive</li>
-                        <li>Manipulación dinámica del DOM con JavaScript</li>
-                        <li>Diseño moderno utilizando CSS personalizado</li>
-                        <li>Optimización para distintos dispositivos y tamaños de pantalla</li>
-                    </ul>
-                    
-                    <div class="demo-container">
-                        <h3>Demo Interactiva</h3>
-                        <p>Aquí podrías incluir una versión interactiva o capturas de pantalla del proyecto.</p>
-                        <img src="/api/placeholder/600/300" alt="Demo del Proyecto 1" style="max-width: 100%; margin-top: 1rem; border-radius: 5px;">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Reflexion final</h2>
-                </div>
-                <div class="card-body">
-                    <p class="description">
-                        Durante el desarrollo de este proyecto, aprendí y puse en práctica varios conceptos importantes:
-                    </p>
-                    <ul>
-                        <li>Estructura semántica HTML para mejorar la accesibilidad</li>
-                        <li>Uso de CSS moderno para crear diseños atractivos</li>
-                        <li>Programación JavaScript para agregar interactividad</li>
-                        <li>Principios de diseño responsive para adaptarse a múltiples dispositivos</li>
-                    </ul>
-                    
-                    <p class="description">
-                        Los mayores desafíos fueron [describe los desafíos] y los resolví mediante [explica cómo los resolviste].
-                    </p>
-                </div>
-            </div>
-            
-            <a href="index.html#proyectos" class="back-link">← Volver a proyectos</a>
-        </div>
-    </main>
+    <!-- Contenedor principal donde React se montará -->
+    <div id="root"></div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aliaga Esquivel Giampier</p>
-            <div class="social-links">
-                <a href="https://github.com/tuusuario" target="_blank" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                </a>
-                <a href="https://linkedin.com/in/tuusuario" target="_blank" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-                <a href="https://twitter.com/tuusuario" target="_blank" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
+    <script type="text/babel">
+        const { useState, useEffect, useContext, useRef, useReducer, useCallback, useMemo, createContext } = React;
+
+        // Context para el ejercicio 3
+        const ThemeContext = createContext();
+
+        // Reducer para el ejercicio 2
+        const todoReducer = (state, action) => {
+            switch (action.type) {
+                case 'ADD_TODO':
+                    return [...state, { id: Date.now(), text: action.payload, completed: false }];
+                case 'TOGGLE_TODO':
+                    return state.map(todo => 
+                        todo.id === action.payload 
+                            ? { ...todo, completed: !todo.completed }
+                            : todo
+                    );
+                case 'DELETE_TODO':
+                    return state.filter(todo => todo.id !== action.payload);
+                default:
+                    return state;
+            }
+        };
+
+        // Componente Hero reutilizable
+        const HeroSection = ({ title, subtitle, avatarName }) => {
+            return (
+                <div className="hero-section">
+                    <img 
+                        src={`https://ui-avatars.com/api/?name=${avatarName}&size=120&background=667eea&color=ffffff&bold=true`}
+                        alt="Avatar" 
+                        className="avatar"
+                    />
+                    <h1 className="hero-title">{title}</h1>
+                    <p className="hero-subtitle">{subtitle}</p>
+                </div>
+            );
+        };
+
+        // Ejercicio 1: useState, useEffect, useRef, useCallback, useMemo
+        const HooksBasics = () => {
+            const [count, setCount] = useState(0);
+            const [name, setName] = useState('');
+            const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+            const inputRef = useRef(null);
+            const renderCount = useRef(0);
+
+            // useEffect para el resize del window
+            useEffect(() => {
+                const handleResize = () => setWindowWidth(window.innerWidth);
+                window.addEventListener('resize', handleResize);
+                return () => window.removeEventListener('resize', handleResize);
+            }, []);
+
+            // useEffect para contar renders
+            useEffect(() => {
+                renderCount.current += 1;
+            });
+
+            // useCallback para optimizar funciones
+            const handleIncrement = useCallback(() => {
+                setCount(prev => prev + 1);
+            }, []);
+
+            const handleDecrement = useCallback(() => {
+                setCount(prev => prev - 1);
+            }, []);
+
+            const focusInput = useCallback(() => {
+                inputRef.current?.focus();
+            }, []);
+
+            // useMemo para cálculos costosos
+            const expensiveValue = useMemo(() => {
+                console.log('Calculando valor costoso...');
+                return count * count * count;
+            }, [count]);
+
+            const isEven = useMemo(() => count % 2 === 0, [count]);
+
+            return (
+                <div className="exercise">
+                    <h4 className="exercise-title">
+                        <i className="fas fa-code"></i>
+                        useState, useEffect, useRef, useCallback, useMemo
+                    </h4>
+                    
+                    <div className="code-block">
+                        <pre>{`const [count, setCount] = useState(0);
+const [name, setName] = useState('');
+const inputRef = useRef(null);
+
+// useEffect para window resize
+useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
+
+// useCallback para optimizar funciones
+const handleIncrement = useCallback(() => {
+    setCount(prev => prev + 1);
+}, []);
+
+// useMemo para cálculos costosos
+const expensiveValue = useMemo(() => {
+    return count * count * count;
+}, [count]);`}</pre>
+                    </div>
+                    
+                    <div className="demo-container">
+                        <div className="counter-display">Contador: {count}</div>
+                        
+                        <div style={{textAlign: 'center', marginBottom: '20px'}}>
+                            <button className="button" onClick={handleIncrement}>
+                                Incrementar
+                            </button>
+                            <button className="button button-secondary" onClick={handleDecrement}>
+                                Decrementar
+                            </button>
+                        </div>
+
+                        <div className="two-columns">
+                            <div>
+                                <h6><strong>useState & useRef:</strong></h6>
+                                <input 
+                                    ref={inputRef}
+                                    className="input"
+                                    type="text" 
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Escribe tu nombre"
+                                />
+                                <button className="button" onClick={focusInput}>
+                                    Enfocar Input
+                                </button>
+                                {name && <p>Hola, {name}! 👋</p>}
+                            </div>
+                            
+                            <div>
+                                <h6><strong>useMemo & useEffect:</strong></h6>
+                                <p>Valor cúbico: <strong>{expensiveValue}</strong></p>
+                                <p>Es par: <strong>{isEven ? 'Sí' : 'No'}</strong></p>
+                                <p>Ancho ventana: <strong>{windowWidth}px</strong></p>
+                                <p>Renders: <strong>{renderCount.current}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Ejercicio 2: useReducer
+        const TodoManager = () => {
+            const [todos, dispatch] = useReducer(todoReducer, []);
+            const [inputValue, setInputValue] = useState('');
+
+            const addTodo = () => {
+                if (inputValue.trim()) {
+                    dispatch({ type: 'ADD_TODO', payload: inputValue });
+                    setInputValue('');
+                }
+            };
+
+            const toggleTodo = (id) => {
+                dispatch({ type: 'TOGGLE_TODO', payload: id });
+            };
+
+            const deleteTodo = (id) => {
+                dispatch({ type: 'DELETE_TODO', payload: id });
+            };
+
+            const completedCount = todos.filter(todo => todo.completed).length;
+            const totalCount = todos.length;
+
+            return (
+                <div className="exercise">
+                    <h4 className="exercise-title">
+                        <i className="fas fa-tasks"></i>
+                        useReducer - Gestor de Tareas
+                    </h4>
+                    
+                    <div className="code-block">
+                        <pre>{`const todoReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return [...state, { id: Date.now(), text: action.payload, completed: false }];
+        case 'TOGGLE_TODO':
+            return state.map(todo => 
+                todo.id === action.payload 
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            );
+        case 'DELETE_TODO':
+            return state.filter(todo => todo.id !== action.payload);
+        default:
+            return state;
+    }
+};
+
+const [todos, dispatch] = useReducer(todoReducer, []);`}</pre>
+                    </div>
+                    
+                    <div className="demo-container">
+                        <div style={{marginBottom: '20px'}}>
+                            <input 
+                                className="input"
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                placeholder="Nueva tarea..."
+                                onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+                            />
+                            <button className="button" onClick={addTodo}>
+                                Agregar Tarea
+                            </button>
+                        </div>
+
+                        <div style={{marginBottom: '20px', textAlign: 'center'}}>
+                            <strong>Total: {totalCount} | Completadas: {completedCount}</strong>
+                        </div>
+
+                        {todos.map(todo => (
+                            <div key={todo.id} className="todo-item">
+                                <span 
+                                    className={todo.completed ? 'todo-completed' : ''}
+                                    style={{cursor: 'pointer'}}
+                                    onClick={() => toggleTodo(todo.id)}
+                                >
+                                    {todo.completed ? '✅' : '⏳'} {todo.text}
+                                </span>
+                                <button 
+                                    className="button button-secondary"
+                                    onClick={() => deleteTodo(todo.id)}
+                                    style={{padding: '8px 12px', fontSize: '0.8rem'}}
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
+                        ))}
+
+                        {todos.length === 0 && (
+                            <p style={{textAlign: 'center', color: '#666', fontStyle: 'italic'}}>
+                                No hay tareas. ¡Agrega una nueva!
+                            </p>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Ejercicio 3: useContext
+        const ThemeProvider = ({ children }) => {
+            const [theme, setTheme] = useState('light');
+            const [user, setUser] = useState({ name: 'Giampier Aliaga', role: 'Desarrollador' });
+
+            const toggleTheme = () => {
+                setTheme(prev => prev === 'light' ? 'dark' : 'light');
+            };
+
+            const contextValue = {
+                theme,
+                user,
+                toggleTheme,
+                setUser
+            };
+
+            return (
+                <ThemeContext.Provider value={contextValue}>
+                    {children}
+                </ThemeContext.Provider>
+            );
+        };
+
+        const ThemeCard = () => {
+            const { theme, user, toggleTheme } = useContext(ThemeContext);
+
+            const cardStyle = {
+                background: theme === 'light' 
+                    ? 'linear-gradient(145deg, #ffffff, #f0f0f0)' 
+                    : 'linear-gradient(145deg, #2d3748, #1a202c)',
+                color: theme === 'light' ? '#333' : '#fff',
+                borderRadius: '15px',
+                padding: '25px',
+                boxShadow: theme === 'light' 
+                    ? '0 10px 25px rgba(0,0,0,0.1)' 
+                    : '0 10px 25px rgba(0,0,0,0.3)',
+                transition: 'all 0.3s ease'
+            };
+
+            return (
+                <div style={cardStyle}>
+                    <div className="profile-header">
+                        <img 
+                            src={`https://ui-avatars.com/api/?name=${user.name}&size=60&background=${theme === 'light' ? '667eea' : 'f093fb'}&color=ffffff`}
+                            alt={user.name}
+                            className="profile-avatar"
+                        />
+                        <div>
+                            <h4 style={{margin: '0 0 5px 0'}}>{user.name}</h4>
+                            <p style={{margin: 0, opacity: 0.7}}>{user.role}</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{marginBottom: '20px'}}>
+                        <p><strong>Tema actual:</strong> {theme === 'light' ? '☀️ Claro' : '🌙 Oscuro'}</p>
+                        <p><strong>Estado:</strong> {theme === 'light' ? 'Trabajando' : 'Descansando'}</p>
+                    </div>
+
+                    <button 
+                        className="button"
+                        onClick={toggleTheme}
+                        style={{
+                            background: theme === 'light' 
+                                ? 'var(--primary-gradient)' 
+                                : 'var(--secondary-gradient)'
+                        }}
+                    >
+                        Cambiar a tema {theme === 'light' ? 'oscuro' : 'claro'}
+                    </button>
+                </div>
+            );
+        };
+
+        const ContextDemo = () => {
+            return (
+                <div className="exercise">
+                    <h4 className="exercise-title">
+                        <i className="fas fa-globe"></i>
+                        useContext - Contexto Global
+                    </h4>
+                    
+                    <div className="code-block">
+                        <pre>{`const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) => {
+    const [theme, setTheme] = useState('light');
+    const [user, setUser] = useState({ name: 'Giampier', role: 'Dev' });
+    
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    };
+    
+    return (
+        <ThemeContext.Provider value={{ theme, user, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
+};
+
+const ThemeCard = () => {
+    const { theme, user, toggleTheme } = useContext(ThemeContext);
+    // Componente que consume el contexto
+};`}</pre>
+                    </div>
+                    
+                    <div className="demo-container">
+                        <ThemeProvider>
+                            <ThemeCard />
+                        </ThemeProvider>
+                    </div>
+                </div>
+            );
+        };
+
+        // Componente principal de la aplicación
+        const App = () => {
+            return (
+                <main className="main">
+                    <div className="container">
+                        
+                        {/* Back Button */}
+                        <a href="index.html#proyectos" className="back-button">
+                            <i className="fas fa-arrow-left"></i>
+                            <span>Volver a proyectos</span>
+                        </a>
+                        
+                        {/* Hero Section */}
+                        <HeroSection 
+                            title="Semana 3 - React Hooks"
+                            subtitle="Hooks avanzados para manejo de estado, efectos, contexto y optimización"
+                            avatarName="Giampier+Aliaga"
+                        />
+                        
+                        {/* Temas Aprendidos */}
+                        <div className="card">
+                            <div className="card-header">
+                                <i className="fab fa-react"></i>
+                                <h2 className="card-title">Temas Aprendidos</h2>
+                            </div>
+                            <div className="card-body">
+                                <div className="tech-badges">
+                                    <button className="badge">useState</button>
+                                    <button className="badge">useEffect</button>
+                                    <button className="badge">useContext</button>
+                                    <button className="badge">useRef</button>
+                                    <button className="badge">useReducer</button>
+                                    <button className="badge">useCallback</button>
+                                    <button className="badge">useMemo</button>
+                                </div>
+                                
+                                <p style={{fontSize: '1.1rem', color: '#666', marginBottom: '20px'}}>
+                                    Hooks de React para gestión avanzada de estado, efectos secundarios, 
+                                    optimización de rendimiento y comunicación entre componentes.
+                                </p>
+                                
+                                <div className="two-columns">
+                                    <div>
+                                        <h6><strong>Hooks Básicos:</strong></h6>
+                                        <ul style={{color: '#666'}}>
+                                            <li><strong>useState:</strong> Estado local del componente</li>
+                                            <li><strong>useEffect:</strong> Efectos secundarios y ciclo de vida</li>
+                                            <li><strong>useContext:</strong> Consumo de contexto global</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6><strong>Hooks Avanzados:</strong></h6>
+                                        <ul style={{color: '#666'}}>
+                                            <li><strong>useRef:</strong> Referencias mutables</li>
+                                            <li><strong>useReducer:</strong> Estado complejo con reducer</li>
+                                            <li><strong>useCallback/useMemo:</strong> Optimización</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Ejercicios */}
+                        <div className="card">
+                            <div className="card-header">
+                                <i className="fas fa-code"></i>
+                                <h2 className="card-title">Ejercicios React Hooks</h2>
+                            </div>
+                            <div className="card-body">
+                                
+                                {/* Ejercicio 1 */}
+                                <HooksBasics />
+                                
+                                {/* Ejercicio 2 */}
+                                <TodoManager />
+                                
+                                {/* Ejercicio 3 */}
+                                <ContextDemo />
+                                
+                            </div>
+                        </div>
+
+                        {/* Reflexión Final */}
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <div className="card border-0 custom-shadow hover-lift bg-white">
+                                    <div className="card-header bg-gradient-to-r from-pink-600 to-rose-600 text-white border-0">
+                                        <div className="d-flex align-items-center">
+                                            <i className="fas fa-lightbulb fs-4 me-3"></i>
+                                            <h2 className="card-title mb-0 fs-3 fw-bold">Reflexión Final</h2>
+                                        </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        <div className="row">
+                                            <div className="col-lg-8">
+                                                <p className="text-muted mb-4">
+                                                    Esta semana profundicé en los aspectos más avanzados de React, dominando el manejo de eventos,
+                                                    renderizado condicional e iterativo, formularios controlados y consumo de APIs. La integración
+                                                    de Axios para realizar peticiones HTTP asíncronas y el manejo adecuado de estados de carga y 
+                                                    errores son fundamentales para aplicaciones web modernas.
+                                                </p>
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Qué aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    Esta semana profundicé en los aspectos más avanzados de React, dominando el manejo de eventos,
+                                                    renderizado condicional e iterativo, formularios controlados y consumo de APIs. La integración
+                                                    de Axios para realizar peticiones HTTP asíncronas y el manejo adecuado de estados de carga y 
+                                                    errores son fundamentales para aplicaciones web modernas.
+                                                </p>
+                                                
+                                                <h5 className="fw-bold mb-3 text-gray-800">¿Cómo aprendí?</h5>
+                                                <p className="text-muted mb-4">
+                                                    A través de la implementación práctica de tres ejercicios progressivos: un gestor de tareas 
+                                                    con eventos y renderizado condicional, un sistema CRUD de estudiantes con formularios, y 
+                                                    finalmente una aplicación que consume datos de una API externa. Cada ejercicio construye 
+                                                    sobre los conceptos del anterior, creando una experiencia de aprendizaje integral.
+                                                </p>
+
+                                                <div className="row">
+                                                    <div className="col-md-6">
+
+                                                    </div>
+                                                    <div className="col-md-6">
+
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="mt-4 p-3 bg-light rounded">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+            );
+        };
+
+        // Renderizar la aplicación
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
