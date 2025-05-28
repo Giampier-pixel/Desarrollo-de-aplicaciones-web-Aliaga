@@ -109,6 +109,24 @@
             padding: 1.5rem;
         }
         
+        .exercise-item {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .exercise-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .exercise-title {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
         .code-container {
             background-color: #1e1e1e;
             color: #d4d4d4;
@@ -121,11 +139,20 @@
         
         .code-container pre {
             margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .result-title {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
         }
         
         .description {
             margin-top: 1rem;
             line-height: 1.7;
+            color: var(--dark-gray);
         }
         
         .tag {
@@ -194,6 +221,17 @@
             color: var(--white);
             font-size: 1.5rem;
         }
+        
+        .reflection-question {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .reflection-answer {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -224,236 +262,164 @@
                 <div class="card-body">
                     <p class="description">
                         Esta semana aprendí sobre fundamentos de las tecnologías web y elementos de Visual Studio Code, interfaz de usuario, extensiones útiles,
-                        atajos de teclado del programa y cómo se utilizan los códigos emmet para agilizar la construcción de código
+                        atajos de teclado del programa y cómo se utilizan los códigos emmet para agilizar la construcción de código.
                     </p>
                 </div>
             </div>
             
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Ejercicio</h2>
+                    <h2 class="card-title">Ejercicios</h2>
                 </div>
                 <div class="card-body">
+                    
+                    <!-- Ejercicio 1 -->
+                    <div class="exercise-item">
+                        <h3 class="exercise-title">Ejercicio 1: Tabla con Bootstrap</h3>
+                        
+                        <h4 class="exercise-title">Código Emmet:</h4>
+                        <div class="code-container">
+                            <pre>table.table>thead>tr>th[scope="col"]{\#}th[scope="col"]{First}th[scope="col"]{Second}th[scope="col"]{Tree}^^tbody>tr*3>th[scope="row"]{$}+td{Mark}+td{Otto}+td{Jhonson}</pre>
+                        </div>
+                        
+                        <h4 class="result-title">Resultado:</h4>
+                        <div class="code-container">
+                            <pre>&lt;table class="table"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;#&lt;/th&gt;
+            &lt;th scope="col"&gt;First&lt;/th&gt;
+            &lt;th scope="col"&gt;Second&lt;/th&gt;
+            &lt;th scope="col"&gt;Tree&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;1&lt;/th&gt;
+            &lt;td&gt;Mark&lt;/td&gt;
+            &lt;td&gt;Otto&lt;/td&gt;
+            &lt;td&gt;Jhonson&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;2&lt;/th&gt;
+            &lt;td&gt;Mark&lt;/td&gt;
+            &lt;td&gt;Otto&lt;/td&gt;
+            &lt;td&gt;Jhonson&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;3&lt;/th&gt;
+            &lt;td&gt;Mark&lt;/td&gt;
+            &lt;td&gt;Otto&lt;/td&gt;
+            &lt;td&gt;Jhonson&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+                        </div>
+                    </div>
 
-                    <div class="code-container">
-<pre>
-                        <h3>Codigo emmet</h3>
-table.table>thead>tr>th[scope="col"]{\#}th[scope="col"]{First}th[scope="col"]{Second}th[scope="col"]
-{Tree}^^tbody>tr*3>th[scope="row"]{$}+td{Mark}+td{Otto}+td{Jhonson}
-</pre>
-                    <h3>Resultado</h3>
-                    <div class="code-container">
-<pre>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Second</th>
-            <th scope="col">Tree</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Jhonson</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Jhonson</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Jhonson</td>
-        </tr>
-    </tbody>
-</table>
-</pre>
-<pre>
-                        <h3>Codigo emmet</h3>
-div.container>header#header{header}+nav#nav{nav}+section#section{section>article#article
-{article}^+aside#aside{aside}}+footer#footer{footer}
-</pre>
-                    <h3>Resultado</h3>
-                    <div class="code-container">
-<pre>
-<div class="container">
-    <header id="header">header</header>
-    <nav id="nav">nav</nav>
-    <section id="section">section>article#article{article}^+aside#aside{aside}</section>
-    <footer id="footer">footer</footer>
-</div>
-</pre>
-<pre>
-                        <h3>Codigo emmet</h3>
-table>thead>tr>th{ID}+th{Nombres}+th{Apellidos}+th{Dirección}^tbody>
-(tr>td{$}+td{Nombre $}+td{Apellido $}+td{Dirección $})*20
-</pre>
-                    <h3>Resultado</h3>
-                    <div class="code-container">
-<pre>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Dirección</th>
-        </tr>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Nombre 1</td>
-                <td>Apellido 1</td>
-                <td>Dirección 1</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Nombre 2</td>
-                <td>Apellido 2</td>
-                <td>Dirección 2</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Nombre 3</td>
-                <td>Apellido 3</td>
-                <td>Dirección 3</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Nombre 4</td>
-                <td>Apellido 4</td>
-                <td>Dirección 4</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Nombre 5</td>
-                <td>Apellido 5</td>
-                <td>Dirección 5</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Nombre 6</td>
-                <td>Apellido 6</td>
-                <td>Dirección 6</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Nombre 7</td>
-                <td>Apellido 7</td>
-                <td>Dirección 7</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Nombre 8</td>
-                <td>Apellido 8</td>
-                <td>Dirección 8</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Nombre 9</td>
-                <td>Apellido 9</td>
-                <td>Dirección 9</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Nombre 10</td>
-                <td>Apellido 10</td>
-                <td>Dirección 10</td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>Nombre 11</td>
-                <td>Apellido 11</td>
-                <td>Dirección 11</td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>Nombre 12</td>
-                <td>Apellido 12</td>
-                <td>Dirección 12</td>
-            </tr>
-            <tr>
-                <td>13</td>
-                <td>Nombre 13</td>
-                <td>Apellido 13</td>
-                <td>Dirección 13</td>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td>Nombre 14</td>
-                <td>Apellido 14</td>
-                <td>Dirección 14</td>
-            </tr>
-            <tr>
-                <td>15</td>
-                <td>Nombre 15</td>
-                <td>Apellido 15</td>
-                <td>Dirección 15</td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>Nombre 16</td>
-                <td>Apellido 16</td>
-                <td>Dirección 16</td>
-            </tr>
-            <tr>
-                <td>17</td>
-                <td>Nombre 17</td>
-                <td>Apellido 17</td>
-                <td>Dirección 17</td>
-            </tr>
-            <tr>
-                <td>18</td>
-                <td>Nombre 18</td>
-                <td>Apellido 18</td>
-                <td>Dirección 18</td>
-            </tr>
-            <tr>
-                <td>19</td>
-                <td>Nombre 19</td>
-                <td>Apellido 19</td>
-                <td>Dirección 19</td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td>Nombre 20</td>
-                <td>Apellido 20</td>
-                <td>Dirección 20</td>
-            </tr>
-        </tbody>
-    </thead>
-</table>
-</pre>
+                    <!-- Ejercicio 2 -->
+                    <div class="exercise-item">
+                        <h3 class="exercise-title">Ejercicio 2: Estructura de página web</h3>
+                        
+                        <h4 class="exercise-title">Código Emmet:</h4>
+                        <div class="code-container">
+                            <pre>div.container>header#header{header}+nav#nav{nav}+section#section{section>article#article{article}^+aside#aside{aside}}+footer#footer{footer}</pre>
+                        </div>
+                        
+                        <h4 class="result-title">Resultado:</h4>
+                        <div class="code-container">
+                            <pre>&lt;div class="container"&gt;
+    &lt;header id="header"&gt;header&lt;/header&gt;
+    &lt;nav id="nav"&gt;nav&lt;/nav&gt;
+    &lt;section id="section"&gt;
+        section
+        &lt;article id="article"&gt;article&lt;/article&gt;
+        &lt;aside id="aside"&gt;aside&lt;/aside&gt;
+    &lt;/section&gt;
+    &lt;footer id="footer"&gt;footer&lt;/footer&gt;
+&lt;/div&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Ejercicio 3 -->
+                    <div class="exercise-item">
+                        <h3 class="exercise-title">Ejercicio 3: Tabla con 20 registros</h3>
+                        
+                        <h4 class="exercise-title">Código Emmet:</h4>
+                        <div class="code-container">
+                            <pre>table>thead>tr>th{ID}+th{Nombres}+th{Apellidos}+th{Dirección}^tbody>(tr>td{$}+td{Nombre $}+td{Apellido $}+td{Dirección $})*20</pre>
+                        </div>
+                        
+                        <h4 class="result-title">Resultado (primeros 5 registros):</h4>
+                        <div class="code-container">
+                            <pre>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;
+            &lt;th&gt;Nombres&lt;/th&gt;
+            &lt;th&gt;Apellidos&lt;/th&gt;
+            &lt;th&gt;Dirección&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;Nombre 1&lt;/td&gt;
+            &lt;td&gt;Apellido 1&lt;/td&gt;
+            &lt;td&gt;Dirección 1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;Nombre 2&lt;/td&gt;
+            &lt;td&gt;Apellido 2&lt;/td&gt;
+            &lt;td&gt;Dirección 2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;Nombre 3&lt;/td&gt;
+            &lt;td&gt;Apellido 3&lt;/td&gt;
+            &lt;td&gt;Dirección 3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;4&lt;/td&gt;
+            &lt;td&gt;Nombre 4&lt;/td&gt;
+            &lt;td&gt;Apellido 4&lt;/td&gt;
+            &lt;td&gt;Dirección 4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;Nombre 5&lt;/td&gt;
+            &lt;td&gt;Apellido 5&lt;/td&gt;
+            &lt;td&gt;Dirección 5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- ... continúa hasta el registro 20 --&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Reflexion final</h2>
+                    <h2 class="card-title">Reflexión final</h2>
                 </div>
                 <div class="card-body">
                     <p class="description">
-                    Me doy cuenta de que comprender las tecnologías web y sus componentes básicos es fundamental 
-                    para desarrollar soluciones digitales efectivas. Identificar los distintos tipos de aplicaciones 
-                    y los roles en el desarrollo me ayuda a ubicarme mejor como futuro profesional en este campo. 
-                    Además, el uso de herramientas como Visual Studio Code me permite mejorar mis habilidades prácticas 
-                    y reconocer cómo el conocimiento teórico se aplica en la práctica.
-                        
+                        Me doy cuenta de que comprender las tecnologías web y sus componentes básicos es fundamental 
+                        para desarrollar soluciones digitales efectivas. Identificar los distintos tipos de aplicaciones 
+                        y los roles en el desarrollo me ayuda a ubicarme mejor como futuro profesional en este campo. 
+                        Además, el uso de herramientas como Visual Studio Code me permite mejorar mis habilidades prácticas 
+                        y reconocer cómo el conocimiento teórico se aplica en la práctica.
                     </p>
-                    <p class="description">
-                        ¿Qué aprendí?
+                    
+                    <div class="reflection-question">¿Qué aprendí?</div>
+                    <p class="reflection-answer">
                         Aprendí los fundamentos de las tecnologías web, sus tipos, funcionamiento y el uso básico de Visual Studio Code.
-                        
                     </p>
-                    <p class="description">
-                        ¿Cómo aprendí?
+                    
+                    <div class="reflection-question">¿Cómo aprendí?</div>
+                    <p class="reflection-answer">
                         Aprendí a través de la explicación del docente, la práctica en el laboratorio y la exploración directa de la herramienta VSC.
                     </p>
                 </div>
