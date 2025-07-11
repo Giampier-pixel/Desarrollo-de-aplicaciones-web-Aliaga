@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 10 - Python</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            font-weight: bold;
+            border: 3px solid white;
+        }
+
+        .week-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .week-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topic-card h4 {
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .code-title {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .run-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .run-btn:hover {
+            background: #45a049;
+        }
+
+        .code {
+            font-family: 'Courier New', monospace;
+            color: #f8f8f2;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .python-keyword {
+            color: #ff79c6;
+        }
+
+        .python-string {
+            color: #f1fa8c;
+        }
+
+        .python-comment {
+            color: #6272a4;
+        }
+
+        .python-number {
+            color: #bd93f9;
+        }
+
+        .python-function {
+            color: #50fa7b;
+        }
+
+        .output {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .demo-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .demo-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .demo-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .demo-result {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reflection-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+
+        .python-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .concept-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .week-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-circle">GA</div>
+            <h1 class="week-title">Semana 10</h1>
+            <p class="week-subtitle">Aplicación con Python</p>
+        </div>
+
+        <!-- Temas Aprendidos -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">⚙️</span>
+                Temas Aprendidos
+            </h2>
+            
+            <div class="topics-grid">
+                <div class="topic-card" onclick="showTopic('sintaxis')">
+                    <h4>Sintaxis Básica</h4>
+                    <p>Indentación, comentarios y estructura básica</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('variables')">
+                    <h4>Variables y Tipos</h4>
+                    <p>Cadenas, números y tipos de datos</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('estructuras')">
+                    <h4>Estructuras de Datos</h4>
+                    <p>Listas, tuplas y diccionarios</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('control')">
+                    <h4>Estructuras de Control</h4>
+                    <p>Condicionales y bucles</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('funciones')">
+                    <h4>Funciones</h4>
+                    <p>Definición y llamada de funciones</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('oop')">
+                    <h4>Programación Orientada a Objetos</h4>
+                    <p>Clases, herencia y polimorfismo</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('excepciones')">
+                    <h4>Excepciones</h4>
+                    <p>Manejo de errores y excepciones</p>
+                </div>
+                <div class="topic-card" onclick="showTopic('modulos')">
+                    <h4>Módulos</h4>
+                    <p>Importación y uso de módulos</p>
+                </div>
+            </div>
+
+            <div class="python-concepts">
+                <div class="concept-card">
+                    <div class="concept-title">🐍 Python Basics</div>
+                    <p>Python es un lenguaje de programación interpretado, de alto nivel y con una sintaxis clara y legible que facilita el desarrollo rápido de aplicaciones.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-title">📋 Características Principales</div>
+                    <p>Sintaxis simple, tipado dinámico, orientado a objetos, gran ecosistema de librerías y multiplataforma.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-title">🔧 Paradigmas</div>
+                    <p>Soporta programación imperativa, orientada a objetos, funcional y procedural.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicios y Resultados -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">💻</span>
+                Ejercicios y Resultados
+            </h2>
+
+            <!-- Ejercicio 1: Sintaxis Básica -->
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">1. Sintaxis Básica y Variables</span>
+                    <button class="run-btn" onclick="runBasicSyntax()">Ejecutar</button>
+                </div>
+                <div class="code">
+<span class="python-comment"># Sintaxis básica de Python</span>
+<span class="python-comment"># Variables y tipos de datos</span>
+
+<span class="python-keyword">def</span> <span class="python-function">demonstrar_sintaxis</span>():
+    <span class="python-comment"># Variables</span>
+    nombre = <span class="python-string">"Python"</span>
+    version = <span class="python-number">3.9</span>
+    es_interpretado = <span class="python-keyword">True</span>
+    
+    <span class="python-comment"># Mostrar información</span>
+    <span class="python-keyword">print</span>(f<span class="python-string">"Lenguaje: {nombre}"</span>)
+    <span class="python-keyword">print</span>(f<span class="python-string">"Versión: {version}"</span>)
+    <span class="python-keyword">print</span>(f<span class="python-string">"Es interpretado: {es_interpretado}"</span>)
+    
+    <span class="python-comment"># Tipos de datos</span>
+    tipos = [<span class="python-string">"int"</span>, <span class="python-string">"float"</span>, <span class="python-string">"str"</span>, <span class="python-string">"bool"</span>, <span class="python-string">"list"</span>, <span class="python-string">"dict"</span>]
+    <span class="python-keyword">print</span>(f<span class="python-string">"Tipos principales: {tipos}"</span>)
+
+<span class="python-function">demonstrar_sintaxis</span>()
+                </div>
+                <div class="output" id="output1"></div>
+            </div>
+
+            <!-- Ejercicio 2: Estructuras de Datos -->
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">2. Estructuras de Datos</span>
+                    <button class="run-btn" onclick="runDataStructures()">Ejecutar</button>
+                </div>
+                <div class="code">
+<span class="python-comment"># Listas, tuplas y diccionarios</span>
+
+<span class="python-keyword">def</span> <span class="python-function">trabajar_con_estructuras</span>():
+    <span class="python-comment"># Lista</span>
+    lenguajes = [<span class="python-string">"Python"</span>, <span class="python-string">"JavaScript"</span>, <span class="python-string">"Java"</span>, <span class="python-string">"C++"</span>]
+    <span class="python-keyword">print</span>(f<span class="python-string">"Lista: {lenguajes}"</span>)
+    
+    <span class="python-comment"># Tupla</span>
+    coordenadas = (<span class="python-number">10</span>, <span class="python-number">20</span>)
+    <span class="python-keyword">print</span>(f<span class="python-string">"Tupla: {coordenadas}"</span>)
+    
+    <span class="python-comment"># Diccionario</span>
+    estudiante = {
+        <span class="python-string">"nombre"</span>: <span class="python-string">"Ana"</span>,
+        <span class="python-string">"edad"</span>: <span class="python-number">22</span>,
+        <span class="python-string">"carrera"</span>: <span class="python-string">"Ingeniería"</span>
+    }
+    <span class="python-keyword">print</span>(f<span class="python-string">"Diccionario: {estudiante}"</span>)
+    
+    <span class="python-comment"># Operaciones con listas</span>
+    lenguajes.append(<span class="python-string">"Ruby"</span>)
+    <span class="python-keyword">print</span>(f<span class="python-string">"Lista actualizada: {lenguajes}"</span>)
+
+<span class="python-function">trabajar_con_estructuras</span>()
+                </div>
+                <div class="output" id="output2"></div>
+            </div>
+
+            <!-- Ejercicio 3: Clase y POO -->
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">3. Programación Orientada a Objetos</span>
+                    <button class="run-btn" onclick="runOOP()">Ejecutar</button>
+                </div>
+                <div class="code">
+<span class="python-comment"># Clase y herencia</span>
+
+<span class="python-keyword">class</span> <span class="python-function">Vehiculo</span>:
+    <span class="python-keyword">def</span> <span class="python-function">__init__</span>(<span class="python-keyword">self</span>, marca, modelo):
+        <span class="python-keyword">self</span>.marca = marca
+        <span class="python-keyword">self</span>.modelo = modelo
+        <span class="python-keyword">self</span>.velocidad = <span class="python-number">0</span>
+    
+    <span class="python-keyword">def</span> <span class="python-function">acelerar</span>(<span class="python-keyword">self</span>, incremento):
+        <span class="python-keyword">self</span>.velocidad += incremento
+        <span class="python-keyword">return</span> f<span class="python-string">"{self.marca} {self.modelo} acelerando a {self.velocidad} km/h"</span>
+
+<span class="python-keyword">class</span> <span class="python-function">Coche</span>(<span class="python-function">Vehiculo</span>):
+    <span class="python-keyword">def</span> <span class="python-function">__init__</span>(<span class="python-keyword">self</span>, marca, modelo, puertas):
+        <span class="python-keyword">super</span>().__init__(marca, modelo)
+        <span class="python-keyword">self</span>.puertas = puertas
+    
+    <span class="python-keyword">def</span> <span class="python-function">describir</span>(<span class="python-keyword">self</span>):
+        <span class="python-keyword">return</span> f<span class="python-string">"{self.marca} {self.modelo} con {self.puertas} puertas"</span>
+
+<span class="python-comment"># Crear instancias</span>
+mi_coche = <span class="python-function">Coche</span>(<span class="python-string">"Toyota"</span>, <span class="python-string">"Corolla"</span>, <span class="python-number">4</span>)
+<span class="python-keyword">print</span>(mi_coche.describir())
+<span class="python-keyword">print</span>(mi_coche.acelerar(<span class="python-number">50</span>))
+                </div>
+                <div class="output" id="output3"></div>
+            </div>
+
+            <!-- Demo Interactivo -->
+            <div class="interactive-demo">
+                <h3>🎯 Calculadora Interactiva en Python</h3>
+                <p>Ingresa dos números y selecciona una operación:</p>
+                
+                <div>
+                    <input type="number" class="demo-input" id="num1" placeholder="Primer número">
+                    <input type="number" class="demo-input" id="num2" placeholder="Segundo número">
+                </div>
+                
+                <div>
+                    <button class="demo-btn" onclick="calcular('suma')">Sumar</button>
+                    <button class="demo-btn" onclick="calcular('resta')">Restar</button>
+                    <button class="demo-btn" onclick="calcular('multiplicacion')">Multiplicar</button>
+                    <button class="demo-btn" onclick="calcular('division')">Dividir</button>
+                </div>
+                
+                <div class="demo-result" id="calculadora-result">
+                    Resultado aparecerá aquí...
+                </div>
+            </div>
+        </div>
+
+        <!-- Reflexión Final -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">💭</span>
+                Reflexión Final
+            </h2>
+            
+            <div class="reflection-text">
+                Esta semana me adentré en el mundo de <span class="highlight">Python</span>, un lenguaje que realmente me ha sorprendido por su <span class="highlight">simplicidad y elegancia</span>. La filosofía de Python de "código legible" se hace evidente desde el primer momento, donde la indentación no es solo una convención, sino parte fundamental de la sintaxis.
+            </div>
+            
+            <div class="reflection-text">
+                Lo que más me ha llamado la atención es cómo Python logra un equilibrio perfecto entre <span class="highlight">simplicidad y potencia</span>. Las estructuras de datos nativas como listas, tuplas y diccionarios son increíblemente versátiles y fáciles de usar. La programación orientada a objetos en Python se siente natural y menos verbosa comparada con otros lenguajes.
+            </div>
+            
+            <div class="reflection-text">
+                El manejo de excepciones con <span class="highlight">try-except</span> proporciona una forma elegante de manejar errores, mientras que el sistema de módulos facilita la organización y reutilización del código. Python demuestra que un lenguaje puede ser tanto potente como accesible para principiantes.
+            </div>
+            
+            <div class="reflection-text">
+                Esta experiencia me ha hecho apreciar cómo diferentes lenguajes de programación pueden abordar los mismos problemas con filosofías distintas. Python, con su enfoque en la <span class="highlight">legibilidad y productividad</span>, se ha convertido en una herramienta valiosa en mi arsenal de desarrollo.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runBasicSyntax() {
+            const output = document.getElementById('output1');
+            const result = `Lenguaje: Python
+Versión: 3.9
+Es interpretado: True
+Tipos principales: ['int', 'float', 'str', 'bool', 'list', 'dict']`;
+            
+            output.innerHTML = result;
+        }
+
+        function runDataStructures() {
+            const output = document.getElementById('output2');
+            const result = `Lista: ['Python', 'JavaScript', 'Java', 'C++']
+Tupla: (10, 20)
+Diccionario: {'nombre': 'Ana', 'edad': 22, 'carrera': 'Ingeniería'}
+Lista actualizada: ['Python', 'JavaScript', 'Java', 'C++', 'Ruby']`;
+            
+            output.innerHTML = result;
+        }
+
+        function runOOP() {
+            const output = document.getElementById('output3');
+            const result = `Toyota Corolla con 4 puertas
+Toyota Corolla acelerando a 50 km/h`;
+            
+            output.innerHTML = result;
+        }
+
+        function calcular(operacion) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const resultDiv = document.getElementById('calculadora-result');
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                resultDiv.innerHTML = 'Error: Por favor ingresa números válidos';
+                return;
+            }
+            
+            let resultado;
+            let operador;
+            
+            switch(operacion) {
+                case 'suma':
+                    resultado = num1 + num2;
+                    operador = '+';
+                    break;
+                case 'resta':
+                    resultado = num1 - num2;
+                    operador = '-';
+                    break;
+                case 'multiplicacion':
+                    resultado = num1 * num2;
+                    operador = '*';
+                    break;
+                case 'division':
+                    if (num2 === 0) {
+                        resultDiv.innerHTML = 'Error: No se puede dividir por cero';
+                        return;
+                    }
+                    resultado = num1 / num2;
+                    operador = '/';
+                    break;
+                default:
+                    resultDiv.innerHTML = 'Error: Operación no válida';
+                    return;
+            }
+            
+            resultDiv.innerHTML = `
+# Calculadora Python
+def calcular(${num1}, ${num2}, '${operacion}'):
+    return ${num1} ${operador} ${num2}
+
+Resultado: ${resultado}
+            `;
+        }
+
+        function showTopic(topic) {
+            const topics = {
+                'sintaxis': 'Python utiliza indentación para delimitar bloques de código. Los comentarios comienzan con #',
+                'variables': 'Python es de tipado dinámico. Las variables se crean al asignarles un valor',
+                'estructuras': 'Listas [], tuplas (), diccionarios {} son estructuras de datos fundamentales',
+                'control': 'if/elif/else, for, while son las estructuras de control principales',
+                'funciones': 'def define funciones. Pueden retornar valores y recibir parámetros',
+                'oop': 'class define clases. Soporta herencia, encapsulamiento y polimorfismo',
+                'excepciones': 'try/except/finally para manejar errores de forma elegante',
+                'modulos': 'import permite usar código de otros archivos y librerías'
+            };
+            
+            alert(topics[topic] || 'Tema no encontrado');
+        }
+    </script>
+</body>
+</html>
