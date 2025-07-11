@@ -15,7 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: white;
+            color: #333;
         }
 
         .container {
@@ -27,6 +27,7 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            color: white;
         }
 
         .profile-circle {
@@ -43,71 +44,129 @@
             border: 3px solid white;
         }
 
-        .week-title {
+        .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .week-subtitle {
+        .header p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.1);
+            background: white;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
-        .section-title {
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .topics-buttons {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 10px;
-        }
-
-        .section-icon {
-            font-size: 1.5rem;
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
             margin-bottom: 20px;
         }
 
-        .topic-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .topic-button {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .topic-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
+        .topic-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
         }
 
-        .topic-card h4 {
-            margin-bottom: 8px;
-            color: #ffd700;
+        .topics-description {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .python-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .concept-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .exercises-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        .exercise-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .exercise-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
         }
 
         .code-container {
-            background: #1e1e1e;
-            border-radius: 10px;
+            background: #2d3748;
+            color: #e2e8f0;
             padding: 20px;
-            margin: 20px 0;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
             overflow-x: auto;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .code-container::before {
+            content: "Python";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
         }
 
         .code-header {
@@ -116,7 +175,7 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #4a5568;
         }
 
         .code-title {
@@ -125,7 +184,7 @@
         }
 
         .run-btn {
-            background: #4CAF50;
+            background: #667eea;
             color: white;
             border: none;
             padding: 8px 15px;
@@ -136,14 +195,7 @@
         }
 
         .run-btn:hover {
-            background: #45a049;
-        }
-
-        .code {
-            font-family: 'Courier New', monospace;
-            color: #f8f8f2;
-            line-height: 1.6;
-            white-space: pre-wrap;
+            background: #5a6fd8;
         }
 
         .python-keyword {
@@ -167,17 +219,67 @@
         }
 
         .output {
-            background: #2d2d2d;
+            background: #e6fffa;
+            border: 1px solid #38b2ac;
             border-radius: 8px;
             padding: 15px;
             margin-top: 15px;
             font-family: 'Courier New', monospace;
-            color: #00ff00;
-            border-left: 4px solid #4CAF50;
+            color: #2d3748;
+            min-height: 50px;
+        }
+
+        .demo-container {
+            background: #f7fafc;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .demo-form input, .demo-form select {
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .demo-form button {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .demo-form button:hover {
+            background: #5a6fd8;
+        }
+
+        .result-display {
+            background: #e6fffa;
+            border: 1px solid #38b2ac;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 50px;
         }
 
         .interactive-demo {
-            background: rgba(255, 255, 255, 0.1);
+            background: #f7fafc;
+            border: 2px dashed #667eea;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
@@ -185,21 +287,21 @@
         }
 
         .demo-input {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: white;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
             padding: 10px;
             margin: 10px;
-            color: white;
+            color: #2d3748;
             font-size: 16px;
         }
 
         .demo-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: #a0aec0;
         }
 
         .demo-btn {
-            background: #ff6b6b;
+            background: #667eea;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -211,17 +313,18 @@
         }
 
         .demo-btn:hover {
-            background: #ff5252;
+            background: #5a6fd8;
             transform: translateY(-2px);
         }
 
         .demo-result {
-            background: rgba(0, 0, 0, 0.3);
+            background: #e6fffa;
+            border: 1px solid #38b2ac;
             border-radius: 8px;
             padding: 15px;
             margin-top: 15px;
             font-family: 'Courier New', monospace;
-            color: #00ff00;
+            color: #2d3748;
             min-height: 50px;
             display: flex;
             align-items: center;
@@ -229,45 +332,71 @@
         }
 
         .reflection-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
             text-align: justify;
             margin-bottom: 20px;
         }
 
+        .reflection-question {
+            color: #2d3748;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        .reflection-answer {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
         .highlight {
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(102, 126, 234, 0.2);
             padding: 2px 6px;
             border-radius: 4px;
-            color: #ffd700;
-        }
-
-        .python-concepts {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .concept-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #ffd700;
-        }
-
-        .concept-title {
-            color: #ffd700;
+            color: #667eea;
             font-weight: bold;
-            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
-            .topics-grid {
+            .exercises-container {
                 grid-template-columns: 1fr;
             }
             
-            .week-title {
+            .python-concepts {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
                 font-size: 2rem;
             }
             
@@ -281,51 +410,29 @@
     <div class="container">
         <div class="header">
             <div class="profile-circle">GA</div>
-            <h1 class="week-title">Semana 10</h1>
-            <p class="week-subtitle">Aplicación con Python</p>
+            <h1>Semana 10</h1>
+            <p>Aplicación con Python</p>
         </div>
 
         <!-- Temas Aprendidos -->
         <div class="section">
-            <h2 class="section-title">
-                <span class="section-icon">⚙️</span>
-                Temas Aprendidos
-            </h2>
-            
-            <div class="topics-grid">
-                <div class="topic-card" onclick="showTopic('sintaxis')">
-                    <h4>Sintaxis Básica</h4>
-                    <p>Indentación, comentarios y estructura básica</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('variables')">
-                    <h4>Variables y Tipos</h4>
-                    <p>Cadenas, números y tipos de datos</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('estructuras')">
-                    <h4>Estructuras de Datos</h4>
-                    <p>Listas, tuplas y diccionarios</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('control')">
-                    <h4>Estructuras de Control</h4>
-                    <p>Condicionales y bucles</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('funciones')">
-                    <h4>Funciones</h4>
-                    <p>Definición y llamada de funciones</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('oop')">
-                    <h4>Programación Orientada a Objetos</h4>
-                    <p>Clases, herencia y polimorfismo</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('excepciones')">
-                    <h4>Excepciones</h4>
-                    <p>Manejo de errores y excepciones</p>
-                </div>
-                <div class="topic-card" onclick="showTopic('modulos')">
-                    <h4>Módulos</h4>
-                    <p>Importación y uso de módulos</p>
-                </div>
+            <h2>Temas Aprendidos</h2>
+            <div class="topics-buttons">
+                <span class="topic-button" onclick="showTopic('sintaxis')">Sintaxis Básica</span>
+                <span class="topic-button" onclick="showTopic('variables')">Variables y Tipos</span>
+                <span class="topic-button" onclick="showTopic('estructuras')">Estructuras de Datos</span>
+                <span class="topic-button" onclick="showTopic('control')">Estructuras de Control</span>
+                <span class="topic-button" onclick="showTopic('funciones')">Funciones</span>
+                <span class="topic-button" onclick="showTopic('oop')">POO</span>
+                <span class="topic-button" onclick="showTopic('excepciones')">Excepciones</span>
+                <span class="topic-button" onclick="showTopic('modulos')">Módulos</span>
             </div>
+            <p class="topics-description">
+                Esta semana me adentré en el mundo de Python, un lenguaje que realmente me ha sorprendido por su simplicidad y elegancia. 
+                Aprendí sobre la sintaxis básica, tipos de datos, estructuras de control, funciones y programación orientada a objetos. 
+                También exploré el manejo de excepciones y el uso de módulos, comprendiendo cómo Python logra un equilibrio perfecto entre 
+                simplicidad y potencia para el desarrollo de aplicaciones.
+            </p>
 
             <div class="python-concepts">
                 <div class="concept-card">
@@ -345,18 +452,18 @@
 
         <!-- Ejercicios y Resultados -->
         <div class="section">
-            <h2 class="section-title">
-                <span class="section-icon">💻</span>
-                Ejercicios y Resultados
-            </h2>
-
-            <!-- Ejercicio 1: Sintaxis Básica -->
-            <div class="code-container">
-                <div class="code-header">
-                    <span class="code-title">1. Sintaxis Básica y Variables</span>
-                    <button class="run-btn" onclick="runBasicSyntax()">Ejecutar</button>
-                </div>
-                <div class="code">
+            <h2>Ejercicios y Resultados</h2>
+            <div class="exercises-container">
+                <div class="exercise-card">
+                    <h3>1. Sintaxis Básica y Variables</h3>
+                    <p>Demostración de la sintaxis básica de Python y manejo de variables</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-title">Sintaxis Básica</span>
+                            <button class="run-btn" onclick="runBasicSyntax()">Ejecutar</button>
+                        </div>
+                        <div class="code">
 <span class="python-comment"># Sintaxis básica de Python</span>
 <span class="python-comment"># Variables y tipos de datos</span>
 
@@ -376,17 +483,21 @@
     <span class="python-keyword">print</span>(f<span class="python-string">"Tipos principales: {tipos}"</span>)
 
 <span class="python-function">demonstrar_sintaxis</span>()
+                        </div>
+                        <div class="output" id="output1"></div>
+                    </div>
                 </div>
-                <div class="output" id="output1"></div>
-            </div>
 
-            <!-- Ejercicio 2: Estructuras de Datos -->
-            <div class="code-container">
-                <div class="code-header">
-                    <span class="code-title">2. Estructuras de Datos</span>
-                    <button class="run-btn" onclick="runDataStructures()">Ejecutar</button>
-                </div>
-                <div class="code">
+                <div class="exercise-card">
+                    <h3>2. Estructuras de Datos</h3>
+                    <p>Trabajo con listas, tuplas y diccionarios en Python</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-title">Estructuras de Datos</span>
+                            <button class="run-btn" onclick="runDataStructures()">Ejecutar</button>
+                        </div>
+                        <div class="code">
 <span class="python-comment"># Listas, tuplas y diccionarios</span>
 
 <span class="python-keyword">def</span> <span class="python-function">trabajar_con_estructuras</span>():
@@ -411,17 +522,21 @@
     <span class="python-keyword">print</span>(f<span class="python-string">"Lista actualizada: {lenguajes}"</span>)
 
 <span class="python-function">trabajar_con_estructuras</span>()
+                        </div>
+                        <div class="output" id="output2"></div>
+                    </div>
                 </div>
-                <div class="output" id="output2"></div>
-            </div>
 
-            <!-- Ejercicio 3: Clase y POO -->
-            <div class="code-container">
-                <div class="code-header">
-                    <span class="code-title">3. Programación Orientada a Objetos</span>
-                    <button class="run-btn" onclick="runOOP()">Ejecutar</button>
-                </div>
-                <div class="code">
+                <div class="exercise-card">
+                    <h3>3. Programación Orientada a Objetos</h3>
+                    <p>Implementación de clases y herencia en Python</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-title">POO en Python</span>
+                            <button class="run-btn" onclick="runOOP()">Ejecutar</button>
+                        </div>
+                        <div class="code">
 <span class="python-comment"># Clase y herencia</span>
 
 <span class="python-keyword">class</span> <span class="python-function">Vehiculo</span>:
@@ -446,8 +561,10 @@
 mi_coche = <span class="python-function">Coche</span>(<span class="python-string">"Toyota"</span>, <span class="python-string">"Corolla"</span>, <span class="python-number">4</span>)
 <span class="python-keyword">print</span>(mi_coche.describir())
 <span class="python-keyword">print</span>(mi_coche.acelerar(<span class="python-number">50</span>))
+                        </div>
+                        <div class="output" id="output3"></div>
+                    </div>
                 </div>
-                <div class="output" id="output3"></div>
             </div>
 
             <!-- Demo Interactivo -->
@@ -455,46 +572,55 @@ mi_coche = <span class="python-function">Coche</span>(<span class="python-string
                 <h3>🎯 Calculadora Interactiva en Python</h3>
                 <p>Ingresa dos números y selecciona una operación:</p>
                 
-                <div>
+                <div class="demo-form">
                     <input type="number" class="demo-input" id="num1" placeholder="Primer número">
                     <input type="number" class="demo-input" id="num2" placeholder="Segundo número">
+                    <div>
+                        <button class="demo-btn" onclick="calcular('suma')">Sumar</button>
+                        <button class="demo-btn" onclick="calcular('resta')">Restar</button>
+                        <button class="demo-btn" onclick="calcular('multiplicacion')">Multiplicar</button>
+                        <button class="demo-btn" onclick="calcular('division')">Dividir</button>
+                    </div>
                 </div>
                 
-                <div>
-                    <button class="demo-btn" onclick="calcular('suma')">Sumar</button>
-                    <button class="demo-btn" onclick="calcular('resta')">Restar</button>
-                    <button class="demo-btn" onclick="calcular('multiplicacion')">Multiplicar</button>
-                    <button class="demo-btn" onclick="calcular('division')">Dividir</button>
-                </div>
-                
-                <div class="demo-result" id="calculadora-result">
-                    Resultado aparecerá aquí...
+                <div class="result-display" id="calculadora-result">
+                    <strong>Resultado:</strong><br>
+                    <div id="calc-output">Resultado aparecerá aquí...</div>
                 </div>
             </div>
         </div>
 
         <!-- Reflexión Final -->
         <div class="section">
-            <h2 class="section-title">
-                <span class="section-icon">💭</span>
-                Reflexión Final
-            </h2>
+            <h2>Reflexión Final</h2>
             
-            <div class="reflection-text">
+            <p class="reflection-text">
                 Esta semana me adentré en el mundo de <span class="highlight">Python</span>, un lenguaje que realmente me ha sorprendido por su <span class="highlight">simplicidad y elegancia</span>. La filosofía de Python de "código legible" se hace evidente desde el primer momento, donde la indentación no es solo una convención, sino parte fundamental de la sintaxis.
-            </div>
+            </p>
             
-            <div class="reflection-text">
+            <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí a desarrollar aplicaciones con Python, comprendiendo su sintaxis básica, estructuras de datos nativas y programación orientada a objetos. También exploré el manejo de excepciones y el sistema de módulos.
+            </p>
+            
+            <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí practicando con ejemplos interactivos, creando clases y objetos, y comparando Python con otros lenguajes de programación para entender sus ventajas y filosofía de diseño.
+            </p>
+            
+            <p class="reflection-text">
                 Lo que más me ha llamado la atención es cómo Python logra un equilibrio perfecto entre <span class="highlight">simplicidad y potencia</span>. Las estructuras de datos nativas como listas, tuplas y diccionarios son increíblemente versátiles y fáciles de usar. La programación orientada a objetos en Python se siente natural y menos verbosa comparada con otros lenguajes.
-            </div>
+            </p>
             
-            <div class="reflection-text">
-                El manejo de excepciones con <span class="highlight">try-except</span> proporciona una forma elegante de manejar errores, mientras que el sistema de módulos facilita la organización y reutilización del código. Python demuestra que un lenguaje puede ser tanto potente como accesible para principiantes.
-            </div>
-            
-            <div class="reflection-text">
+            <p class="reflection-text">
                 Esta experiencia me ha hecho apreciar cómo diferentes lenguajes de programación pueden abordar los mismos problemas con filosofías distintas. Python, con su enfoque en la <span class="highlight">legibilidad y productividad</span>, se ha convertido en una herramienta valiosa en mi arsenal de desarrollo.
-            </div>
+            </p>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button">🏠 Volver al Portafolio</a>
+            <a href="proyecto9.html" class="nav-button">⬅️ Semana Anterior</a>
+            <a href="proyecto11.html" class="nav-button">➡️ Siguiente Semana</a>
         </div>
     </div>
 
@@ -530,10 +656,10 @@ Toyota Corolla acelerando a 50 km/h`;
         function calcular(operacion) {
             const num1 = parseFloat(document.getElementById('num1').value);
             const num2 = parseFloat(document.getElementById('num2').value);
-            const resultDiv = document.getElementById('calculadora-result');
+            const resultDiv = document.getElementById('calc-output');
             
             if (isNaN(num1) || isNaN(num2)) {
-                resultDiv.innerHTML = 'Error: Por favor ingresa números válidos';
+                resultDiv.innerHTML = '<span style="color: red;">Error: Por favor ingresa números válidos</span>';
                 return;
             }
             
@@ -555,23 +681,24 @@ Toyota Corolla acelerando a 50 km/h`;
                     break;
                 case 'division':
                     if (num2 === 0) {
-                        resultDiv.innerHTML = 'Error: No se puede dividir por cero';
+                        resultDiv.innerHTML = '<span style="color: red;">Error: No se puede dividir por cero</span>';
                         return;
                     }
                     resultado = num1 / num2;
                     operador = '/';
                     break;
                 default:
-                    resultDiv.innerHTML = 'Error: Operación no válida';
+                    resultDiv.innerHTML = '<span style="color: red;">Error: Operación no válida</span>';
                     return;
             }
             
             resultDiv.innerHTML = `
-# Calculadora Python
-def calcular(${num1}, ${num2}, '${operacion}'):
-    return ${num1} ${operador} ${num2}
-
-Resultado: ${resultado}
+                <div style="font-family: 'Courier New', monospace; background: #2d3748; color: #e2e8f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    <span style="color: #6272a4;"># Calculadora Python</span><br>
+                    <span style="color: #ff79c6;">def</span> <span style="color: #50fa7b;">calcular</span>(${num1}, ${num2}, '${operacion}'):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff79c6;">return</span> ${num1} ${operador} ${num2}<br><br>
+                    <span style="color: #f1fa8c;">Resultado: ${resultado}</span>
+                </div>
             `;
         }
 
