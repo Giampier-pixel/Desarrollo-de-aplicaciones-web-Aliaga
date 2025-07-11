@@ -447,9 +447,11 @@ function insertarUsuario($pdo, $nombre, $email, $edad) {
         </div>
 
         <div class="nav-buttons">
-            <a href="index.html" class="nav-button">🏠 Volver al Portafolio</a>
-            <a href="proyecto8.html" class="nav-button">⬅️ Semana Anterior</a>
-            <a href="proyecto10.html" class="nav-button">➡️ Siguiente Semana</a>
+                        {/* Back Button */}
+            <a href="index.html#proyectos" className="back-button">
+                            <i className="fas fa-arrow-left"></i>
+                            <span>Volver a proyectos</span>
+                        </a>
         </div>
     </div>
 
