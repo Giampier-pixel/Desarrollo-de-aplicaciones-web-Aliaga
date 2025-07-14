@@ -24,6 +24,26 @@
             padding: 20px;
         }
 
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -362,31 +382,6 @@
             font-weight: bold;
         }
 
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .nav-button {
-            background: #667eea;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .nav-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
         @media (max-width: 768px) {
             .exercises-container {
                 grid-template-columns: 1fr;
@@ -408,6 +403,8 @@
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-button">← Volver a proyectos</a>
+        
         <div class="header">
             <div class="profile-circle">GA</div>
             <h1>Semana 10</h1>
@@ -615,12 +612,6 @@ mi_coche = <span class="python-function">Coche</span>(<span class="python-string
             <p class="reflection-text">
                 Esta experiencia me ha hecho apreciar cómo diferentes lenguajes de programación pueden abordar los mismos problemas con filosofías distintas. Python, con su enfoque en la <span class="highlight">legibilidad y productividad</span>, se ha convertido en una herramienta valiosa en mi arsenal de desarrollo.
             </p>
-        </div>
-
-        <div class="nav-buttons">
-            <a href="index.html" class="nav-button">🏠 Volver al Portafolio</a>
-            <a href="proyecto9.html" class="nav-button">⬅️ Semana Anterior</a>
-            <a href="proyecto11.html" class="nav-button">➡️ Siguiente Semana</a>
         </div>
     </div>
 
