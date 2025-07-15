@@ -60,7 +60,6 @@ body {
     letter-spacing: 3px;
     transform: scaleX(1.4);
     -webkit-text-stroke: 0.01px white;
-    text-stroke: 0.01px white;
 }
 
 .header-subtitle {
