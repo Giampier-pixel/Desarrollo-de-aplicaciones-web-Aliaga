@@ -3,470 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 12 - Sistema Web Backend Django</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-title {
-            color: #667eea;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .topic-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .topic-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .topic-card h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .demo-container {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .form-demo {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-group.error input {
-            border-color: #e74c3c;
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .success-message {
-            color: #27ae60;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .admin-panel {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .admin-panel h4 {
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .admin-table th,
-        .admin-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #34495e;
-        }
-
-        .admin-table th {
-            background: #34495e;
-            color: #ecf0f1;
-        }
-
-        .session-info {
-            background: #e8f4f8;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-            margin: 15px 0;
-        }
-
-        .middleware-log {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            margin: 15px 0;
-        }
-
-        .reflection {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .reflection h3 {
-            color: #2d3436;
-            margin-bottom: 15px;
-        }
-
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-
-        .auth-status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .auth-status.authenticated {
-            background: #27ae60;
-            color: white;
-        }
-
-        .auth-status.unauthenticated {
-            background: #e74c3c;
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .topics-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 20px;
-            }
-        }
-    </style>
+    <title>Semana 12 - Django Backend</title>
+    <link rel="stylesheet" href="stylesp.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🌐 Semana 12</h1>
-            <p>Desarrollo de un Sistema Web Backend con Django</p>
+        <a href="index.html" class="back-button">← Volver a proyectos</a>
+        
+        <div>
+            <h1 class="header">Semana 12</h1>
+            <p class="header-subtitle">Desarrollo de un Sistema Web Backend con Django</p>
         </div>
 
-        <!-- Temas Aprendidos -->
         <div class="section">
-            <h2 class="section-title">⚙️ Temas Aprendidos</h2>
-            <div class="topics-grid">
-                <div class="topic-card">
-                    <h4>📝 Gestión de Formularios</h4>
-                    <p>Creación de formularios, plantillas y validación de datos con Django Forms.</p>
-                </div>
-                <div class="topic-card">
-                    <h4>🔧 Django Admin</h4>
-                    <p>Personalización del panel administrativo y registro de modelos.</p>
-                </div>
-                <div class="topic-card">
-                    <h4>🔗 Middleware</h4>
-                    <p>Procesamiento de peticiones y respuestas mediante middleware personalizado.</p>
-                </div>
-                <div class="topic-card">
-                    <h4>🔐 Sesiones y Autenticación</h4>
-                    <p>Manejo de sesiones de usuario y sistemas de autenticación.</p>
-                </div>
-                <div class="topic-card">
-                    <h4>🛡️ Validación y Sanitización</h4>
-                    <p>Validadores personalizados y sanitización de datos de entrada.</p>
-                </div>
-                <div class="topic-card">
-                    <h4>📊 Campos Calculados</h4>
-                    <p>Creación de campos dinámicos y formularios personalizados.</p>
-                </div>
+            <h2>Temas Aprendidos</h2>
+            <div class="topics-buttons">
+                <span class="topic-button">Gestión de Formularios</span>
+                <span class="topic-button">Django Admin</span>
+                <span class="topic-button">Middleware</span>
+                <span class="topic-button">Sesiones y Autenticación</span>
+                <span class="topic-button">Validación y Sanitización</span>
+                <span class="topic-button">Campos Calculados</span>
+                <span class="topic-button">Panel Administrativo</span>
+                <span class="topic-button">Formularios Personalizados</span>
             </div>
+            <p class="topics-description">
+                Esta semana profundizamos en el desarrollo backend con Django, enfocándonos en la gestión avanzada 
+                de formularios, personalización del panel administrativo y manejo seguro de sesiones. Exploramos 
+                la creación de middleware personalizado, validadores de datos y la implementación de sistemas de 
+                autenticación robustos. También aprendimos sobre campos calculados y la optimización del Django Admin.
+            </p>
         </div>
 
-        <!-- Ejercicios y Resultados -->
         <div class="section">
-            <h2 class="section-title">💻 Ejercicios y Resultados</h2>
-            
-            <!-- Formulario de Registro -->
-            <div class="demo-container">
-                <h3>📋 1. Formulario de Registro con Validación</h3>
-                <div class="form-demo">
-                    <form id="registroForm">
-                        <div class="form-group">
-                            <label for="nombre">Nombre Completo:</label>
-                            <input type="text" id="nombre" name="nombre" required>
-                            <div class="error-message" id="nombreError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
-                            <div class="error-message" id="emailError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="tel" id="telefono" name="telefono" required>
-                            <div class="error-message" id="telefonoError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edad">Edad:</label>
-                            <input type="number" id="edad" name="edad" min="18" max="100" required>
-                            <div class="error-message" id="edadError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="categoria">Categoría:</label>
-                            <select id="categoria" name="categoria" required>
-                                <option value="">Seleccione una categoría</option>
-                                <option value="estudiante">Estudiante</option>
-                                <option value="profesional">Profesional</option>
-                                <option value="empresario">Empresario</option>
-                            </select>
-                            <div class="error-message" id="categoriaError"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje:</label>
-                            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
-                            <div class="error-message" id="mensajeError"></div>
-                        </div>
-                        
-                        <button type="submit" class="btn">Registrar Usuario</button>
-                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Simulación Django Admin -->
-            <div class="demo-container">
-                <h3>🔧 2. Django Admin Panel</h3>
-                <div class="admin-panel">
-                    <h4>Panel de Administración - Sistema de Usuarios</h4>
-                    <div style="margin-bottom: 15px;">
-                        <span>Estado de Sesión: <span id="sessionStatus" class="auth-status authenticated">Autenticado</span></span>
-                        <button class="btn btn-secondary" onclick="toggleAuth()" style="margin-left: 20px;">Toggle Auth</button>
-                    </div>
+            <h2>Ejercicios y Resultados</h2>
+            <div class="exercises-container">
+                <div class="exercise-card">
+                    <h3>1. Formulario de Registro con Validación</h3>
+                    <p>Sistema de registro con validación personalizada y sanitización de datos</p>
                     
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Categoría</th>
-                                <th>Registro</th>
-                                <th>Activo</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTableBody">
-                            <!-- Los datos se cargarán dinámicamente -->
-                        </tbody>
-                    </table>
-                    
-                    <div style="margin-top: 15px;">
-                        <button class="btn" onclick="agregarUsuarioDemo()">Agregar Usuario Demo</button>
-                        <button class="btn btn-secondary" onclick="limpiarTabla()">Limpiar Tabla</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Middleware y Sesiones -->
-            <div class="demo-container">
-                <h3>🔗 3. Middleware y Manejo de Sesiones</h3>
-                
-                <div class="session-info">
-                    <h4>📊 Información de Sesión</h4>
-                    <p><strong>ID de Sesión:</strong> <span id="sessionId">sess_7829abc123</span></p>
-                    <p><strong>Usuario:</strong> <span id="sessionUser">usuario_demo</span></p>
-                    <p><strong>Última Actividad:</strong> <span id="lastActivity">2024-07-11 14:30:25</span></p>
-                    <p><strong>Permisos:</strong> <span id="permissions">admin, write, read</span></p>
-                </div>
-                
-                <div class="middleware-log">
-                    <h4>🔍 Log de Middleware</h4>
-                    <div id="middlewareLog">
-                        <div>[2024-07-11 14:30:25] AuthMiddleware: Usuario autenticado</div>
-                        <div>[2024-07-11 14:30:25] SessionMiddleware: Sesión iniciada</div>
-                        <div>[2024-07-11 14:30:25] SecurityMiddleware: Headers de seguridad aplicados</div>
-                    </div>
-                </div>
-                
-                <button class="btn" onclick="simularPeticion()">Simular Petición HTTP</button>
-                <button class="btn btn-secondary" onclick="limpiarLog()">Limpiar Log</button>
-            </div>
-
-            <!-- Código Django -->
-            <div class="demo-container">
-                <h3>💾 4. Código Django Backend</h3>
-                
-                <h4>📝 models.py</h4>
-                <div class="code-block">
-from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
-
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=50)
-    descripcion = models.TextField(blank=True)
-    
-    def __str__(self):
-        return self.nombre
-
-class Perfil(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefono = models.CharField(
-        max_length=15,
-        validators=[RegexValidator(r'^\+?1?\d{9,15}$')]
-    )
-    edad = models.IntegerField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    mensaje = models.TextField(blank=True)
-    activo = models.BooleanField(default=True)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
-    
-    @property
-    def nombre_completo(self):
-        return f"{self.usuario.first_name} {self.usuario.last_name}"
-    
-    def __str__(self):
-        return self.nombre_completo
-                </div>
-
-                <h4>📋 forms.py</h4>
-                <div class="code-block">
+                    <div class="code-container" data-lang="Python">
+# forms.py
 from django import forms
 from django.contrib.auth.models import User
 from .models import Perfil, Categoria
@@ -485,25 +62,10 @@ class RegistroForm(forms.ModelForm):
             'placeholder': 'tu@email.com'
         })
     )
-    telefono = forms.CharField(
-        max_length=15,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': '+1234567890'
-        })
-    )
     
     class Meta:
         model = Perfil
         fields = ['telefono', 'edad', 'categoria', 'mensaje']
-        widgets = {
-            'edad': forms.NumberInput(attrs={'class': 'form-control'}),
-            'categoria': forms.Select(attrs={'class': 'form-control'}),
-            'mensaje': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 4
-            })
-        }
     
     def clean_edad(self):
         edad = self.cleaned_data.get('edad')
@@ -516,10 +78,36 @@ class RegistroForm(forms.ModelForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Este email ya está registrado")
         return email
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Formulario de Registro</h4>
+                        <div class="demo-form">
+                            <input type="text" id="nombre" placeholder="Nombre Completo" required>
+                            <input type="email" id="email" placeholder="Email" required>
+                            <input type="tel" id="telefono" placeholder="Teléfono" required>
+                            <input type="number" id="edad" placeholder="Edad" min="18" max="100" required>
+                            <select id="categoria">
+                                <option value="">Seleccione una categoría</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="profesional">Profesional</option>
+                                <option value="empresario">Empresario</option>
+                            </select>
+                            <button onclick="registrarUsuario()">Registrar Usuario</button>
+                        </div>
+                        <div class="result-display" id="registroResult">
+                            <strong>Resultado del registro:</strong><br>
+                            <div id="registroInfo">Complete el formulario para registrar un usuario</div>
+                        </div>
+                    </div>
                 </div>
 
-                <h4>🔧 admin.py</h4>
-                <div class="code-block">
+                <div class="exercise-card">
+                    <h3>2. Django Admin Panel Personalizado</h3>
+                    <p>Configuración avanzada del panel administrativo con filtros y campos personalizados</p>
+                    
+                    <div class="code-container" data-lang="Python">
+# admin.py
 from django.contrib import admin
 from .models import Perfil, Categoria
 
@@ -533,8 +121,7 @@ class PerfilAdmin(admin.ModelAdmin):
     list_display = ['nombre_completo', 'usuario__email', 'categoria', 
                    'activo', 'fecha_registro']
     list_filter = ['categoria', 'activo', 'fecha_registro']
-    search_fields = ['usuario__first_name', 'usuario__last_name', 
-                    'usuario__email']
+    search_fields = ['usuario__first_name', 'usuario__last_name']
     readonly_fields = ['fecha_registro']
     
     fieldsets = (
@@ -544,18 +131,38 @@ class PerfilAdmin(admin.ModelAdmin):
         ('Categorización', {
             'fields': ('categoria', 'mensaje')
         }),
-        ('Estado', {
-            'fields': ('activo', 'fecha_registro')
-        })
     )
     
     def nombre_completo(self, obj):
         return obj.nombre_completo
     nombre_completo.short_description = 'Nombre Completo'
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Panel de Administración</h4>
+                        <div class="demo-form">
+                            <select id="adminFilter">
+                                <option value="todos">Todos los usuarios</option>
+                                <option value="activos">Solo activos</option>
+                                <option value="estudiantes">Solo estudiantes</option>
+                                <option value="profesionales">Solo profesionales</option>
+                            </select>
+                            <input type="text" id="adminSearch" placeholder="Buscar usuario...">
+                            <button onclick="filtrarAdmin()">Filtrar</button>
+                        </div>
+                        <div class="result-display" id="adminResult">
+                            <strong>Vista del Admin:</strong><br>
+                            <div id="adminInfo">Use los filtros para explorar el panel administrativo</div>
+                        </div>
+                    </div>
                 </div>
 
-                <h4>🔗 middleware.py</h4>
-                <div class="code-block">
+                <div class="exercise-card">
+                    <h3>3. Middleware y Manejo de Sesiones</h3>
+                    <p>Implementación de middleware personalizado para logging y autenticación</p>
+                    
+                    <div class="code-container" data-lang="Python">
+# middleware.py
 import logging
 from django.utils.deprecation import MiddlewareMixin
 from django.http import HttpResponseForbidden
@@ -578,42 +185,79 @@ class AuthRequiredMiddleware(MiddlewareMixin):
             if request.path.startswith('/admin/'):
                 return HttpResponseForbidden("Acceso denegado")
         return None
+                    </div>
 
-class SessionMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if not request.session.session_key:
-            request.session.create()
-        
-        # Actualizar última actividad
-        request.session['last_activity'] = str(timezone.now())
-        request.session.modified = True
+                    <div class="demo-container">
+                        <h4>Simulador de Middleware</h4>
+                        <div class="demo-form">
+                            <select id="middlewareAction">
+                                <option value="request">Simular Request</option>
+                                <option value="auth">Verificar Autenticación</option>
+                                <option value="session">Actualizar Sesión</option>
+                                <option value="log">Ver Logs</option>
+                            </select>
+                            <button onclick="ejecutarMiddleware()">Ejecutar Middleware</button>
+                        </div>
+                        <div class="result-display" id="middlewareResult">
+                            <strong>Log del Middleware:</strong><br>
+                            <div id="middlewareInfo">Seleccione una acción para simular el middleware</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="django-demo">
+                <h4>Resultado: Sistema Backend Django Completo</h4>
+                <div class="demo-section">
+                    <div class="demo-title">📝 Formularios Implementados</div>
+                    <div class="url-pattern">RegistroForm → Validación personalizada</div>
+                    <div class="url-pattern">ContactoForm → Sanitización de datos</div>
+                    <div class="url-pattern">ProfileForm → Campos calculados</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">🔧 Django Admin Personalizado</div>
+                    <div class="model-field"><strong>Filtros:</strong> Por categoría, fecha, estado activo</div>
+                    <div class="model-field"><strong>Búsqueda:</strong> Nombre, email, teléfono</div>
+                    <div class="model-field"><strong>Campos:</strong> Readonly, personalizados, calculados</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">🔗 Middleware y Sesiones</div>
+                    <div class="model-field"><strong>Logging:</strong> Registro de peticiones y respuestas</div>
+                    <div class="model-field"><strong>Autenticación:</strong> Verificación de permisos</div>
+                    <div class="model-field"><strong>Sesiones:</strong> Gestión automática de estado</div>
                 </div>
             </div>
         </div>
 
-        <!-- Reflexión Final -->
         <div class="section">
-            <div class="reflection">
-                <h3>🤔 Reflexión Final</h3>
-                <p>
-                    <strong>Aprendizajes Clave:</strong> Esta semana profundizamos en el desarrollo backend con Django, 
-                    comprendiendo la importancia de una gestión adecuada de formularios, la personalización del panel 
-                    administrativo y el manejo seguro de sesiones. El middleware nos permite interceptar y procesar 
-                    peticiones HTTP de manera elegante.
-                </p>
-                
-                <p>
-                    <strong>Desafíos Superados:</strong> La validación de datos complejos, la personalización del Django Admin 
-                    y la implementación de middleware personalizado requirieron un entendimiento profundo de los patrones 
-                    de Django y las mejores prácticas de seguridad.
-                </p>
-                
-                <p>
-                    <strong>Aplicaciones Futuras:</strong> Estos conocimientos son fundamentales para desarrollar aplicaciones 
-                    web robustas y seguras. La gestión de formularios y sesiones es esencial en cualquier aplicación que 
-                    maneje datos de usuario, mientras que el Django Admin proporciona una interfaz administrativa poderosa.
-                </p>
-            </div>
+            <h2>Reflexión Final</h2>
+            <p class="reflection-text">
+                El desarrollo backend con Django ha elevado significativamente mi comprensión sobre la construcción 
+                de aplicaciones web robustas y seguras. La implementación de formularios con validación personalizada, 
+                la configuración avanzada del Django Admin y el manejo de middleware me han dado herramientas poderosas 
+                para crear sistemas web profesionales y escalables.
+            </p>
+            <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí a crear formularios complejos con validación personalizada, configurar el Django Admin para 
+                gestión eficiente de datos, implementar middleware para procesamiento de peticiones y manejar sesiones 
+                de usuario de forma segura. También comprendí la importancia de la sanitización de datos y la 
+                implementación de campos calculados.
+            </p>
+            <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí mediante la implementación práctica de un sistema completo de gestión de usuarios, 
+                experimentando con diferentes tipos de formularios, personalizando el panel administrativo y 
+                desarrollando middleware personalizado para logging y autenticación.
+            </p>
+            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
+            <p class="reflection-answer">
+                Lo que más me impresionó fue la flexibilidad del Django Admin para personalizar completamente 
+                la interfaz administrativa sin necesidad de desarrollar una desde cero. La capacidad de crear 
+                middleware personalizado también me permitió entender mejor el flujo de peticiones HTTP en Django.
+            </p>
         </div>
     </div>
 
