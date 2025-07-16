@@ -3,289 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 9 - Desarrollo Web Backend</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .back-button {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
-            text-decoration: none;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-        }
-
-        .section h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .topics-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .topic-button {
-            background: #667eea;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .topic-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        .topics-description {
-            color: #4a5568;
-            font-size: 1rem;
-            line-height: 1.6;
-            text-align: justify;
-        }
-
-        .reflection-text {
-            color: #4a5568;
-            font-size: 1rem;
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 20px;
-        }
-
-        .reflection-question {
-            color: #2d3748;
-            font-size: 1rem;
-            margin-bottom: 8px;
-            margin-top: 15px;
-        }
-
-        .reflection-answer {
-            color: #4a5568;
-            font-size: 1rem;
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-
-        .exercises-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 30px;
-        }
-
-        .exercise-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            border-left: 5px solid #667eea;
-        }
-
-        .exercise-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .code-container {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            position: relative;
-        }
-
-        .code-container::before {
-            content: attr(data-lang);
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            background: #667eea;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-        }
-
-        .demo-container {
-            background: #f7fafc;
-            border: 2px dashed #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .demo-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .demo-form input, .demo-form select {
-            padding: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .demo-form button {
-            background: #667eea;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .demo-form button:hover {
-            background: #5a6fd8;
-        }
-
-        .result-display {
-            background: #e6fffa;
-            border: 1px solid #38b2ac;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            min-height: 50px;
-        }
-
-        .reflection {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .reflection h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .nav-button {
-            background: #667eea;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .nav-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .exercises-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 20px;
-            }
-        }
-    </style>
+    <title>Semana 9 - PHP y JSP</title>
+    <link rel="stylesheet" href="stylesp.css">
 </head>
 <body>
     <div class="container">
-        <a href="index.html#proyectos" class="back-button">
-            ← Volver a proyectos
-        </a>
+        <a href="index.html#proyectos" class="back-button">← Volver a proyectos</a>
         
-        <div class="header">
-            <h1>Semana 9</h1>
-            <p>Despliegue de aplicaciones web backend PHP y JSP</p>
+        <div>
+            <h1 class="header">Semana 9</h1>
+            <p class="header-subtitle">Despliegue de aplicaciones web backend PHP y JSP</p>
         </div>
 
         <div class="section">
@@ -445,6 +172,30 @@ function insertarUsuario($pdo, $nombre, $email, $edad) {
                     </div>
                 </div>
             </div>
+
+            <div class="django-demo">
+                <h4>Resultado: Sistema de Desarrollo Backend PHP/JSP</h4>
+                <div class="demo-section">
+                    <div class="demo-title">🔧 Tecnologías Utilizadas</div>
+                    <div class="url-pattern">PHP → Desarrollo backend con MySQL</div>
+                    <div class="url-pattern">JSP → Aplicaciones Java para web</div>
+                    <div class="url-pattern">Apache/Tomcat → Servidores web</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">🗃️ Gestión de Datos</div>
+                    <div class="model-field"><strong>PHP:</strong> PDO para conexiones MySQL seguras</div>
+                    <div class="model-field"><strong>JSP:</strong> Servlets para lógica de negocio</div>
+                    <div class="model-field"><strong>Despliegue:</strong> Virtual Hosts y configuración de servidores</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">⚙️ Configuración del Servidor</div>
+                    <div class="model-field"><strong>Apache:</strong> Virtual Hosts, mod_php, logs</div>
+                    <div class="model-field"><strong>Tomcat:</strong> Contenedor de servlets</div>
+                    <div class="model-field"><strong>Nginx:</strong> Proxy reverso y balanceador</div>
+                </div>
+            </div>
         </div>
 
         <div class="section">
@@ -466,8 +217,14 @@ function insertarUsuario($pdo, $nombre, $email, $edad) {
                 Aprendí practicando con ejemplos reales, configurando servidores web y analizando cómo se comporta cada 
                 tecnología en diferentes escenarios de desarrollo.
             </p>
+            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
+            <p class="reflection-answer">
+                Lo que más me impresionó fue la versatilidad de PHP para el desarrollo web y la robustez de JSP para 
+                aplicaciones empresariales. Ambas tecnologías ofrecen diferentes enfoques para resolver problemas similares.
+            </p>
         </div>
     </div>
+
     <script src="script9.js"></script>
 </body>
 </html>

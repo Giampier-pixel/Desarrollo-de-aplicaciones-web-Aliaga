@@ -4,333 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semana 13 - Diseño de APIs RESTful</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-title {
-            font-size: 1.8em;
-            color: #667eea;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::before {
-            content: '🚀';
-            font-size: 1.2em;
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .topic-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .topic-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .topic-card h3 {
-            margin-bottom: 10px;
-        }
-
-        .exercise-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .exercise-title {
-            color: #495057;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .api-demo {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .endpoint {
-            background: #4a5568;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .method {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .get { background: #48bb78; color: white; }
-        .post { background: #4299e1; color: white; }
-        .put { background: #ed8936; color: white; }
-        .delete { background: #f56565; color: white; }
-
-        .response-container {
-            background: #1a202c;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .json-response {
-            color: #68d391;
-            font-size: 0.9em;
-            white-space: pre-wrap;
-        }
-
-        .interactive-demo {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .demo-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .demo-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .demo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-get { background: #48bb78; color: white; }
-        .btn-post { background: #4299e1; color: white; }
-        .btn-put { background: #ed8936; color: white; }
-        .btn-delete { background: #f56565; color: white; }
-
-        .demo-output {
-            background: #f7fafc;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #e2e8f0;
-            min-height: 100px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .pagination-demo {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .page-btn {
-            padding: 8px 12px;
-            border: 1px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .page-btn:hover, .page-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .reflection-content {
-            line-height: 1.8;
-            color: #495057;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .section {
-                padding: 20px;
-            }
-            
-            .demo-controls {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="stylesp.css">
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-button">← Volver al Portafolio</a>
+        
         <div class="header">
-            <h1>Semana 13 - Diseño de APIs RESTful</h1>
-            <p>Desarrollo de sistemas web backend con arquitecturas REST</p>
+            APIs RESTful
+        </div>
+        
+        <div class="header-subtitle">
+            Semana 13 - Diseño de APIs RESTful
         </div>
 
         <!-- Temas Aprendidos -->
         <div class="section">
-            <h2 class="section-title">Temas Aprendidos</h2>
+            <h2>Temas Aprendidos</h2>
             
-            <div class="topics-grid">
-                <div class="topic-card" onclick="showTopicDetail('rest')">
-                    <h3>REST & APIs</h3>
-                    <p>Principios fundamentales de REST y diseño de APIs</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopicDetail('hateoas')">
-                    <h3>HATEOAS</h3>
-                    <p>Hipermedia como motor del estado de aplicación</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopicDetail('serialization')">
-                    <h3>Serialización</h3>
-                    <p>Transformación de datos para APIs</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopicDetail('filtering')">
-                    <h3>Filtrado & Paginación</h3>
-                    <p>Optimización de respuestas de API</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopicDetail('security')">
-                    <h3>Seguridad</h3>
-                    <p>CSRF, CORS y límites de uso</p>
-                </div>
-                
-                <div class="topic-card" onclick="showTopicDetail('routing')">
-                    <h3>Ruteadores</h3>
-                    <p>Gestión de rutas y vistas</p>
-                </div>
+            <div class="topics-buttons">
+                <span class="topic-button" onclick="showTopicDetail('rest')">REST & APIs</span>
+                <span class="topic-button" onclick="showTopicDetail('hateoas')">HATEOAS</span>
+                <span class="topic-button" onclick="showTopicDetail('serialization')">Serialización</span>
+                <span class="topic-button" onclick="showTopicDetail('filtering')">Filtrado & Paginación</span>
+                <span class="topic-button" onclick="showTopicDetail('security')">Seguridad</span>
+                <span class="topic-button" onclick="showTopicDetail('routing')">Ruteadores</span>
             </div>
 
-            <div id="topicDetail" class="exercise-section" style="display: none;">
-                <h3 id="topicTitle" class="exercise-title"></h3>
+            <div class="topics-description">
+                <p>En esta semana exploramos los fundamentos del diseño de APIs RESTful y su implementación en sistemas web backend. Los temas abordados incluyen los principios REST, implementación de HATEOAS, técnicas de serialización de datos, sistemas de filtrado y paginación, aspectos de seguridad como CSRF y CORS, y gestión avanzada de rutas y vistas.</p>
+            </div>
+
+            <div id="topicDetail" class="exercise-card" style="display: none;">
+                <h3 id="topicTitle"></h3>
                 <div id="topicContent"></div>
             </div>
         </div>
 
         <!-- Ejercicios y Resultados -->
         <div class="section">
-            <h2 class="section-title">Ejercicios y Resultados</h2>
+            <h2>Ejercicios y Resultados</h2>
             
-            <div class="exercise-section">
-                <h3 class="exercise-title">1. API RESTful Básica - Sistema de Usuarios</h3>
-                
-                <div class="api-demo">
-                    <h4>Endpoints Implementados:</h4>
+            <div class="exercises-container">
+                <div class="exercise-card">
+                    <h3>1. API RESTful Básica - Sistema de Usuarios</h3>
                     
-                    <div class="endpoint">
-                        <span class="method get">GET</span>
-                        <span>/api/users</span>
-                        <div class="response-container">
-                            <div class="json-response" id="getUsersResponse">
+                    <div class="code-container" data-lang="API">
+                        <strong>Endpoints Implementados:</strong>
+                        
+                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #48bb78;">
+                            <span style="background: #48bb78; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">GET</span>
+                            <span>/api/users</span>
+                            <pre style="margin-top: 10px; color: #68d391;">
 // Obtener todos los usuarios con paginación
 {
   "data": [
@@ -349,15 +74,13 @@
     "next": "/api/users?page=2"
   }
 }
-                            </div>
+                            </pre>
                         </div>
-                    </div>
-                    
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span>/api/users</span>
-                        <div class="response-container">
-                            <div class="json-response">
+                        
+                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #4299e1;">
+                            <span style="background: #4299e1; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">POST</span>
+                            <span>/api/users</span>
+                            <pre style="margin-top: 10px; color: #68d391;">
 // Crear nuevo usuario
 {
   "data": {
@@ -373,15 +96,13 @@
     "delete": "/api/users/26"
   }
 }
-                            </div>
+                            </pre>
                         </div>
-                    </div>
-                    
-                    <div class="endpoint">
-                        <span class="method put">PUT</span>
-                        <span>/api/users/{id}</span>
-                        <div class="response-container">
-                            <div class="json-response">
+                        
+                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #ed8936;">
+                            <span style="background: #ed8936; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">PUT</span>
+                            <span>/api/users/{id}</span>
+                            <pre style="margin-top: 10px; color: #68d391;">
 // Actualizar usuario existente
 {
   "data": {
@@ -392,155 +113,146 @@
   },
   "message": "Usuario actualizado exitosamente"
 }
-                            </div>
+                            </pre>
                         </div>
-                    </div>
-                    
-                    <div class="endpoint">
-                        <span class="method delete">DELETE</span>
-                        <span>/api/users/{id}</span>
-                        <div class="response-container">
-                            <div class="json-response">
+                        
+                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #f56565;">
+                            <span style="background: #f56565; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">DELETE</span>
+                            <span>/api/users/{id}</span>
+                            <pre style="margin-top: 10px; color: #68d391;">
 // Eliminar usuario
 {
   "message": "Usuario eliminado exitosamente",
   "deleted_id": 26
 }
-                            </div>
+                            </pre>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="exercise-section">
-                <h3 class="exercise-title">2. Demo Interactiva - API en Funcionamiento</h3>
-                
-                <div class="interactive-demo">
-                    <h4>Simulador de API REST</h4>
-                    <div class="demo-controls">
-                        <button class="demo-btn btn-get" onclick="simulateApiCall('GET', '/api/users')">
-                            GET /api/users
-                        </button>
-                        <button class="demo-btn btn-post" onclick="simulateApiCall('POST', '/api/users')">
-                            POST /api/users
-                        </button>
-                        <button class="demo-btn btn-put" onclick="simulateApiCall('PUT', '/api/users/1')">
-                            PUT /api/users/1
-                        </button>
-                        <button class="demo-btn btn-delete" onclick="simulateApiCall('DELETE', '/api/users/1')">
-                            DELETE /api/users/1
-                        </button>
-                    </div>
+                <div class="exercise-card">
+                    <h3>2. Demo Interactiva - API en Funcionamiento</h3>
                     
-                    <div class="demo-output" id="apiOutput">
-                        <p>Haz clic en cualquier botón para simular una llamada a la API...</p>
-                    </div>
-                    
-                    <div class="pagination-demo">
-                        <button class="page-btn" onclick="changePage(1)">1</button>
-                        <button class="page-btn active" onclick="changePage(2)">2</button>
-                        <button class="page-btn" onclick="changePage(3)">3</button>
-                        <button class="page-btn" onclick="changePage(4)">4</button>
-                        <button class="page-btn" onclick="changePage(5)">5</button>
+                    <div class="demo-container">
+                        <h4>Simulador de API REST</h4>
+                        <div class="demo-form">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                                <button onclick="simulateApiCall('GET', '/api/users')" style="background: #48bb78;">
+                                    GET /api/users
+                                </button>
+                                <button onclick="simulateApiCall('POST', '/api/users')" style="background: #4299e1;">
+                                    POST /api/users
+                                </button>
+                                <button onclick="simulateApiCall('PUT', '/api/users/1')" style="background: #ed8936;">
+                                    PUT /api/users/1
+                                </button>
+                                <button onclick="simulateApiCall('DELETE', '/api/users/1')" style="background: #f56565;">
+                                    DELETE /api/users/1
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="result-display" id="apiOutput"style="overflow-x: auto;">
+                            <p>Haz clic en cualquier botón para simular una llamada a la API...</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <button class="tag" onclick="changePage(1)">1</button>
+                            <button class="tag active" onclick="changePage(2)">2</button>
+                            <button class="tag" onclick="changePage(3)">3</button>
+                            <button class="tag" onclick="changePage(4)">4</button>
+                            <button class="tag" onclick="changePage(5)">5</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="exercise-section">
-                <h3 class="exercise-title">3. Filtrado y Búsqueda Avanzada</h3>
-                
-                <div class="interactive-demo">
-                    <h4>Sistema de Filtros</h4>
-                    <div class="demo-controls">
-                        <button class="demo-btn btn-get" onclick="simulateFilter('name', 'Juan')">
-                            Filtrar por Nombre
-                        </button>
-                        <button class="demo-btn btn-get" onclick="simulateFilter('email', 'gmail.com')">
-                            Filtrar por Email
-                        </button>
-                        <button class="demo-btn btn-get" onclick="simulateFilter('created_at', '2024-07')">
-                            Filtrar por Fecha
-                        </button>
-                        <button class="demo-btn btn-get" onclick="simulateFilter('status', 'active')">
-                            Filtrar por Estado
-                        </button>
-                    </div>
+                <div class="exercise-card">
+                    <h3>3. Filtrado y Búsqueda Avanzada</h3>
                     
-                    <div class="demo-output" id="filterOutput">
-                        <p>Selecciona un filtro para ver los resultados...</p>
+                    <div class="demo-container">
+                        <h4>Sistema de Filtros</h4>
+                        <div class="demo-form">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                                <button onclick="simulateFilter('name', 'Juan')" style="background: #48bb78;">
+                                    Filtrar por Nombre
+                                </button>
+                                <button onclick="simulateFilter('email', 'gmail.com')" style="background: #48bb78;">
+                                    Filtrar por Email
+                                </button>
+                                <button onclick="simulateFilter('created_at', '2024-07')" style="background: #48bb78;">
+                                    Filtrar por Fecha
+                                </button>
+                                <button onclick="simulateFilter('status', 'active')" style="background: #48bb78;">
+                                    Filtrar por Estado
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="result-display" id="filterOutput"style="overflow-x: auto;">
+                            <p>Selecciona un filtro para ver los resultados...</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalRequests">0</div>
-                    <div>Total Requests</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="successRate">100%</div>
-                    <div>Success Rate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="avgResponseTime">45ms</div>
-                    <div>Avg Response Time</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="activeUsers">1,234</div>
-                    <div>Active Users</div>
+                <div class="exercise-card">
+                    <h3>4. Estadísticas de API</h3>
+                    
+                    <div class="django-demo">
+                        <div class="demo-section">
+                            <div class="demo-title">Total Requests</div>
+                            <div id="totalRequests" style="font-size: 2em; font-weight: bold; color: #c0392b;">1,247</div>
+                        </div>
+                        
+                        <div class="demo-section">
+                            <div class="demo-title">Success Rate</div>
+                            <div id="successRate" style="font-size: 2em; font-weight: bold; color: #27ae60;">98.5%</div>
+                        </div>
+                        
+                        <div class="demo-section">
+                            <div class="demo-title">Avg Response Time</div>
+                            <div id="avgResponseTime" style="font-size: 2em; font-weight: bold; color: #f39c12;">42ms</div>
+                        </div>
+                        
+                        <div class="demo-section">
+                            <div class="demo-title">Active Users</div>
+                            <div id="activeUsers" style="font-size: 2em; font-weight: bold; color: #8e44ad;">1,834</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Reflexión Final -->
-        <div class="section">
-            <h2 class="section-title">Reflexión Final</h2>
+        <div class="section reflection">
+            <h2>Reflexión Final</h2>
             
-            <div class="reflection-content">
-                <p>
-                    Esta semana ha sido fundamental para comprender los principios del <span class="highlight">diseño de APIs RESTful</span> 
-                    y su implementación en sistemas web backend. Los conceptos aprendidos no solo son técnicamente relevantes, 
-                    sino que también representan las mejores prácticas en el desarrollo de aplicaciones web modernas.
-                </p>
-                
-                <p>
-                    La arquitectura <span class="highlight">REST</span> ha demostrado ser un estándar robusto para la comunicación 
-                    entre cliente y servidor. Su enfoque en recursos, métodos HTTP estándar y respuestas estructuradas facilita 
-                    el desarrollo de APIs que son intuitivas y fáciles de consumir por diferentes tipos de clientes.
-                </p>
-                
-                <p>
-                    El concepto de <span class="highlight">HATEOAS</span> (Hypermedia as the Engine of Application State) 
-                    inicialmente parecía complejo, pero al implementarlo comprendí su valor para crear APIs verdaderamente RESTful. 
-                    Al incluir enlaces relacionados en las respuestas, las APIs se vuelven más autodescriptivas y facilitan 
-                    la navegación programática.
-                </p>
-                
-                <p>
-                    Los aspectos de <span class="highlight">serialización</span> y <span class="highlight">filtrado</span> 
-                    han sido particularmente útiles. La capacidad de transformar modelos de datos en formatos JSON estructurados, 
-                    combinada con sistemas de paginación y filtrado, permite crear APIs eficientes que pueden manejar grandes 
-                    volúmenes de datos sin comprometer el rendimiento.
-                </p>
-                
-                <p>
-                    La seguridad, especialmente los conceptos de <span class="highlight">CSRF</span> y <span class="highlight">CORS</span>, 
-                    han reforzado la importancia de proteger las APIs contra ataques comunes. Los límites temporales de uso 
-                    (rate limiting) son esenciales para prevenir abusos y mantener la calidad del servicio.
-                </p>
-                
-                <p>
-                    <strong>Impacto en mi desarrollo profesional:</strong> Esta semana ha solidificado mi comprensión de 
-                    cómo diseñar y desarrollar APIs que no solo funcionen, sino que sean escalables, seguras y mantenibles. 
-                    Los principios aprendidos son directamente aplicables en proyectos reales y me han dado la confianza 
-                    para abordar el desarrollo de sistemas backend más complejos.
-                </p>
-                
-                <p>
-                    <strong>Próximos pasos:</strong> Planeo profundizar en tecnologías como GraphQL como alternativa a REST, 
-                    explorar patrones de microservicios y continuar mejorando mis habilidades en el diseño de arquitecturas 
-                    de sistemas distribuidos.
-                </p>
+            <div class="reflection-question">
+                <strong>¿Cuál fue el concepto más desafiante de esta semana?</strong>
+            </div>
+            <div class="reflection-answer">
+                El concepto más desafiante fue definitivamente <strong>HATEOAS</strong> (Hypermedia as the Engine of Application State). Inicialmente parecía una complejidad innecesaria, pero al implementarlo comprendí su valor para crear APIs verdaderamente RESTful que son autodescriptivas y facilitan la navegación programática.
+            </div>
+            
+            <div class="reflection-question">
+                <strong>¿Cómo aplicarías estos conocimientos en un proyecto real?</strong>
+            </div>
+            <div class="reflection-answer">
+                Los principios REST son fundamentales para cualquier aplicación web moderna. La implementación de sistemas de paginación, filtrado y serialización permite crear APIs eficientes que pueden manejar grandes volúmenes de datos. La seguridad con CSRF y CORS es esencial para proteger las aplicaciones en producción.
+            </div>
+            
+            <div class="reflection-question">
+                <strong>¿Qué aspecto te resultó más interesante?</strong>
+            </div>
+            <div class="reflection-answer">
+                Me resultó fascinante cómo los conceptos de <strong>serialización</strong> y <strong>filtrado</strong> se combinan para crear APIs realmente potentes. La capacidad de transformar modelos de datos en formatos JSON estructurados, combinada con sistemas de paginación inteligente, permite crear experiencias de usuario fluidas y eficientes.
+            </div>
+            
+            <div class="reflection-text">
+                <strong>Impacto en mi desarrollo profesional:</strong> Esta semana ha solidificado mi comprensión de cómo diseñar y desarrollar APIs que no solo funcionen, sino que sean escalables, seguras y mantenibles. Los principios aprendidos son directamente aplicables en proyectos reales y me han dado la confianza para abordar el desarrollo de sistemas backend más complejos.
+            </div>
+            
+            <div class="reflection-text">
+                <strong>Próximos pasos:</strong> Planeo profundizar en tecnologías como GraphQL como alternativa a REST, explorar patrones de microservicios y continuar mejorando mis habilidades en el diseño de arquitecturas de sistemas distribuidos.
             </div>
         </div>
     </div>
