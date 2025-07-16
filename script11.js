@@ -132,3 +132,20 @@ function navegarURL() {
         window.onload = function() {
             mostrarProductos();
         };
+        // Navegación entre semanas
+document.addEventListener('DOMContentLoaded', function() {
+    const prevWeekBtn = document.getElementById('prevWeek');
+    const nextWeekBtn = document.getElementById('nextWeek');
+    
+    prevWeekBtn.addEventListener('click', function() {
+        // Aquí puedes agregar la lógica para ir a la semana anterior
+        // Por ejemplo: window.location.href = 'semana10.html';
+        alert('Navegando a la semana anterior');
+    });
+    
+    nextWeekBtn.addEventListener('click', function() {
+        // Aquí puedes agregar la lógica para ir a la semana siguiente
+        // Por ejemplo: window.location.href = 'semana12.html';
+        alert('Navegando a la semana siguiente');
+    });
+});

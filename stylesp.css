@@ -416,3 +416,365 @@ body {
         padding: 20px;
     }
 }
+
+
+/* Header estilo Iron Maiden */
+.iron-header {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    border-bottom: 3px solid #ff0000;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+}
+
+.iron-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    position: relative;
+    min-height: 60px;
+}
+
+.nav-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.iron-logo {
+    font-family: 'Metal Mania', cursive;
+    font-size: 2.5rem;
+    color: #ff0000;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 40px #ff0000,
+        2px 2px 4px rgba(0,0,0,0.8);
+    -webkit-text-stroke: 0.1px #ffffff;
+    transform: scaleX(1.2);
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1;
+    margin: 0 20px;
+    pointer-events: none; /* Agregar esta línea */
+}
+
+
+.nav-arrow {
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+    color: white;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 
+        0 0 10px rgba(255, 0, 0, 0.5),
+        0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nav-arrow:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    color: #ff0000;
+    border-color: #ff0000;
+    transform: scale(1.1);
+    box-shadow: 
+        0 0 20px rgba(255, 0, 0, 0.8),
+        0 4px 15px rgba(0,0,0,0.4);
+}
+
+.nav-arrow:active {
+    transform: scale(0.95);
+}
+
+/* Contenedor central para logo y navegación */
+.nav-center {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Navegación izquierda y derecha */
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+/* Estilos para los enlaces de navegación */
+.nav-left a,
+.nav-right a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-left a::before,
+.nav-right a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,0,0,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-left a:hover::before,
+.nav-right a:hover::before {
+    left: 100%;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+    color: #ff0000;
+    border-color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.iron-nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.iron-nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,0,0,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.iron-nav-links a:hover::before {
+    left: 100%;
+}
+
+.iron-nav-links a:hover {
+    color: #ff0000;
+    border-color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Ajuste del body para header fijo */
+body {
+    padding-top: 120px;
+}
+
+/* Responsive para el header */
+@media (max-width: 768px) {
+    .iron-nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 0;
+    }
+    
+    .iron-logo {
+        font-size: 2rem;
+        order: 2;
+        margin: 10px 0;
+    }
+    
+    .nav-section {
+        order: 1;
+        gap: 30px;
+    }
+    
+    .nav-section:first-child,
+    .nav-section:last-child {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .iron-nav-links {
+        position: static;
+        order: 3;
+        gap: 20px;
+        padding: 15px 0;
+        flex-wrap: wrap;
+    }
+    
+    .iron-nav-links a {
+        font-size: 0.8rem;
+        padding: 6px 16px;
+    }
+    
+    .nav-arrow {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    body {
+        padding-top: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .iron-logo {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .iron-nav-links {
+        gap: 15px;
+    }
+    
+    .iron-nav-links a {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+    }
+    
+    body {
+        padding-top: 180px;
+    }
+}
+
+/* Centrado mejorado para pantallas grandes */
+@media (min-width: 1200px) {
+    .iron-nav {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .iron-nav-links {
+        gap: 50px;
+    }
+    
+    .iron-nav-links a {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+}
+
+/* Efecto de glow en hover para todo el header */
+.iron-header:hover {
+    box-shadow: 
+        0 2px 10px rgba(255, 0, 0, 0.5),
+        0 0 30px rgba(255, 0, 0, 0.2);
+}
+
+/* Animación sutil para el logo */
+@keyframes glow {
+    0%, 100% { 
+        filter: brightness(1); 
+    }
+    50% { 
+        filter: brightness(1.2); 
+    }
+}
+
+.iron-logo {
+    animation: glow 3s ease-in-out infinite;
+}
+/* Ajustar el padding del body para dar más espacio */
+body {
+    padding-top: 100px;
+}
+
+/* Posicionar correctamente la navegación de semanas */
+.week-navigation {
+    display: flex;
+    justify-content: space-between; /* Cambiar de gap a space-between */
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+/* Mejorar el diseño de los botones de semana */
+.week-button {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.week-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Ajustar el header para que sea más compacto */
+.iron-header {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    border-bottom: 3px solid #ff0000;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+}
+
+.iron-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    position: relative;
+    min-height: 50px;
+}
