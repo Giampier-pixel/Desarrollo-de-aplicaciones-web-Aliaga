@@ -468,7 +468,20 @@ body {
     pointer-events: none; /* Agregar esta línea */
 }
 
+.iron-loco {
+    font-size: 2.5rem;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 
+    transform: scaleX(1.2);
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1;
+    margin: 0 20px;
+    pointer-events: none; /* Agregar esta línea */
+}
 .nav-arrow {
     background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
     color: white;

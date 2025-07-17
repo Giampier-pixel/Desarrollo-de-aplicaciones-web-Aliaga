@@ -13,39 +13,33 @@
         }
 
         :root {
-            --primary-purple: #6366f1;
-            --light-purple: #8b5cf6;
+            --primary-purple: #000000;
+            --light-purple: #f65c5c;
             --dark-purple: #4f46e5;
             --accent-pink: #ec4899;
             --text-white: #ffffff;
-            --text-gray: #64748b;
+            --text-gray: #000000;
             --text-dark: #1e293b;
-            --background-light: #f8fafc;
+            --background-light: #ffffff00;
             --card-background: #ffffff;
-            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-primary: linear-gradient(135deg, #6365f100 0%, #f65c5c00 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
             --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--background-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('textura.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+            color: #333;
         }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: var(--shadow-light);
-        }
 
         .container {
             max-width: 1200px;
@@ -53,12 +47,7 @@
             padding: 0 20px;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
+
 
         .logo {
             font-size: 1.5rem;
@@ -69,10 +58,7 @@
             background-clip: text;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
+
 
         .nav-links a {
             text-decoration: none;
@@ -136,7 +122,7 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgb(255, 0, 0);
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-size: 0.9rem;
@@ -153,13 +139,13 @@
 
         .hero-subtitle {
             font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgb(255, 255, 255);
             margin-bottom: 1.5rem;
         }
 
         .hero-description {
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgb(255, 255, 255);
             margin-bottom: 2rem;
             line-height: 1.7;
         }
@@ -173,7 +159,7 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            border: 5px solid rgba(255, 1, 1, 0.507);
             box-shadow: var(--shadow-heavy);
             transition: transform 0.3s ease;
         }
@@ -246,7 +232,7 @@
             padding: 2rem;
             box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
+            border: 1px solid rgb(255, 0, 0);
         }
 
         .project-card:hover {
@@ -276,7 +262,7 @@
         }
 
         .project-tag {
-            background: var(--gradient-primary);
+            background: var(--primary-purple);
             color: var(--text-white);
             padding: 0.3rem 0.8rem;
             border-radius: 15px;
@@ -295,7 +281,7 @@
         }
 
         .btn-primary {
-            background: var(--gradient-primary);
+            background: var(--primary-purple);
             color: var(--text-white);
         }
 
@@ -324,7 +310,11 @@
             position: relative;
             overflow: hidden;
         }
-
+.section-specific {
+    background-color: transparent !important;
+    background: transparent !important;
+                padding: 80px 0;
+}
         .cuaderno-section .project-card::before {
             content: '';
             position: absolute;
@@ -427,10 +417,10 @@
         </div>
     </section>
 
-    <section id="sobre-mi" class="section">
+    <section id="sobre-mi" class="section-specific">
         <div class="container">
-            <h2 class="section-title">Sobre Mí</h2>
-            <div class="about-content">
+            <h2 class="iron-loco">Sobre Mí</h2>
+            <div class="projects-grid">
                 <div class="about-text">
                     <p>
                         Soy un desarrollador Front-End en formación con conocimientos sólidos en HTML, CSS y JavaScript, 
@@ -447,9 +437,9 @@
         </div>
     </section>
 
-    <section id="proyectos" class="section cuaderno-section">
+    <section id="proyectos" class="section-specific cuaderno-section">
         <div class="container">
-            <h2 class="section-title">Cuaderno de Aprendizaje</h2>
+            <h2 class="iron-loco">Cuaderno de Aprendizaje</h2>
             <div class="projects-grid">
                 <a href="proyecto1.html" style="text-decoration: none; color: inherit;">
                     <div class="project-card">
@@ -655,9 +645,9 @@
         </div>
     </section>
 
-    <section id="proyectos-principales" class="section">
+    <section id="proyectos-principales" class="section-specific">
         <div class="container">
-            <h2 class="section-title">Mis Proyectos Principales</h2>
+            <h2 class="iron-loco">Mis Proyectos Principales</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-content">
