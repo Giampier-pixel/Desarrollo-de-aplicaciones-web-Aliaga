@@ -3,474 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 14 - Microservicios en Django</title>
+    <title>Semana 15 - Sistema Inteligente</title>
     <link rel="stylesheet" href="stylesp.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@1.3.3/dist/universal-sentence-encoder.min.js"></script>
+    <script src="intelligent-system.js"></script>
 </head>
-<header class="iron-header">
-    <div class="container">
-        <nav class="iron-nav">
-            <div class="nav-center">
-                <div class="nav-left">
-                    <a href="index.html">INICIO</a>
-                    <a href="index.html#sobre-mi">SOBRE MÍ</a>
-                </div>
-                <div class="iron-logo">PORTAFOLIO</div>
-                <div class="nav-right">
-                    <a href="index.html#proyectos">CUADERNO</a>
-                    <a href="index.html#proyectos-principales">PROYECTOS</a>
+<body>
+    <header class="iron-header">
+        <nav class="iron-nav container">
+            <div class="nav-section nav-left">
+                <a href="#" class="nav-arrow">←</a>
+                <div class="iron-nav-links">
+                    <a href="#">INICIO</a>
+                    <a href="#">SOBRE MÍ</a>
                 </div>
             </div>
+            <div class="nav-section nav-center">
+                <div class="iron-logo">PORTAFOLIO</div>
+            </div>
+            <div class="nav-section nav-right">
+                <div class="iron-nav-links">
+                    <a href="#">CUADERNO</a>
+                    <a href="#">PROYECTOS</a>
+                </div>
+                <a href="#" class="nav-arrow">→</a>
+            </div>
         </nav>
-    </div>
-</header>
-<body>
+    </header>
+
     <div class="container">
-    <div class="week-navigation">
-        <a href="proyecto14.html" class="week-button">Semana Anterior</a>
-    </div>
-        
-        <div class="header">
-            SEMANA 15
+        <div class="week-navigation">
+            <a href="#" class="week-button">Semana Anterior</a>
+            <div class="header">
+                <h1>SEMANA 15</h1>
+            </div>
+            <a href="#" class="week-button">Semana Siguiente</a>
         </div>
-        
-        <!-- Temas Aprendidos -->
+
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button" onclick="showTopicDetails('microservicios')">🏗️ Arquitectura de Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('django-micro')">🚀 Django para Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('comunicacion')">🔄 Comunicación entre Servicios</span>
-                <span class="topic-button" onclick="showTopicDetails('bases-datos')">🗄️ Gestión de Bases de Datos</span>
-                <span class="topic-button" onclick="showTopicDetails('docker-k8s')">🐳 Docker & Kubernetes</span>
-                <span class="topic-button" onclick="showTopicDetails('seguridad')">🔒 Seguridad en Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('monitoreo')">📊 Monitoreo y Escalado</span>
-                <span class="topic-button" onclick="showTopicDetails('consumo')">🔌 Consumo de Microservicios</span>
+                <span class="tag">🤖 Sistema Inteligente</span>
+                <span class="tag">🚀 Django & Flask</span>
+                <span class="tag">🧠 Modelos de IA</span>
+                <span class="tag">📊 Análisis de Sentimiento</span>
             </div>
-            
-            <div class="topics-description">
-                Los microservicios representan una arquitectura donde las aplicaciones se construyen como un conjunto de servicios pequeños e independientes que se comunican entre sí. Con Django, podemos crear microservicios eficientes que manejan dominios específicos del negocio, proporcionando escalabilidad, mantenibilidad y flexibilidad tecnológica.
-            </div>
+            <p class="topics-description">
+                Desarrollo de un sistema inteligente que integra un modelo de análisis de sentimiento utilizando Flask y Django como backend (demostración) y JavaScript con TensorFlow.js para ejecución en el cliente. El sistema analiza el sentimiento de texto ingresado por el usuario, clasificándolo como positivo, negativo o neutral.
+            </p>
 
             <div class="code-container" data-lang="Python">
-# Estructura básica de un microservicio en Django
-# settings.py
-MICROSERVICE_CONFIG = {
-    'SERVICE_NAME': 'user-service',
-    'VERSION': '1.0.0',
-    'PORT': 8001,
-    'DISCOVERY_URL': 'http://service-registry:8000',
-    'DATABASE_PER_SERVICE': True,
-    'ASYNC_COMMUNICATION': True,
-    'CIRCUIT_BREAKER_ENABLED': True,
-    'HEALTH_CHECK_ENDPOINT': '/health/',
-    'METRICS_ENDPOINT': '/metrics/',
-}
-
-# Service Registration
-from django.apps import AppConfig
-import requests
-
-class UserServiceConfig(AppConfig):
-    name = 'user_service'
-    
-    def ready(self):
-        self.register_service()
-    
-    def register_service(self):
-        service_info = {
-            'name': settings.MICROSERVICE_CONFIG['SERVICE_NAME'],
-            'url': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}",
-            'health_check': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}/health/",
-            'version': settings.MICROSERVICE_CONFIG['VERSION']
-        }
-        
-        try:
-            requests.post(
-                f"{settings.MICROSERVICE_CONFIG['DISCOVERY_URL']}/register",
-                json=service_info
-            )
-        except Exception as e:
-            print(f"Failed to register service: {e}")
-            </div>
-        </div>
-
-        <!-- Ejercicios y Resultados -->
-        <div class="section">
-            <h2>Ejercicios y Resultados</h2>
-            
-            <div class="exercises-container">
-                <!-- Ejercicio 1: Arquitectura de Microservicios -->
-                <div class="exercise-card">
-                    <h3>1. Arquitectura de Microservicios</h3>
-                    <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">👥 User Service</div>
-                                <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
-                                <p>Gestión de usuarios y autenticación</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">📦 Product Service</div>
-                                <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
-                                <p>Catálogo de productos y inventario</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">🛒 Order Service</div>
-                                <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
-                                <p>Procesamiento de pedidos y lógica de negocio</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">💳 Payment Service</div>
-                                <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
-                                <p>Procesamiento de pagos y transacciones</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# User Service - views.py
+# Ejemplo de Backend con Flask y Django (No ejecutable en GitHub Pages)
+from flask import Flask, request, jsonify
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from django.views import View
-import json
-import uuid
+from transformers import pipeline
+import tensorflow as tf
 
-@method_decorator(csrf_exempt, name='dispatch')
-class UserAPIView(View):
-    def get(self, request, user_id=None):
-        if user_id:
-            # Simular búsqueda de usuario
-            user_data = {
-                'id': user_id,
-                'username': f'user_{user_id}',
-                'email': f'user_{user_id}@example.com',
-                'service': 'user-service',
-                'version': '1.0.0'
-            }
-            return JsonResponse(user_data)
-        else:
-            return JsonResponse({'users': ['user_1', 'user_2', 'user_3']})
-    
+app = Flask(__name__)
+
+# Simulación de endpoint Django
+class SentimentAPIView(View):
     def post(self, request):
         data = json.loads(request.body)
-        user_id = str(uuid.uuid4())
-        
-        # Simular creación de usuario
-        response_data = {
-            'id': user_id,
-            'username': data.get('username'),
-            'email': data.get('email'),
-            'created': True,
-            'service': 'user-service'
-        }
-        
-        return JsonResponse(response_data, status=201)
+        text = data.get('text', '')
+        classifier = pipeline('sentiment-analysis')
+        result = classifier(text)[0]
+        return JsonResponse({
+            'text': text,
+            'sentiment': result['label'],
+            'confidence': result['score']
+        })
 
-# Health Check
-def health_check(request):
-    return JsonResponse({
-        'status': 'healthy',
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': '2024-01-15T10:30:00Z'
+# Endpoint Flask
+@app.route('/analyze-sentiment', methods=['POST'])
+def analyze_sentiment():
+    data = request.get_json()
+    text = data.get('text', '')
+    classifier = pipeline('sentiment-analysis')
+    result = classifier(text)[0]
+    return jsonify({
+        'text': text,
+        'sentiment': result['label'],
+        'confidence': result['score']
     })
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Ejercicio: Sistema Inteligente</h2>
+            <div class="exercise-card">
+                <h3>📊 Análisis de Sentimiento en Tiempo Real</h3>
+                <p>Ingresa un texto para analizar su sentimiento usando un modelo de IA pre-entrenado.</p>
+                <div class="demo-container">
+                    <div class="demo-form">
+                        <textarea id="sentiment-input" placeholder="Escribe tu texto aquí..." rows="4"></textarea>
+                        <button onclick="analyzeSentiment()">Analizar Sentimiento</button>
+                        <div id="result-display" class="result-display"></div>
                     </div>
                 </div>
+                <div class="code-container" data-lang="JavaScript">
+// Carga el modelo Universal Sentence Encoder
+async function loadModel() {
+    try {
+        const use = await window.universalSentenceEncoder.load();
+        return use;
+    } catch (error) {
+        throw new Error('Error al cargar el modelo: ' + error.message);
+    }
+}
 
-                <!-- Ejercicio 2: Comunicación entre Microservicios -->
-                <div class="exercise-card">
-                    <h3>2. Comunicación entre Microservicios</h3>
-                    <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🔄 Flujo de Comunicación</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
-                                <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
-                            </div>
-                            <div class="result-display" id="communication-log">
-                                <div class="model-field">Esperando simulación...</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Service Communication - service_client.py
-import requests
-import asyncio
-import aiohttp
-from django.conf import settings
-import json
-import logging
-
-class ServiceClient:
-    def __init__(self, service_name, base_url=None):
-        self.service_name = service_name
-        self.base_url = base_url or self.discover_service()
-        self.timeout = 30
-        self.circuit_breaker = CircuitBreaker()
+// Analiza el sentimiento del texto ingresado
+async function analyzeSentiment() {
+    const input = document.getElementById('sentiment-input').value.trim();
+    const resultDisplay = document.getElementById('result-display');
     
-    def discover_service(self):
-        """Service Discovery Implementation"""
-        try:
-            discovery_url = settings.MICROSERVICE_CONFIG['DISCOVERY_URL']
-            response = requests.get(f"{discovery_url}/services/{self.service_name}")
-            service_info = response.json()
-            return service_info['url']
-        except Exception as e:
-            logging.error(f"Service discovery failed: {e}")
-            return None
-    
-    async def async_call(self, endpoint, method='GET', data=None):
-        """Asynchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
+    if (!input) {
+        resultDisplay.textContent = 'Por favor, ingresa un texto para analizar.';
+        return;
+    }
+
+    resultDisplay.textContent = 'Analizando...';
+
+    try {
+        const model = await loadModel();
+        const embeddings = await model.embed([input]);
+        const score = embeddings.arraySync()[0].reduce((sum, val) => sum + val, 0) / embeddings.shape[1];
         
-        try:
-            async with aiohttp.ClientSession() as session:
-                url = f"{self.base_url}/{endpoint}"
-                async with session.request(method, url, json=data, timeout=self.timeout) as response:
-                    result = await response.json()
-                    self.circuit_breaker.record_success()
-                    return result
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-    
-    def sync_call(self, endpoint, method='GET', data=None):
-        """Synchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
-        
-        try:
-            url = f"{self.base_url}/{endpoint}"
-            response = requests.request(method, url, json=data, timeout=self.timeout)
-            response.raise_for_status()
-            self.circuit_breaker.record_success()
-            return response.json()
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-                    </div>
-                </div>
+        let sentiment = 'Neutral';
+        if (score > 0.2) sentiment = 'Positivo';
+        else if (score < -0.2) sentiment = 'Negativo';
 
-                <!-- Ejercicio 3: Containerización con Docker -->
-                <div class="exercise-card">
-                    <h3>3. Containerización con Docker</h3>
-                    <p>Implementación de microservicios usando Docker y Docker Compose.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🐳 Gestión de Contenedores</div>
-                        <div class="demo-form">
-                            <button onclick="simulateDockerBuild()">Build Images</button>
-                            <button onclick="simulateDockerRun()">Run Containers</button>
-                            <button onclick="simulateDockerScale()">Scale Services</button>
-                            <button onclick="clearDockerLogs()">Clear Logs</button>
-                        </div>
-                        <div class="result-display" id="docker-log">
-                            <div class="model-field">Docker logs aparecerán aquí...</div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Dockerfile">
-# Dockerfile para microservicio Django
-FROM python:3.9-slim
-
-# Configurar variables de entorno
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=microservice.settings
-
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Crear directorio de trabajo
-WORKDIR /app
-
-# Copiar requirements y instalar dependencias Python
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copiar código fuente
-COPY . .
-
-# Crear usuario no-root
-RUN adduser --disabled-password --gecos '' appuser
-RUN chown -R appuser:appuser /app
-USER appuser
-
-# Exponer puerto
-EXPOSE 8000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health/ || exit 1
-
-# Comando por defecto
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "microservice.wsgi:application"]
-                    </div>
-
-                    <div class="code-container" data-lang="YAML">
-# docker-compose.yml
-version: '3.8'
-
-services:
-  user-service:
-    build: ./user-service
-    ports:
-      - "8001:8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@user-db:5432/userdb
-      - REDIS_URL=redis://redis:6379/0
-      - SERVICE_NAME=user-service
-    depends_on:
-      - user-db
-      - redis
-    networks:
-      - microservices-network
-    deploy:
-      replicas: 2
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-
-  product-service:
-    build: ./product-service
-    ports:
-      - "8002:8000"
-    environment:
-      - DATABASE_URL=postgresql://product:password@product-db:5432/productdb
-      - REDIS_URL=redis://redis:6379/1
-      - SERVICE_NAME=product-service
-    depends_on:
-      - product-db
-      - redis
-    networks:
-      - microservices-network
-                    </div>
-                </div>
-
-                <!-- Ejercicio 4: Monitoreo y Observabilidad -->
-                <div class="exercise-card">
-                    <h3>4. Monitoreo y Observabilidad</h3>
-                    <p>Implementación de logging, métricas y health checks para microservicios.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">📊 Dashboard de Monitoreo</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Service Health Status</div>
-                                <div class="tag active">User Service: Healthy</div>
-                                <div class="tag active">Product Service: Healthy</div>
-                                <div class="tag">Order Service: Warning</div>
-                                <div class="tag active">Payment Service: Healthy</div>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">Métricas en Tiempo Real</div>
-                                <div class="model-field">Requests/sec: 1,247</div>
-                                <div class="model-field">Response Time: 89ms</div>
-                                <div class="model-field">Error Rate: 0.2%</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Monitoring and Health Checks
-from django.http import JsonResponse
-from django.db import connections
-from django.core.cache import cache
-import redis
-import time
-import psutil
-
-def health_check(request):
-    """Comprehensive health check endpoint"""
-    health_status = {
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': time.time(),
-        'status': 'healthy',
-        'checks': {}
+        resultDisplay.textContent = `Sentimiento: ${sentiment} (Puntuación: ${score.toFixed(2)})`;
+    } catch (error) {
+        resultDisplay.textContent = `Error: ${error.message}`;
     }
-    
-    # Database connectivity check
-    try:
-        db_conn = connections['default']
-        db_conn.cursor()
-        health_status['checks']['database'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['database'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # Redis connectivity check
-    try:
-        cache.get('health_check')
-        health_status['checks']['redis'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['redis'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # System resources check
-    cpu_percent = psutil.cpu_percent()
-    memory_percent = psutil.virtual_memory().percent
-    
-    health_status['checks']['system'] = {
-        'cpu_usage': f'{cpu_percent}%',
-        'memory_usage': f'{memory_percent}%',
-        'status': 'healthy' if cpu_percent < 80 and memory_percent < 80 else 'warning'
-    }
-    
-    return JsonResponse(health_status)
-
-def metrics(request):
-    """Prometheus-style metrics endpoint"""
-    metrics_data = {
-        'http_requests_total': 15420,
-        'http_request_duration_seconds': 0.089,
-        'database_connections_active': 12,
-        'redis_connections_active': 8,
-        'memory_usage_bytes': psutil.virtual_memory().used,
-        'cpu_usage_percent': psutil.cpu_percent()
-    }
-    
-    return JsonResponse(metrics_data)
-                    </div>
+}
                 </div>
             </div>
         </div>
 
-        <!-- Reflexión Final -->
         <div class="section reflection">
             <h2>Reflexión Final</h2>
-            <div class="reflection-text">
-                <p>La implementación de <strong>microservicios con Django</strong> ha representado un cambio paradigmático en mi comprensión del desarrollo de aplicaciones empresariales. Esta semana me ha permitido explorar cómo transformar aplicaciones monolíticas en sistemas distribuidos más escalables y mantenibles.</p>
-                
-                <p>El aprendizaje más significativo ha sido comprender que los microservicios no son solo una cuestión técnica, sino que requieren un cambio fundamental en la <strong>arquitectura organizacional y de desarrollo</strong>. La independencia que proporcionan los microservicios permite que equipos diferentes trabajen en servicios separados, pero también introduce complejidades en la coordinación y comunicación.</p>
-                
-                <p>La experiencia práctica con <strong>Docker y Kubernetes</strong> me ha demostrado la importancia de la containerización para garantizar la consistencia entre entornos de desarrollo, pruebas y producción. La capacidad de escalar servicios individualmente según la demanda es una ventaja significativa sobre las arquitecturas monolíticas.</p>
-                
-                <div class="reflection-question">¿Cuáles son los principales desafíos de implementar microservicios?</div>
-                <div class="reflection-answer">Los principales desafíos incluyen la complejidad de la comunicación entre servicios, la gestión de transacciones distribuidas, el monitoreo y debugging en sistemas distribuidos, y la coordinación de deployments. También requiere una mayor madurez en DevOps y automatización.</div>
-                
-                <div class="reflection-question">¿Cómo se garantiza la seguridad en una arquitectura de microservicios?</div>
-                <div class="reflection-answer">La seguridad se implementa a través de múltiples capas: autenticación y autorización distribuida con JWT tokens, API gateways como punto de entrada único, comunicación segura entre servicios, y principios de "zero trust" donde cada servicio valida todas las solicitudes.</div>
-                
-                <div class="reflection-question">¿Cuál es el impacto en el rendimiento comparado con monolitos?</div>
-                <div class="reflection-answer">Los microservicios pueden introducir latencia adicional debido a la comunicación de red, pero ofrecen mejor escalabilidad horizontal y aislamiento de fallos. El rendimiento global depende del diseño de la arquitectura, patrones de comunicación y estrategias de caching implementadas.</div>
-                
-                <p>Esta experiencia me ha preparado para enfrentar los desafíos del desarrollo de aplicaciones modernas a escala empresarial, donde la <strong>escalabilidad, mantenibilidad y resiliencia</strong> son requisitos fundamentales para el éxito del producto.</p>
-            </div>
+            <p class="reflection-text">
+                La implementación de un sistema inteligente con Django, Flask, y TensorFlow.js me permitió explorar cómo integrar modelos de IA en aplicaciones web. Aunque el despliegue en GitHub Pages limita la ejecución del backend, la solución client-side demuestra la viabilidad de ejecutar modelos de IA directamente en el navegador.
+            </p>
+            <p class="reflection-question">¿Cuál es el principal desafío al implementar IA en aplicaciones web?</p>
+            <p class="reflection-answer">
+                El principal desafío es la optimización de recursos, ya que los modelos de IA pueden ser computacionalmente intensivos. Además, garantizar la compatibilidad entre entornos (servidor y cliente) y manejar grandes volúmenes de datos son consideraciones clave.
+            </p>
+            <p class="reflection-question">¿Cómo se puede mejorar la precisión del análisis de sentimiento?</p>
+            <p class="reflection-answer">
+                La precisión puede mejorarse utilizando modelos más avanzados, entrenando con datos específicos del dominio, y aplicando técnicas de preprocesamiento de texto como la normalización y eliminación de ruido.
+            </p>
+            <p class="reflection-question">¿Qué beneficios aporta ejecutar IA en el cliente?</p>
+            <p class="reflection-answer">
+                Ejecutar IA en el cliente reduce la latencia, disminuye la carga del servidor, y permite aplicaciones funcionales sin conexión, aunque requiere modelos optimizados para entornos de navegador.
+            </p>
         </div>
     </div>
-    <script src="script14.js"></script>
 </body>
 </html>

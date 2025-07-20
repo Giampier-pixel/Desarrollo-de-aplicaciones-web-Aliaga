@@ -10,11 +10,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('textura.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0c0c0c 100%);
     background-attachment: fixed;
-    background-position: center;
     min-height: 100vh;
     color: #333;
 }
@@ -196,7 +193,7 @@ body {
 
 /* Contenedor de código */
 .code-container {
-    background: linear-gradient(135deg, #000000 0%, #000000 100%);
+    background: linear-gradient(135deg, #333 0%, #636262 100%);
     color: #ecf0f1;
     padding: 20px;
     border-radius: 8px;
