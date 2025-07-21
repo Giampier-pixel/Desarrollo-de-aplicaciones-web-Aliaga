@@ -1,0 +1,20 @@
+{
+  "functions": {
+    "api/estudiantes.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    }
+  ],
+  "env": {
+    "MYSQL_HOST": "estudiantes-db-1-flask21e12ed.e.aivencloud.com",
+    "MYSQL_USER": "avnadmin", 
+    "MYSQL_PASSWORD": "AVNS_jNTjSKAKXF6vAkvb9Qg",
+    "MYSQL_DATABASE": "defaultdb",
+    "MYSQL_PORT": "24967"
+  }
+}
