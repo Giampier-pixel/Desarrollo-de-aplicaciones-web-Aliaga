@@ -61,13 +61,11 @@
             </div>
         </div>
 
-        <!-- Ejercicios y Resultados -->
-<!-- Ejercicios y Resultados -->
+ <!-- Ejercicios y Resultados -->
 <div class="section">
     <h2>Ejercicios y Resultados</h2>
     
     <div class="exercises-container">
-        <div class="exercise-card">
         <div class="exercise-card">
             <h3>1. Demo Interactiva - Simulador de Formulario</h3>
             
@@ -106,6 +104,84 @@
             </div>
         </div>
 
+        <div class="exercise-card">
+            <h3>2. Aplicación Web PHP Laravel - Backend Real</h3>
+            
+            <div class="demo-container">
+                <h4>Sistema de Gestión de Estudiantes con PHP</h4>
+                <p style="margin-bottom: 20px; color: #4a5568;">
+                    Aplicación web desarrollada con PHP que se conecta a base de datos MySQL en Aiven Cloud.
+                </p>
+                
+                <div class="php-form-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                     padding: 30px; border-radius: 15px; color: white; margin-bottom: 20px;">
+                    
+                    <form id="phpEstudianteForm" action="api/estudiantes2.php" method="POST" 
+                          style="max-width: 500px; margin: 0 auto;" onsubmit="handlePhpSubmit(event)">
+                        
+                        <h4 style="text-align: center; margin-bottom: 25px; font-size: 20px;">
+                            📚 Registro de Estudiantes - PHP Backend
+                        </h4>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Nombre:</label>
+                            <input type="text" name="nombre" placeholder="Ingrese el nombre completo" 
+                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
+                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Dirección:</label>
+                            <input type="text" name="direccion" placeholder="Ingrese la dirección completa" 
+                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
+                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Ciudad:</label>
+                            <input type="text" name="ciudad" placeholder="Ingrese la ciudad" 
+                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
+                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
+                        </div>
+                        
+                        <button type="submit" style="width: 100%; background: #48bb78; color: white; padding: 15px; 
+                                border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; 
+                                transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                            🚀 Guardar en Base de Datos
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="php-results" id="phpResults" style="margin-top: 20px;">
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1;">
+                        <h5 style="margin: 0 0 10px 0; color: #2d3748;">📊 Estado del Sistema:</h5>
+                        <p style="margin: 0; color: #4a5568;">Conectado a MySQL en Aiven Cloud. Listo para registrar estudiantes...</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #edf2f7; border-radius: 10px;">
+                    <h5 style="margin: 0 0 15px 0; color: #2d3748;">🔧 Características Técnicas:</h5>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a5568;">
+                        <li>Backend PHP con conexión SSL a MySQL</li>
+                        <li>Base de datos alojada en Aiven Cloud</li>
+                        <li>Validación de datos del lado del servidor</li>
+                        <li>Manejo de errores y respuestas JSON</li>
+                        <li>Compatible con despliegue en Vercel</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button onclick="loadEstudiantes2()" style="background: #805ad5; color: white; padding: 12px 24px; 
+                            border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">
+                        📋 Ver Estudiantes Registrados
+                    </button>
+                </div>
+                
+                <div id="listaEstudiantes2" style="margin-top: 20px; display: none;">
+                    <!-- Lista de estudiantes se cargará aquí -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

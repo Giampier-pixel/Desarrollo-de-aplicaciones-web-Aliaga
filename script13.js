@@ -1,215 +1,166 @@
+// Función para manejar el formulario PHP
+async function handlePhpSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const resultsDiv = document.getElementById('phpResults');
+    
+    // Mostrar estado de carga
+    submitButton.innerHTML = '⏳ Guardando...';
+    submitButton.disabled = true;
+    
+    try {
+        const response = await fetch('api/estudiantes2.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Mostrar mensaje de éxito
+            resultsDiv.innerHTML = `
+                <div style="background: #f0fff4; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78; margin-top: 20px;">
+                    <h5 style="margin: 0 0 10px 0; color: #2d3748;">✅ ¡Estudiante Registrado Exitosamente!</h5>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 5px 0; color: #2d3748;"><strong>ID:</strong> ${result.id}</p>
+                        <p style="margin: 5px 0; color: #2d3748;"><strong>Nombre:</strong> ${result.data.nombre}</p>
+                        <p style="margin: 5px 0; color: #2d3748;"><strong>Dirección:</strong> ${result.data.direccion}</p>
+                        <p style="margin: 5px 0; color: #2d3748;"><strong>Ciudad:</strong> ${result.data.ciudad}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Limpiar formulario
+            form.reset();
+            
+        } else {
+            // Mostrar error
+            resultsDiv.innerHTML = `
+                <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
+                    <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error al Registrar</h5>
+                    <p style="margin: 0; color: #c53030;">${result.error || 'Error desconocido'}</p>
+                </div>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        resultsDiv.innerHTML = `
+            <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
+                <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error de Conexión</h5>
+                <p style="margin: 0; color: #c53030;">No se pudo conectar con el servidor. Verifica tu conexión.</p>
+            </div>
+        `;
+    } finally {
+        // Restaurar botón
+        submitButton.innerHTML = '🚀 Guardar en Base de Datos';
+        submitButton.disabled = false;
+    }
+}
 
-        // Variables para el simulador
-        let currentPage = 2;
-        let requestCount = 0;
+// Función para cargar estudiantes registrados
+async function loadEstudiantes2() {
+    const listaDiv = document.getElementById('listaEstudiantes2');
+    
+    // Mostrar loading
+    listaDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <p>⏳ Cargando estudiantes...</p>
+        </div>
+    `;
+    listaDiv.style.display = 'block';
+    
+    try {
+        const response = await fetch('api/estudiantes2.php', {
+            method: 'GET'
+        });
         
-        // Función para mostrar detalles de temas
-        function showTopicDetail(topic) {
-            const details = {
-                'rest': {
-                    title: 'REST & APIs',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Principios REST</div>
-                                <div class="url-pattern">- Arquitectura cliente-servidor</div>
-                                <div class="url-pattern">- Sin estado (stateless)</div>
-                                <div class="url-pattern">- Cacheable</div>
-                                <div class="url-pattern">- Interfaz uniforme</div>
-                            </div>
-                        </div>
-                    `
-                },
-                'hateoas': {
-                    title: 'HATEOAS',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Hypermedia as the Engine of Application State</div>
-                                <div class="model-field">Links dinámicos en respuestas JSON</div>
-                                <div class="model-field">Navegación programática</div>
-                                <div class="model-field">APIs autodescriptivas</div>
-                            </div>
-                        </div>
-                    `
-                },
-                'serialization': {
-                    title: 'Serialización',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Transformación de Datos</div>
-                                <div class="model-field">Modelos a JSON</div>
-                                <div class="model-field">Validación de datos</div>
-                                <div class="model-field">Serializers personalizados</div>
-                            </div>
-                        </div>
-                    `
-                },
-                'filtering': {
-                    title: 'Filtrado & Paginación',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Optimización de Respuestas</div>
-                                <div class="model-field">Filtros por campos</div>
-                                <div class="model-field">Paginación automática</div>
-                                <div class="model-field">Búsqueda avanzada</div>
-                            </div>
-                        </div>
-                    `
-                },
-                'security': {
-                    title: 'Seguridad',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Protección de APIs</div>
-                                <div class="model-field">CSRF Protection</div>
-                                <div class="model-field">CORS Configuration</div>
-                                <div class="model-field">Rate Limiting</div>
-                            </div>
-                        </div>
-                    `
-                },
-                'routing': {
-                    title: 'Ruteadores',
-                    content: `
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Gestión de Rutas</div>
-                                <div class="model-field">ViewSets automáticos</div>
-                                <div class="model-field">URLs dinámicas</div>
-                                <div class="model-field">Vistas personalizadas</div>
-                            </div>
-                        </div>
-                    `
-                }
-            };
-            
-            const detail = details[topic];
-            document.getElementById('topicTitle').textContent = detail.title;
-            document.getElementById('topicContent').innerHTML = detail.content;
-            document.getElementById('topicDetail').style.display = 'block';
-        }
+        const result = await response.json();
         
-        // Función para simular llamadas a la API
-        function simulateApiCall(method, endpoint) {
-            requestCount++;
-            document.getElementById('totalRequests').textContent = requestCount;
-            
-            const responses = {
-                'GET': {
-                    status: '200 OK',
-                    data: `{
-  "data": [
-    { "id": 1, "name": "Juan Pérez", "email": "juan@email.com" },
-    { "id": 2, "name": "María García", "email": "maria@email.com" }
-  ],
-  "pagination": { "page": ${currentPage}, "total": 25 }
-}`
-                },
-                'POST': {
-                    status: '201 Created',
-                    data: `{
-  "data": {
-    "id": 26,
-    "name": "Carlos López",
-    "email": "carlos@email.com"
-  },
-  "message": "Usuario creado exitosamente"
-}`
-                },
-                'PUT': {
-                    status: '200 OK',
-                    data: `{
-  "data": {
-    "id": 1,
-    "name": "Juan Pérez Actualizado",
-    "email": "juan.nuevo@email.com"
-  },
-  "message": "Usuario actualizado exitosamente"
-}`
-                },
-                'DELETE': {
-                    status: '200 OK',
-                    data: `{
-  "message": "Usuario eliminado exitosamente",
-  "deleted_id": 1
-}`
-                }
-            };
-            
-            const response = responses[method];
-            document.getElementById('apiOutput').innerHTML = `
-                <strong>${method} ${endpoint}</strong><br>
-                <strong>Status:</strong> ${response.status}<br>
-                <strong>Response:</strong><br>
-                <pre>${response.data}</pre>
+        if (result.success && result.data) {
+            if (result.data.length > 0) {
+                let html = `
+                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <h5 style="margin: 0 0 20px 0; color: #2d3748;">📋 Estudiantes Registrados (${result.count})</h5>
+                        <div style="display: grid; gap: 15px;">
+                `;
+                
+                result.data.forEach((estudiante, index) => {
+                    html += `
+                        <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h6 style="margin: 0 0 8px 0; color: #2d3748; font-size: 16px;">${estudiante.nomEstudiante}</h6>
+                                    <p style="margin: 2px 0; color: #4a5568; font-size: 14px;">📍 ${estudiante.dirEstudiante}</p>
+                                    <p style="margin: 2px 0; color: #4a5568; font-size: 14px;">🏙️ ${estudiante.ciuEstudiante}</p>
+                                </div>
+                                <div style="text-align: right; color: #718096; font-size: 12px;">
+                                    <p style="margin: 0;">ID: ${estudiante.idEstudiante}</p>
+                                    <p style="margin: 0;">${new Date(estudiante.created_at).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                listaDiv.innerHTML = html;
+            } else {
+                listaDiv.innerHTML = `
+                    <div style="background: #fef5e7; padding: 20px; border-radius: 10px; border-left: 4px solid #f6ad55; margin-top: 20px;">
+                        <h5 style="margin: 0 0 10px 0; color: #c05621;">📝 Sin Registros</h5>
+                        <p style="margin: 0; color: #c05621;">No hay estudiantes registrados aún. ¡Sé el primero en registrarte!</p>
+                    </div>
+                `;
+            }
+        } else {
+            listaDiv.innerHTML = `
+                <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
+                    <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error al Cargar</h5>
+                    <p style="margin: 0; color: #c53030;">${result.error || 'Error desconocido'}</p>
+                </div>
             `;
         }
         
-        // Función para cambiar página
-        function changePage(page) {
-            currentPage = page;
-            document.querySelectorAll('.tag').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            simulateApiCall('GET', `/api/users?page=${page}`);
-        }
+    } catch (error) {
+        console.error('Error:', error);
+        listaDiv.innerHTML = `
+            <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
+                <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error de Conexión</h5>
+                <p style="margin: 0; color: #c53030;">No se pudo cargar la lista de estudiantes.</p>
+            </div>
+        `;
+    }
+}
+
+// Mantener la función original del simulador
+function submitEstudiante(event) {
+    event.preventDefault();
+    
+    const nombre = document.getElementById('nombre').value;
+    const direccion = document.getElementById('direccion').value;
+    const ciudad = document.getElementById('ciudad').value;
+    const output = document.getElementById('estudianteOutput');
+    
+    if (nombre && direccion && ciudad) {
+        output.innerHTML = `
+            <div style="background: #f0fff4; padding: 15px; border-radius: 8px; border-left: 4px solid #48bb78;">
+                <h4 style="margin: 0 0 10px 0; color: #2d3748;">✅ Simulación Completada</h4>
+                <p style="margin: 5px 0; color: #2d3748;"><strong>Nombre:</strong> ${nombre}</p>
+                <p style="margin: 5px 0; color: #2d3748;"><strong>Dirección:</strong> ${direccion}</p>
+                <p style="margin: 5px 0; color: #2d3748;"><strong>Ciudad:</strong> ${ciudad}</p>
+                <p style="margin: 10px 0 0 0; color: #4a5568; font-style: italic;">Datos simulados - No guardados en base de datos</p>
+            </div>
+        `;
         
-        // Función para simular filtros
-        function simulateFilter(field, value) {
-            const filterResponses = {
-                'name': `{
-  "data": [
-    { "id": 1, "name": "Juan Pérez", "email": "juan@email.com" },
-    { "id": 5, "name": "Juan Carlos", "email": "juan.carlos@email.com" }
-  ],
-  "filter": { "field": "name", "value": "Juan" }
-}`,
-                'email': `{
-  "data": [
-    { "id": 3, "name": "Ana López", "email": "ana@gmail.com" },
-    { "id": 7, "name": "Pedro Ruiz", "email": "pedro@gmail.com" }
-  ],
-  "filter": { "field": "email", "value": "gmail.com" }
-}`,
-                'created_at': `{
-  "data": [
-    { "id": 8, "name": "Luis Martín", "email": "luis@email.com", "created_at": "2024-07-15" },
-    { "id": 9, "name": "Carmen Díaz", "email": "carmen@email.com", "created_at": "2024-07-20" }
-  ],
-  "filter": { "field": "created_at", "value": "2024-07" }
-}`,
-                'status': `{
-  "data": [
-    { "id": 2, "name": "María García", "email": "maria@email.com", "status": "active" },
-    { "id": 4, "name": "Carlos López", "email": "carlos@email.com", "status": "active" }
-  ],
-  "filter": { "field": "status", "value": "active" }
-}`
-            };
-            
-            document.getElementById('filterOutput').innerHTML = `
-                <strong>Filtro aplicado:</strong> ${field} = "${value}"<br>
-                <strong>Resultados:</strong><br>
-                <pre>${filterResponses[field]}</pre>
-            `;
-        }
-        
-        // Actualizar estadísticas periódicamente
-        setInterval(() => {
-            const stats = {
-                totalRequests: Math.floor(Math.random() * 100) + 1200,
-                successRate: (Math.random() * 2 + 98).toFixed(1) + '%',
-                avgResponseTime: Math.floor(Math.random() * 20) + 35 + 'ms',
-                activeUsers: Math.floor(Math.random() * 500) + 1500
-            };
-            
-            Object.keys(stats).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.textContent = stats[key];
-                }
-            });
-        }, 5000);
+        // Limpiar formulario
+        document.getElementById('estudianteForm').reset();
+    }
+}
