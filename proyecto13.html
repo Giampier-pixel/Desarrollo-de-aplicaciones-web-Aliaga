@@ -62,185 +62,240 @@
         </div>
 
         <!-- Ejercicios y Resultados -->
-        <div class="section">
-            <h2>Ejercicios y Resultados</h2>
+<!-- Ejercicios y Resultados -->
+<div class="section">
+    <h2>Ejercicios y Resultados</h2>
+    
+    <div class="exercises-container">
+        <div class="exercise-card">
+            <h3>1. Creación de Proyecto Web PHP Laravel - Sistema de Estudiantes</h3>
             
-            <div class="exercises-container">
-                <div class="exercise-card">
-                    <h3>1. API RESTful Básica - Sistema de Usuarios</h3>
-                    
-                    <div class="code-container" data-lang="API">
-                        <strong>Endpoints Implementados:</strong>
-                        
-                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #48bb78;">
-                            <span style="background: #48bb78; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">GET</span>
-                            <span>/api/users</span>
-                            <pre style="margin-top: 10px; color: #68d391;">
-// Obtener todos los usuarios con paginación
-{
-  "data": [
-    { "id": 1, "name": "Juan Pérez", "email": "juan@email.com" },
-    { "id": 2, "name": "María García", "email": "maria@email.com" }
-  ],
-  "pagination": {
-    "page": 1,
-    "per_page": 10,
-    "total": 25,
-    "total_pages": 3
-  },
-  "links": {
-    "first": "/api/users?page=1",
-    "last": "/api/users?page=3",
-    "next": "/api/users?page=2"
-  }
-}
-                            </pre>
-                        </div>
-                        
-                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #4299e1;">
-                            <span style="background: #4299e1; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">POST</span>
-                            <span>/api/users</span>
-                            <pre style="margin-top: 10px; color: #68d391;">
-// Crear nuevo usuario
-{
-  "data": {
-    "id": 26,
-    "name": "Carlos López",
-    "email": "carlos@email.com",
-    "created_at": "2024-07-11T10:30:00Z"
-  },
-  "message": "Usuario creado exitosamente",
-  "links": {
-    "self": "/api/users/26",
-    "edit": "/api/users/26",
-    "delete": "/api/users/26"
-  }
-}
-                            </pre>
-                        </div>
-                        
-                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #ed8936;">
-                            <span style="background: #ed8936; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">PUT</span>
-                            <span>/api/users/{id}</span>
-                            <pre style="margin-top: 10px; color: #68d391;">
-// Actualizar usuario existente
-{
-  "data": {
-    "id": 26,
-    "name": "Carlos López Actualizado",
-    "email": "carlos.nuevo@email.com",
-    "updated_at": "2024-07-11T11:15:00Z"
-  },
-  "message": "Usuario actualizado exitosamente"
-}
-                            </pre>
-                        </div>
-                        
-                        <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; border-left: 4px solid #f56565;">
-                            <span style="background: #f56565; color: white; padding: 3px 8px; border-radius: 3px; margin-right: 10px;">DELETE</span>
-                            <span>/api/users/{id}</span>
-                            <pre style="margin-top: 10px; color: #68d391;">
-// Eliminar usuario
-{
-  "message": "Usuario eliminado exitosamente",
-  "deleted_id": 26
-}
-                            </pre>
-                        </div>
+            <div class="code-container" data-lang="PHP Laravel">
+                <strong>Configuración del Proyecto:</strong>
+                
+                <div style="margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid #f56565;">
+                    <h4 style="color: #f56565; margin-bottom: 10px;">🗄️ Base de Datos MySQL (Aiven)</h4>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace;">
+                        <div>Host: estudiantes-db-1-flask21e12ed.e.aivencloud.com</div>
+                        <div>Usuario: avnadmin</div>
+                        <div>Base de Datos: defaultdb</div>
+                        <div>Puerto: 24967</div>
                     </div>
                 </div>
-
-                <div class="exercise-card">
-                    <h3>2. Demo Interactiva - API en Funcionamiento</h3>
-                    
-                    <div class="demo-container">
-                        <h4>Simulador de API REST</h4>
-                        <div class="demo-form">
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                                <button onclick="simulateApiCall('GET', '/api/users')" style="background: #48bb78;">
-                                    GET /api/users
-                                </button>
-                                <button onclick="simulateApiCall('POST', '/api/users')" style="background: #4299e1;">
-                                    POST /api/users
-                                </button>
-                                <button onclick="simulateApiCall('PUT', '/api/users/1')" style="background: #ed8936;">
-                                    PUT /api/users/1
-                                </button>
-                                <button onclick="simulateApiCall('DELETE', '/api/users/1')" style="background: #f56565;">
-                                    DELETE /api/users/1
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="result-display" id="apiOutput"style="overflow-x: auto;">
-                            <p>Haz clic en cualquier botón para simular una llamada a la API...</p>
-                        </div>
-                        
-                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
-                            <button class="tag" onclick="changePage(1)">1</button>
-                            <button class="tag active" onclick="changePage(2)">2</button>
-                            <button class="tag" onclick="changePage(3)">3</button>
-                            <button class="tag" onclick="changePage(4)">4</button>
-                            <button class="tag" onclick="changePage(5)">5</button>
-                        </div>
+                
+                <div style="margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid #4299e1;">
+                    <h4 style="color: #4299e1; margin-bottom: 10px;">📋 Estructura del Modelo</h4>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;">
+                        <strong>Tabla: estudiantes</strong>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>idEstudiante (Primary Key)</li>
+                            <li>nomEstudiante (VARCHAR)</li>
+                            <li>dirEstudiante (VARCHAR)</li>
+                            <li>ciuEstudiante (VARCHAR)</li>
+                            <li>timestamps (created_at, updated_at)</li>
+                        </ul>
                     </div>
                 </div>
-
-                <div class="exercise-card">
-                    <h3>3. Filtrado y Búsqueda Avanzada</h3>
-                    
-                    <div class="demo-container">
-                        <h4>Sistema de Filtros</h4>
-                        <div class="demo-form">
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                                <button onclick="simulateFilter('name', 'Juan')" style="background: #48bb78;">
-                                    Filtrar por Nombre
-                                </button>
-                                <button onclick="simulateFilter('email', 'gmail.com')" style="background: #48bb78;">
-                                    Filtrar por Email
-                                </button>
-                                <button onclick="simulateFilter('created_at', '2024-07')" style="background: #48bb78;">
-                                    Filtrar por Fecha
-                                </button>
-                                <button onclick="simulateFilter('status', 'active')" style="background: #48bb78;">
-                                    Filtrar por Estado
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="result-display" id="filterOutput"style="overflow-x: auto;">
-                            <p>Selecciona un filtro para ver los resultados...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>4. Estadísticas de API</h3>
-                    
-                    <div class="django-demo">
-                        <div class="demo-section">
-                            <div class="demo-title">Total Requests</div>
-                            <div id="totalRequests" style="font-size: 2em; font-weight: bold; color: #c0392b;">1,247</div>
-                        </div>
-                        
-                        <div class="demo-section">
-                            <div class="demo-title">Success Rate</div>
-                            <div id="successRate" style="font-size: 2em; font-weight: bold; color: #27ae60;">98.5%</div>
-                        </div>
-                        
-                        <div class="demo-section">
-                            <div class="demo-title">Avg Response Time</div>
-                            <div id="avgResponseTime" style="font-size: 2em; font-weight: bold; color: #f39c12;">42ms</div>
-                        </div>
-                        
-                        <div class="demo-section">
-                            <div class="demo-title">Active Users</div>
-                            <div id="activeUsers" style="font-size: 2em; font-weight: bold; color: #8e44ad;">1,834</div>
-                        </div>
+                
+                <div style="margin: 10px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid #48bb78;">
+                    <h4 style="color: #48bb78; margin-bottom: 10px;">🎨 Frontend con Tailwind CSS</h4>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;">
+                        <strong>Formulario de Registro:</strong>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Campo Nombre (requerido)</li>
+                            <li>Campo Dirección (requerido)</li>
+                            <li>Campo Ciudad (requerido)</li>
+                            <li>Botón de envío</li>
+                            <li>Diseño responsive centrado</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="exercise-card">
+            <h3>2. Demo Interactiva - Simulador de Formulario</h3>
+            
+            <div class="demo-container">
+                <h4>Formulario de Registro de Estudiantes</h4>
+                <div class="demo-form">
+                    <form id="estudianteForm" onsubmit="submitEstudiante(event)" style="max-width: 400px; margin: 0 auto;">
+                        <div style="margin-bottom: 15px;">
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Estudiante" 
+                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+                                   background: rgba(255,255,255,0.9); font-size: 14px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <input type="text" id="direccion" name="direccion" placeholder="Dirección" 
+                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+                                   background: rgba(255,255,255,0.9); font-size: 14px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad" 
+                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+                                   background: rgba(255,255,255,0.9); font-size: 14px;">
+                        </div>
+                        
+                        <button type="submit" style="width: 100%; background: #4299e1; color: white; padding: 12px; 
+                                border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                            Registrar Estudiante
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="result-display" id="estudianteOutput" style="margin-top: 20px;">
+                    <p style="color: #68d391;">Completa el formulario para simular el registro...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card">
+            <h3>3. Arquitectura MVC Laravel</h3>
+            
+            <div class="django-demo">
+                <div class="demo-section">
+                    <div class="demo-title">Rutas (web.php)</div>
+                    <div style="font-size: 0.9em; color: #68d391;">
+                        GET / → formulario<br>
+                        POST /guardar → store
+                    </div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Controlador</div>
+                    <div style="font-size: 0.9em; color: #68d391;">
+                        EstudianteController<br>
+                        create() & store()
+                    </div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Modelo</div>
+                    <div style="font-size: 0.9em; color: #68d391;">
+                        Estudiante.php<br>
+                        Eloquent ORM
+                    </div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Vista</div>
+                    <div style="font-size: 0.9em; color: #68d391;">
+                        formulario.blade.php<br>
+                        Tailwind CSS
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card">
+            <h3>4. Estadísticas del Sistema</h3>
+            
+            <div class="django-demo">
+                <div class="demo-section">
+                    <div class="demo-title">Estudiantes Registrados</div>
+                    <div id="totalEstudiantes" style="font-size: 2em; font-weight: bold; color: #4299e1;">127</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Ciudades Activas</div>
+                    <div id="ciudadesActivas" style="font-size: 2em; font-weight: bold; color: #48bb78;">15</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Registros Hoy</div>
+                    <div id="registrosHoy" style="font-size: 2em; font-weight: bold; color: #f39c12;">8</div>
+                </div>
+                
+                <div class="demo-section">
+                    <div class="demo-title">Base de Datos</div>
+                    <div style="font-size: 1.2em; font-weight: bold; color: #e53e3e;">MySQL Aiven</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function submitEstudiante(event) {
+    event.preventDefault();
+    
+    const nombre = document.getElementById('nombre').value;
+    const direccion = document.getElementById('direccion').value;
+    const ciudad = document.getElementById('ciudad').value;
+    
+    const output = document.getElementById('estudianteOutput');
+    
+    try {
+        // Llamada real a la API
+        const response = await fetch('/api/connection.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                direccion: direccion,
+                ciudad: ciudad
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            output.innerHTML = `
+                <div style="background: rgba(72, 187, 120, 0.2); padding: 15px; border-radius: 8px; border-left: 4px solid #48bb78;">
+                    <h4 style="color: #48bb78; margin-bottom: 10px;">✅ ${result.message}</h4>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 14px;">
+                        <div><strong>ID:</strong> ${result.id}</div>
+                        <div><strong>Nombre:</strong> ${nombre}</div>
+                        <div><strong>Dirección:</strong> ${direccion}</div>
+                        <div><strong>Ciudad:</strong> ${ciudad}</div>
+                        <div><strong>Base de Datos:</strong> MySQL Aiven ✓</div>
+                    </div>
+                </div>
+            `;
+            
+            // Limpiar formulario
+            document.getElementById('estudianteForm').reset();
+            
+            // Actualizar estadísticas
+            loadEstadisticas();
+            
+        } else {
+            throw new Error(result.message);
+        }
+        
+    } catch (error) {
+        output.innerHTML = `
+            <div style="background: rgba(245, 101, 101, 0.2); padding: 15px; border-radius: 8px; border-left: 4px solid #f56565;">
+                <h4 style="color: #f56565;">❌ Error al registrar</h4>
+                <p>${error.message}</p>
+            </div>
+        `;
+    }
+}
+
+// Función para cargar estadísticas reales
+async function loadEstadisticas() {
+    try {
+        const response = await fetch('/api/connection.php');
+        const result = await response.json();
+        
+        if (result.success) {
+            document.getElementById('totalEstudiantes').textContent = result.data.total_estudiantes;
+            document.getElementById('ciudadesActivas').textContent = result.data.ciudades_activas;
+            document.getElementById('registrosHoy').textContent = result.data.registros_hoy;
+        }
+    } catch (error) {
+        console.error('Error al cargar estadísticas:', error);
+    }
+}
+
+// Cargar estadísticas al cargar la página
+document.addEventListener('DOMContentLoaded', loadEstadisticas);
+</script>
 
         <!-- Reflexión Final -->
         <div class="section reflection">
