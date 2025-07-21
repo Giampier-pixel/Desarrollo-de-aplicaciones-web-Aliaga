@@ -123,57 +123,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Ejercicio 3: Arquitectura de Microservicios -->
-        <div class="exercise-card">
-            <h3>3. Arquitectura de Microservicios</h3>
-            <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
-            
-            <div class="demo-container">
-                <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="demo-title">👥 User Service</div>
-                        <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
-                        <p>Gestión de usuarios y autenticación</p>
-                    </div>
-                    <div class="demo-section">
-                        <div class="demo-title">📦 Product Service</div>
-                        <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
-                        <p>Catálogo de productos y inventario</p>
-                    </div>
-                    <div class="demo-section">
-                        <div class="demo-title">🛒 Order Service</div>
-                        <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
-                        <p>Procesamiento de pedidos y lógica de negocio</p>
-                    </div>
-                    <div class="demo-section">
-                        <div class="demo-title">💳 Payment Service</div>
-                        <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
-                        <p>Procesamiento de pagos y transacciones</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ejercicio 4: Comunicación entre Microservicios -->
-        <div class="exercise-card">
-            <h3>4. Comunicación entre Microservicios</h3>
-            <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
-            
-            <div class="demo-container">
-                <div class="demo-title">🔄 Flujo de Comunicación</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
-                        <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
-                    </div>
-                    <div class="result-display" id="communication-log">
-                        <div class="model-field">Esperando simulación...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
