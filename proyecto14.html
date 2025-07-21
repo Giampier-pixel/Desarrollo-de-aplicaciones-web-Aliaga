@@ -41,60 +41,21 @@
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button" onclick="showTopicDetails('microservicios')">🏗️ Arquitectura de Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('django-micro')">🚀 Django para Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('comunicacion')">🔄 Comunicación entre Servicios</span>
-                <span class="topic-button" onclick="showTopicDetails('bases-datos')">🗄️ Gestión de Bases de Datos</span>
-                <span class="topic-button" onclick="showTopicDetails('docker-k8s')">🐳 Docker & Kubernetes</span>
-                <span class="topic-button" onclick="showTopicDetails('seguridad')">🔒 Seguridad en Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('monitoreo')">📊 Monitoreo y Escalado</span>
-                <span class="topic-button" onclick="showTopicDetails('consumo')">🔌 Consumo de Microservicios</span>
+                <span class="topic-button" onclick="showTopicDetails('microservicios')">Python</span>
+                <span class="topic-button" onclick="showTopicDetails('django-micro')">Jinja</span>
+                <span class="topic-button" onclick="showTopicDetails('comunicacion')">Flask</span>
+                <span class="topic-button" onclick="showTopicDetails('bases-datos')">Django</span>
             </div>
             
             <div class="topics-description">
-                Los microservicios representan una arquitectura donde las aplicaciones se construyen como un conjunto de servicios pequeños e independientes que se comunican entre sí. Con Django, podemos crear microservicios eficientes que manejan dominios específicos del negocio, proporcionando escalabilidad, mantenibilidad y flexibilidad tecnológica.
-            </div>
-
-            <div class="code-container" data-lang="Python">
-# Estructura básica de un microservicio en Django
-# settings.py
-MICROSERVICE_CONFIG = {
-    'SERVICE_NAME': 'user-service',
-    'VERSION': '1.0.0',
-    'PORT': 8001,
-    'DISCOVERY_URL': 'http://service-registry:8000',
-    'DATABASE_PER_SERVICE': True,
-    'ASYNC_COMMUNICATION': True,
-    'CIRCUIT_BREAKER_ENABLED': True,
-    'HEALTH_CHECK_ENDPOINT': '/health/',
-    'METRICS_ENDPOINT': '/metrics/',
-}
-
-# Service Registration
-from django.apps import AppConfig
-import requests
-
-class UserServiceConfig(AppConfig):
-    name = 'user_service'
-    
-    def ready(self):
-        self.register_service()
-    
-    def register_service(self):
-        service_info = {
-            'name': settings.MICROSERVICE_CONFIG['SERVICE_NAME'],
-            'url': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}",
-            'health_check': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}/health/",
-            'version': settings.MICROSERVICE_CONFIG['VERSION']
-        }
-        
-        try:
-            requests.post(
-                f"{settings.MICROSERVICE_CONFIG['DISCOVERY_URL']}/register",
-                json=service_info
-            )
-        except Exception as e:
-            print(f"Failed to register service: {e}")
+                Durante esta semana se abordaron varios temas fundamentales para el desarrollo web con Python. Se aprendió sobre 
+                la instalación y configuración del servidor Apache HTTP junto con el módulo MOD_WSGI, que permite ejecutar aplicaciones 
+                Python en un servidor web profesional. Se profundizó en los fundamentos de Python, incluyendo su sintaxis limpia basada 
+                en indentación, el manejo de variables, estructuras de control, funciones y programación orientada a objetos con clases 
+                como Persona y Estudiante. Además, se exploró Flask como microframework web, comprendiendo conceptos clave como rutas, decoradores 
+                @app.route, el motor de plantillas Jinja2 para generar contenido dinámico, y la integración con bases de datos MySQL mediante PyMySQL. 
+                También se cubrieron aspectos prácticos como la estructura de proyectos, el manejo de formularios HTML, y la implementación de 
+                operaciones CRUD básicas en aplicaciones web.
             </div>
         </div>
 
