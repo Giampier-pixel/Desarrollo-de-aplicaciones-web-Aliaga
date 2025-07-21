@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 13 - Diseño de APIs RESTful</title>
+    <title>Semana 9 - PHP y JSP</title>
     <link rel="stylesheet" href="stylesp.css">
 </head>
 <header class="iron-header">
@@ -26,200 +26,225 @@
 <body>
     <div class="container">
     <div class="week-navigation">
-        <a href="proyecto12.html" class="week-button">Semana Anterior</a>
-        <a href="proyecto14.html" class="week-button">Semana Siguiente</a>
+        <a href="proyecto7.html" class="week-button">Semana Anterior</a>
+        <a href="proyecto10.html" class="week-button">Semana Siguiente</a>
     </div>
         
-        <div class="header">
-            SEMANA 13
-        </div>
-        
-        <div class="header-subtitle">
-            Diseño de APIs RESTful
+        <div>
+            <h1 class="header">Semana 9</h1>
+            <p class="header-subtitle">Despliegue de aplicaciones web backend PHP y JSP</p>
         </div>
 
-        <!-- Temas Aprendidos -->
         <div class="section">
             <h2>Temas Aprendidos</h2>
-            
             <div class="topics-buttons">
-                <span class="topic-button" onclick="showTopicDetail('rest')">REST & APIs</span>
-                <span class="topic-button" onclick="showTopicDetail('hateoas')">HATEOAS</span>
-                <span class="topic-button" onclick="showTopicDetail('serialization')">Serialización</span>
-                <span class="topic-button" onclick="showTopicDetail('filtering')">Filtrado & Paginación</span>
-                <span class="topic-button" onclick="showTopicDetail('security')">Seguridad</span>
-                <span class="topic-button" onclick="showTopicDetail('routing')">Ruteadores</span>
+                <span class="topic-button">Arquitectura Web Backend</span>
+                <span class="topic-button">Desarrollo con PHP</span>
+                <span class="topic-button">Desarrollo con JSP</span>
+                <span class="topic-button">Despliegue Web</span>
+                <span class="topic-button">Servidores Web</span>
+                <span class="topic-button">Bases de Datos</span>
             </div>
-
-            <div class="topics-description">
-                <p>En esta semana exploramos los fundamentos del diseño de APIs RESTful y su implementación en sistemas web backend. Los temas abordados incluyen los principios REST, implementación de HATEOAS, técnicas de serialización de datos, sistemas de filtrado y paginación, aspectos de seguridad como CSRF y CORS, y gestión avanzada de rutas y vistas.</p>
-            </div>
-
-            <div id="topicDetail" class="exercise-card" style="display: none;">
-                <h3 id="topicTitle"></h3>
-                <div id="topicContent"></div>
-            </div>
+            <p class="topics-description">
+                Esta semana aprendí sobre el desarrollo de aplicaciones web backend utilizando PHP y JSP. Exploré la arquitectura 
+                de servidores web, el funcionamiento del lado del servidor y cómo crear aplicaciones dinámicas que interactúan con 
+                bases de datos. También vimos cómo desplegar estas aplicaciones en diferentes entornos de servidor, configurando 
+                Apache y Tomcat para el correcto funcionamiento de las aplicaciones web.
+            </p>
         </div>
 
- <!-- Ejercicios y Resultados -->
-<div class="section">
-    <h2>Ejercicios y Resultados</h2>
-    
-    <div class="exercises-container">
-        <div class="exercise-card">
-            <h3>1. Demo Interactiva - Simulador de Formulario</h3>
-            
-            <div class="demo-container">
-                <h4>Formulario de Registro de Estudiantes</h4>
-                <div class="demo-form">
-                    <form id="estudianteForm" onsubmit="submitEstudiante(event)" style="max-width: 400px; margin: 0 auto;">
-                        <div style="margin-bottom: 15px;">
-                            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Estudiante" 
-                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
-                                   background: rgba(255,255,255,0.9); font-size: 14px;">
-                        </div>
-                        
-                        <div style="margin-bottom: 15px;">
-                            <input type="text" id="direccion" name="direccion" placeholder="Dirección" 
-                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
-                                   background: rgba(255,255,255,0.9); font-size: 14px;">
-                        </div>
-                        
-                        <div style="margin-bottom: 20px;">
-                            <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad" 
-                                   required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
-                                   background: rgba(255,255,255,0.9); font-size: 14px;">
-                        </div>
-                        
-                        <button type="submit" style="width: 100%; background: #4299e1; color: white; padding: 12px; 
-                                border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s;">
-                            Registrar Estudiante
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="result-display" id="estudianteOutput" style="margin-top: 20px;">
-                    <p style="color: #68d391;">Completa el formulario para simular el registro...</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="exercise-card">
-            <h3>2. Aplicación Web PHP Laravel - Backend Real</h3>
-            
-            <div class="demo-container">
-                <h4>Sistema de Gestión de Estudiantes con PHP</h4>
-                <p style="margin-bottom: 20px; color: #4a5568;">
-                    Aplicación web desarrollada con PHP que se conecta a base de datos MySQL en Aiven Cloud.
-                </p>
-                
-                <div class="php-form-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                     padding: 30px; border-radius: 15px; color: white; margin-bottom: 20px;">
+        <div class="section">
+            <h2>Ejercicios y Resultados</h2>
+            <div class="exercises-container">
+                <div class="exercise-card">
+                    <h3>1. Aplicación PHP con Base de Datos</h3>
+                    <p>Sistema de gestión de usuarios con PHP y MySQL</p>
                     
-                    <form id="phpEstudianteForm" action="/api/php/estudiantes2" method="POST" 
-                          style="max-width: 500px; margin: 0 auto;" onsubmit="handlePhpSubmit(event)">
-                        
-                        <h4 style="text-align: center; margin-bottom: 25px; font-size: 20px;">
-                            📚 Registro de Estudiantes - PHP Backend
-                        </h4>
-                        
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Nombre:</label>
-                            <input type="text" name="nombre" placeholder="Ingrese el nombre completo" 
-                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
-                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
+                    <div class="code-container" data-lang="PHP">
+&lt;?php
+// Configuración de base de datos
+$host = 'localhost';
+$dbname = 'usuarios_db';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
+}
+
+// Función para obtener usuarios
+function obtenerUsuarios($pdo) {
+    $stmt = $pdo->query("SELECT * FROM usuarios ORDER BY nombre");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Función para insertar usuario
+function insertarUsuario($pdo, $nombre, $email, $edad) {
+    $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, edad) VALUES (?, ?, ?)");
+    return $stmt->execute([$nombre, $email, $edad]);
+}
+?&gt;
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Simulador de Gestión de Usuarios</h4>
+                        <div class="demo-form">
+                            <input type="text" id="nombre" placeholder="Nombre completo" required>
+                            <input type="email" id="email" placeholder="Correo electrónico" required>
+                            <input type="number" id="edad" placeholder="Edad" min="1" max="120" required>
+                            <button onclick="agregarUsuario()">Agregar Usuario</button>
                         </div>
-                        
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Dirección:</label>
-                            <input type="text" name="direccion" placeholder="Ingrese la dirección completa" 
-                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
-                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
+                        <div class="result-display" id="usuariosLista">
+                            <strong>Usuarios registrados:</strong><br>
+                            <div id="listaUsuarios"></div>
                         </div>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Ciudad:</label>
-                            <input type="text" name="ciudad" placeholder="Ingrese la ciudad" 
-                                   required style="width: 100%; padding: 15px; border: none; border-radius: 10px; 
-                                   background: rgba(255,255,255,0.9); font-size: 16px; color: #333;">
-                        </div>
-                        
-                        <button type="submit" style="width: 100%; background: #48bb78; color: white; padding: 15px; 
-                                border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; 
-                                transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                            🚀 Guardar en Base de Datos
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="php-results" id="phpResults" style="margin-top: 20px;">
-                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1;">
-                        <h5 style="margin: 0 0 10px 0; color: #2d3748;">📊 Estado del Sistema:</h5>
-                        <p style="margin: 0; color: #4a5568;">Conectado a MySQL en Aiven Cloud. Listo para registrar estudiantes...</p>
                     </div>
                 </div>
-                
-                <div style="margin-top: 30px; padding: 20px; background: #edf2f7; border-radius: 10px;">
-                    <h5 style="margin: 0 0 15px 0; color: #2d3748;">🔧 Características Técnicas:</h5>
-                    <ul style="margin: 0; padding-left: 20px; color: #4a5568;">
-                        <li>Backend PHP con conexión SSL a MySQL</li>
-                        <li>Base de datos alojada en Aiven Cloud</li>
-                        <li>Validación de datos del lado del servidor</li>
-                        <li>Manejo de errores y respuestas JSON</li>
-                        <li>Compatible con despliegue en Vercel</li>
-                    </ul>
+
+                <div class="exercise-card">
+                    <h3>2. Aplicación JSP con Servlets</h3>
+                    <p>Sistema de autenticación con JSP y Servlets</p>
+                    
+                    <div class="code-container" data-lang="JSP">
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;
+&lt;%@ page import="java.sql.*" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Sistema de Autenticación&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;Login de Usuario&lt;/h2&gt;
+    &lt;form method="post" action="LoginServlet"&gt;
+        &lt;input type="text" name="username" placeholder="Usuario" required&gt;&lt;br&gt;
+        &lt;input type="password" name="password" placeholder="Contraseña" required&gt;&lt;br&gt;
+        &lt;button type="submit"&gt;Iniciar Sesión&lt;/button&gt;
+    &lt;/form&gt;
+    
+    &lt;%
+        String mensaje = (String) request.getAttribute("mensaje");
+        if (mensaje != null) {
+            out.println("&lt;p style='color: red;'&gt;" + mensaje + "&lt;/p&gt;");
+        }
+    %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Simulador de Autenticación</h4>
+                        <div class="demo-form">
+                            <input type="text" id="username" placeholder="Usuario" required>
+                            <input type="password" id="password" placeholder="Contraseña" required>
+                            <button onclick="autenticar()">Iniciar Sesión</button>
+                        </div>
+                        <div class="result-display" id="authResult">
+                            <strong>Estado de autenticación:</strong><br>
+                            <div id="authStatus">Ingrese sus credenciales</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <h3>3. Configuración de Servidor Web</h3>
+                    <p>Despliegue y configuración de aplicaciones web</p>
+                    
+                    <div class="code-container" data-lang="Apache">
+# Configuración de Virtual Host para Apache
+&lt;VirtualHost *:80&gt;
+    ServerName miapp.local
+    DocumentRoot /var/www/html/miapp
+    
+    &lt;Directory /var/www/html/miapp&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+    
+    # Configuración para PHP
+    &lt;FilesMatch \.php$&gt;
+        SetHandler application/x-httpd-php
+    &lt;/FilesMatch&gt;
+    
+    # Logs
+    ErrorLog ${APACHE_LOG_DIR}/miapp_error.log
+    CustomLog ${APACHE_LOG_DIR}/miapp_access.log combined
+&lt;/VirtualHost&gt;
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Simulador de Estado del Servidor</h4>
+                        <div class="demo-form">
+                            <select id="serverType">
+                                <option value="apache">Apache Server</option>
+                                <option value="tomcat">Tomcat Server</option>
+                                <option value="nginx">Nginx Server</option>
+                            </select>
+                            <button onclick="checkServerStatus()">Verificar Estado</button>
+                        </div>
+                        <div class="result-display" id="serverStatus">
+                            <strong>Estado del servidor:</strong><br>
+                            <div id="statusInfo">Seleccione un servidor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="django-demo">
+                <h4>Resultado: Sistema de Desarrollo Backend PHP/JSP</h4>
+                <div class="demo-section">
+                    <div class="demo-title">🔧 Tecnologías Utilizadas</div>
+                    <div class="url-pattern">PHP → Desarrollo backend con MySQL</div>
+                    <div class="url-pattern">JSP → Aplicaciones Java para web</div>
+                    <div class="url-pattern">Apache/Tomcat → Servidores web</div>
                 </div>
                 
-                <div style="margin-top: 20px; text-align: center;">
-                    <button onclick="loadEstudiantes2()" style="background: #805ad5; color: white; padding: 12px 24px; 
-                            border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">
-                        📋 Ver Estudiantes Registrados
-                    </button>
+                <div class="demo-section">
+                    <div class="demo-title">🗃️ Gestión de Datos</div>
+                    <div class="model-field"><strong>PHP:</strong> PDO para conexiones MySQL seguras</div>
+                    <div class="model-field"><strong>JSP:</strong> Servlets para lógica de negocio</div>
+                    <div class="model-field"><strong>Despliegue:</strong> Virtual Hosts y configuración de servidores</div>
                 </div>
                 
-                <div id="listaEstudiantes2" style="margin-top: 20px; display: none;">
-                    <!-- Lista de estudiantes se cargará aquí -->
+                <div class="demo-section">
+                    <div class="demo-title">⚙️ Configuración del Servidor</div>
+                    <div class="model-field"><strong>Apache:</strong> Virtual Hosts, mod_php, logs</div>
+                    <div class="model-field"><strong>Tomcat:</strong> Contenedor de servlets</div>
+                    <div class="model-field"><strong>Nginx:</strong> Proxy reverso y balanceador</div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-        <!-- Reflexión Final -->
-        <div class="section reflection">
+        <div class="section">
             <h2>Reflexión Final</h2>
-            
-            <div class="reflection-question">
-                <strong>¿Cuál fue el concepto más desafiante de esta semana?</strong>
-            </div>
-            <div class="reflection-answer">
-                El concepto más desafiante fue definitivamente <strong>HATEOAS</strong> (Hypermedia as the Engine of Application State). Inicialmente parecía una complejidad innecesaria, pero al implementarlo comprendí su valor para crear APIs verdaderamente RESTful que son autodescriptivas y facilitan la navegación programática.
-            </div>
-            
-            <div class="reflection-question">
-                <strong>¿Cómo aplicarías estos conocimientos en un proyecto real?</strong>
-            </div>
-            <div class="reflection-answer">
-                Los principios REST son fundamentales para cualquier aplicación web moderna. La implementación de sistemas de paginación, filtrado y serialización permite crear APIs eficientes que pueden manejar grandes volúmenes de datos. La seguridad con CSRF y CORS es esencial para proteger las aplicaciones en producción.
-            </div>
-            
-            <div class="reflection-question">
-                <strong>¿Qué aspecto te resultó más interesante?</strong>
-            </div>
-            <div class="reflection-answer">
-                Me resultó fascinante cómo los conceptos de <strong>serialización</strong> y <strong>filtrado</strong> se combinan para crear APIs realmente potentes. La capacidad de transformar modelos de datos en formatos JSON estructurados, combinada con sistemas de paginación inteligente, permite crear experiencias de usuario fluidas y eficientes.
-            </div>
-            
-            <div class="reflection-text">
-                <strong>Impacto en mi desarrollo profesional:</strong> Esta semana ha solidificado mi comprensión de cómo diseñar y desarrollar APIs que no solo funcionen, sino que sean escalables, seguras y mantenibles. Los principios aprendidos son directamente aplicables en proyectos reales y me han dado la confianza para abordar el desarrollo de sistemas backend más complejos.
-            </div>
-            
-            <div class="reflection-text">
-                <strong>Próximos pasos:</strong> Planeo profundizar en tecnologías como GraphQL como alternativa a REST, explorar patrones de microservicios y continuar mejorando mis habilidades en el diseño de arquitecturas de sistemas distribuidos.
-            </div>
+            <p class="reflection-text">
+                Durante esta semana, al explorar el desarrollo backend con PHP y JSP, fui consciente de cómo mi comprensión 
+                del desarrollo web completo ha evolucionado. Al principio me resultó complejo diferenciar cuándo usar cada 
+                tecnología, pero al practicar y comparar sus usos en distintos ejemplos, desarrollé una mejor intuición sobre 
+                su aplicación. Esta experiencia me hizo reflexionar sobre la importancia de escribir código mantenible y 
+                escalable en el lado del servidor.
+            </p>
+            <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí a desarrollar aplicaciones web backend usando PHP y JSP, comprendiendo la arquitectura del lado del 
+                servidor y cómo gestionar bases de datos de manera eficiente.
+            </p>
+            <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
+            <p class="reflection-answer">
+                Aprendí practicando con ejemplos reales, configurando servidores web y analizando cómo se comporta cada 
+                tecnología en diferentes escenarios de desarrollo.
+            </p>
+            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
+            <p class="reflection-answer">
+                Lo que más me impresionó fue la versatilidad de PHP para el desarrollo web y la robustez de JSP para 
+                aplicaciones empresariales. Ambas tecnologías ofrecen diferentes enfoques para resolver problemas similares.
+            </p>
         </div>
     </div>
 
-        <script src="script13.js"></script>
+    <script src="script9.js"></script>
 </body>
 </html>
