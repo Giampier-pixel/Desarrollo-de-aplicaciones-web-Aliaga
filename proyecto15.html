@@ -59,86 +59,43 @@
             
             <div class="exercises-container">
                 <!-- Ejercicio 1: Arquitectura de Microservicios -->
-                <div class="exercise-card">
-                    <h3>1. Arquitectura de Microservicios</h3>
-                    <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">👥 User Service</div>
-                                <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
-                                <p>Gestión de usuarios y autenticación</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">📦 Product Service</div>
-                                <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
-                                <p>Catálogo de productos y inventario</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">🛒 Order Service</div>
-                                <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
-                                <p>Procesamiento de pedidos y lógica de negocio</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">💳 Payment Service</div>
-                                <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
-                                <p>Procesamiento de pagos y transacciones</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# User Service - views.py
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
-import json
-import uuid
-
-@method_decorator(csrf_exempt, name='dispatch')
-class UserAPIView(View):
-    def get(self, request, user_id=None):
-        if user_id:
-            # Simular búsqueda de usuario
-            user_data = {
-                'id': user_id,
-                'username': f'user_{user_id}',
-                'email': f'user_{user_id}@example.com',
-                'service': 'user-service',
-                'version': '1.0.0'
-            }
-            return JsonResponse(user_data)
-        else:
-            return JsonResponse({'users': ['user_1', 'user_2', 'user_3']})
+                <!-- Ejercicio 1: Sistema Inteligente con IA -->
+<div class="exercise-card">
+    <h3>1. Sistema Inteligente con IA</h3>
+    <p>Implementación de un chatbot inteligente usando un modelo de lenguaje ligero para análisis de texto y respuestas automáticas.</p>
     
-    def post(self, request):
-        data = json.loads(request.body)
-        user_id = str(uuid.uuid4())
-        
-        # Simular creación de usuario
-        response_data = {
-            'id': user_id,
-            'username': data.get('username'),
-            'email': data.get('email'),
-            'created': True,
-            'service': 'user-service'
-        }
-        
-        return JsonResponse(response_data, status=201)
-
-# Health Check
-def health_check(request):
-    return JsonResponse({
-        'status': 'healthy',
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': '2024-01-15T10:30:00Z'
-    })
+    <div class="demo-container">
+        <div class="demo-title">🤖 Chat Inteligente con IA</div>
+        <div class="django-demo">
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-message bot-message">
+                    <strong>🤖 Asistente IA:</strong> ¡Hola! Soy un asistente inteligente. Puedo ayudarte con análisis de texto, responder preguntas y generar contenido. ¿En qué puedo ayudarte?
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <textarea id="userInput" placeholder="Escribe tu mensaje aquí..." rows="3"></textarea>
+                <button onclick="sendMessage()" class="topic-button">Enviar Mensaje</button>
+            </div>
+            <div class="demo-section">
+                <div class="demo-title">📊 Análisis en Tiempo Real</div>
+                <div class="analysis-container">
+                    <div class="analysis-item">
+                        <span>Mensajes procesados:</span>
+                        <span id="messageCount">0</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span>Sentimiento detectado:</span>
+                        <span id="sentiment">Neutral</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span>Confianza del modelo:</span>
+                        <span id="confidence">--</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
 
@@ -170,6 +127,6 @@ def health_check(request):
             </div>
 
     </div>
-    <script src="script14.js"></script>
+    <script src="script15.js"></script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9626c2a49a0f7842',t:'MTc1MzA1OTYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
