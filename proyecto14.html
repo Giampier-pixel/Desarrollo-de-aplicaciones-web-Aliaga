@@ -59,359 +59,123 @@
             </div>
         </div>
 
-        <!-- Ejercicios y Resultados -->
-        <div class="section">
-            <h2>Ejercicios y Resultados</h2>
+<!-- Ejercicios y Resultados -->
+<div class="section">
+    <h2>Ejercicios y Resultados</h2>
+    
+    <div class="exercises-container">
+        <!-- Ejercicio 1: Aplicación Orientada a Objetos -->
+        <div class="exercise-card">
+            <h3>1. Aplicación Orientada a Objetos - Clases Persona y Estudiante</h3>
+            <p>Implementación de herencia con las clases Persona y Estudiante usando principios de POO en Python.</p>
             
-            <div class="exercises-container">
-                <!-- Ejercicio 1: Arquitectura de Microservicios -->
-                <div class="exercise-card">
-                    <h3>1. Arquitectura de Microservicios</h3>
-                    <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">👥 User Service</div>
-                                <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
-                                <p>Gestión de usuarios y autenticación</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">📦 Product Service</div>
-                                <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
-                                <p>Catálogo de productos y inventario</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">🛒 Order Service</div>
-                                <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
-                                <p>Procesamiento de pedidos y lógica de negocio</p>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">💳 Payment Service</div>
-                                <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
-                                <p>Procesamiento de pagos y transacciones</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# User Service - views.py
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
-import json
-import uuid
-
-@method_decorator(csrf_exempt, name='dispatch')
-class UserAPIView(View):
-    def get(self, request, user_id=None):
-        if user_id:
-            # Simular búsqueda de usuario
-            user_data = {
-                'id': user_id,
-                'username': f'user_{user_id}',
-                'email': f'user_{user_id}@example.com',
-                'service': 'user-service',
-                'version': '1.0.0'
-            }
-            return JsonResponse(user_data)
-        else:
-            return JsonResponse({'users': ['user_1', 'user_2', 'user_3']})
-    
-    def post(self, request):
-        data = json.loads(request.body)
-        user_id = str(uuid.uuid4())
-        
-        # Simular creación de usuario
-        response_data = {
-            'id': user_id,
-            'username': data.get('username'),
-            'email': data.get('email'),
-            'created': True,
-            'service': 'user-service'
-        }
-        
-        return JsonResponse(response_data, status=201)
-
-# Health Check
-def health_check(request):
-    return JsonResponse({
-        'status': 'healthy',
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': '2024-01-15T10:30:00Z'
-    })
-                    </div>
-                </div>
-
-                <!-- Ejercicio 2: Comunicación entre Microservicios -->
-                <div class="exercise-card">
-                    <h3>2. Comunicación entre Microservicios</h3>
-                    <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🔄 Flujo de Comunicación</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
-                                <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
-                            </div>
-                            <div class="result-display" id="communication-log">
-                                <div class="model-field">Esperando simulación...</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Service Communication - service_client.py
-import requests
-import asyncio
-import aiohttp
-from django.conf import settings
-import json
-import logging
-
-class ServiceClient:
-    def __init__(self, service_name, base_url=None):
-        self.service_name = service_name
-        self.base_url = base_url or self.discover_service()
-        self.timeout = 30
-        self.circuit_breaker = CircuitBreaker()
-    
-    def discover_service(self):
-        """Service Discovery Implementation"""
-        try:
-            discovery_url = settings.MICROSERVICE_CONFIG['DISCOVERY_URL']
-            response = requests.get(f"{discovery_url}/services/{self.service_name}")
-            service_info = response.json()
-            return service_info['url']
-        except Exception as e:
-            logging.error(f"Service discovery failed: {e}")
-            return None
-    
-    async def async_call(self, endpoint, method='GET', data=None):
-        """Asynchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
-        
-        try:
-            async with aiohttp.ClientSession() as session:
-                url = f"{self.base_url}/{endpoint}"
-                async with session.request(method, url, json=data, timeout=self.timeout) as response:
-                    result = await response.json()
-                    self.circuit_breaker.record_success()
-                    return result
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-    
-    def sync_call(self, endpoint, method='GET', data=None):
-        """Synchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
-        
-        try:
-            url = f"{self.base_url}/{endpoint}"
-            response = requests.request(method, url, json=data, timeout=self.timeout)
-            response.raise_for_status()
-            self.circuit_breaker.record_success()
-            return response.json()
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-                    </div>
-                </div>
-
-                <!-- Ejercicio 3: Containerización con Docker -->
-                <div class="exercise-card">
-                    <h3>3. Containerización con Docker</h3>
-                    <p>Implementación de microservicios usando Docker y Docker Compose.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🐳 Gestión de Contenedores</div>
+            <div class="demo-container">
+                <div class="demo-title">👨‍🎓 Simulador de Clases Persona y Estudiante</div>
+                <div class="django-demo">
+                    <div class="demo-section">
                         <div class="demo-form">
-                            <button onclick="simulateDockerBuild()">Build Images</button>
-                            <button onclick="simulateDockerRun()">Run Containers</button>
-                            <button onclick="simulateDockerScale()">Scale Services</button>
-                            <button onclick="clearDockerLogs()">Clear Logs</button>
-                        </div>
-                        <div class="result-display" id="docker-log">
-                            <div class="model-field">Docker logs aparecerán aquí...</div>
+                            <input type="text" id="nombre-persona" placeholder="Nombre" class="form-input">
+                            <input type="number" id="edad-persona" placeholder="Edad" class="form-input">
+                            <input type="text" id="carrera-estudiante" placeholder="Carrera (opcional)" class="form-input">
+                            <button onclick="crearPersonaOEstudiante()" class="demo-form button">Crear Instancia</button>
                         </div>
                     </div>
-
-                    <div class="code-container" data-lang="Dockerfile">
-# Dockerfile para microservicio Django
-FROM python:3.9-slim
-
-# Configurar variables de entorno
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=microservice.settings
-
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Crear directorio de trabajo
-WORKDIR /app
-
-# Copiar requirements y instalar dependencias Python
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copiar código fuente
-COPY . .
-
-# Crear usuario no-root
-RUN adduser --disabled-password --gecos '' appuser
-RUN chown -R appuser:appuser /app
-USER appuser
-
-# Exponer puerto
-EXPOSE 8000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health/ || exit 1
-
-# Comando por defecto
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "microservice.wsgi:application"]
-                    </div>
-
-                    <div class="code-container" data-lang="YAML">
-# docker-compose.yml
-version: '3.8'
-
-services:
-  user-service:
-    build: ./user-service
-    ports:
-      - "8001:8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@user-db:5432/userdb
-      - REDIS_URL=redis://redis:6379/0
-      - SERVICE_NAME=user-service
-    depends_on:
-      - user-db
-      - redis
-    networks:
-      - microservices-network
-    deploy:
-      replicas: 2
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-
-  product-service:
-    build: ./product-service
-    ports:
-      - "8002:8000"
-    environment:
-      - DATABASE_URL=postgresql://product:password@product-db:5432/productdb
-      - REDIS_URL=redis://redis:6379/1
-      - SERVICE_NAME=product-service
-    depends_on:
-      - product-db
-      - redis
-    networks:
-      - microservices-network
-                    </div>
-                </div>
-
-                <!-- Ejercicio 4: Monitoreo y Observabilidad -->
-                <div class="exercise-card">
-                    <h3>4. Monitoreo y Observabilidad</h3>
-                    <p>Implementación de logging, métricas y health checks para microservicios.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">📊 Dashboard de Monitoreo</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Service Health Status</div>
-                                <div class="tag active">User Service: Healthy</div>
-                                <div class="tag active">Product Service: Healthy</div>
-                                <div class="tag">Order Service: Warning</div>
-                                <div class="tag active">Payment Service: Healthy</div>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">Métricas en Tiempo Real</div>
-                                <div class="model-field">Requests/sec: 1,247</div>
-                                <div class="model-field">Response Time: 89ms</div>
-                                <div class="model-field">Error Rate: 0.2%</div>
-                            </div>
+                    <div class="demo-section">
+                        <div class="demo-title">Resultado de la Instancia:</div>
+                        <div class="result-display" id="resultado-persona">
+                            <div class="model-field">Crea una persona o estudiante para ver el resultado...</div>
                         </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Monitoring and Health Checks
-from django.http import JsonResponse
-from django.db import connections
-from django.core.cache import cache
-import redis
-import time
-import psutil
-
-def health_check(request):
-    """Comprehensive health check endpoint"""
-    health_status = {
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': time.time(),
-        'status': 'healthy',
-        'checks': {}
-    }
-    
-    # Database connectivity check
-    try:
-        db_conn = connections['default']
-        db_conn.cursor()
-        health_status['checks']['database'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['database'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # Redis connectivity check
-    try:
-        cache.get('health_check')
-        health_status['checks']['redis'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['redis'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # System resources check
-    cpu_percent = psutil.cpu_percent()
-    memory_percent = psutil.virtual_memory().percent
-    
-    health_status['checks']['system'] = {
-        'cpu_usage': f'{cpu_percent}%',
-        'memory_usage': f'{memory_percent}%',
-        'status': 'healthy' if cpu_percent < 80 and memory_percent < 80 else 'warning'
-    }
-    
-    return JsonResponse(health_status)
-
-def metrics(request):
-    """Prometheus-style metrics endpoint"""
-    metrics_data = {
-        'http_requests_total': 15420,
-        'http_request_duration_seconds': 0.089,
-        'database_connections_active': 12,
-        'redis_connections_active': 8,
-        'memory_usage_bytes': psutil.virtual_memory().used,
-        'cpu_usage_percent': psutil.cpu_percent()
-    }
-    
-    return JsonResponse(metrics_data)
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Ejercicio 2: Aplicación Web Flask con MySQL -->
+        <div class="exercise-card">
+            <h3>2. Aplicación Web Flask - Registro de Estudiantes</h3>
+            <p>Desarrollo de una aplicación web con Flask conectada a base de datos MySQL para gestionar estudiantes.</p>
+            
+            <div class="demo-container">
+                <div class="demo-title">🌐 Formulario de Registro de Estudiantes</div>
+                <div class="django-demo">
+                    <div class="demo-section">
+                        <div class="demo-form">
+                            <input type="text" id="nombre-estudiante" placeholder="Nombre del Estudiante" class="form-input">
+                            <input type="text" id="direccion-estudiante" placeholder="Dirección" class="form-input">
+                            <input type="text" id="ciudad-estudiante" placeholder="Ciudad" class="form-input">
+                            <button onclick="registrarEstudiante()" class="demo-form button">Guardar Estudiante</button>
+                            <button onclick="cargarEstudiantes()" class="demo-form button">Ver Estudiantes</button>
+                        </div>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-title">Estado de la Base de Datos:</div>
+                        <div class="result-display" id="resultado-flask">
+                            <div class="model-field">Base de datos conectada a Aiven MySQL ✓</div>
+                            <div class="model-field">Tabla 'estudiantes' lista ✓</div>
+                        </div>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-title">Estudiantes Registrados:</div>
+                        <div class="result-display" id="lista-estudiantes">
+                            <div class="model-field">Haz clic en "Ver Estudiantes" para cargar los datos...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 3: Arquitectura de Microservicios -->
+        <div class="exercise-card">
+            <h3>3. Arquitectura de Microservicios</h3>
+            <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
+            
+            <div class="demo-container">
+                <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
+                <div class="django-demo">
+                    <div class="demo-section">
+                        <div class="demo-title">👥 User Service</div>
+                        <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
+                        <p>Gestión de usuarios y autenticación</p>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-title">📦 Product Service</div>
+                        <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
+                        <p>Catálogo de productos y inventario</p>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-title">🛒 Order Service</div>
+                        <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
+                        <p>Procesamiento de pedidos y lógica de negocio</p>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-title">💳 Payment Service</div>
+                        <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
+                        <p>Procesamiento de pagos y transacciones</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicio 4: Comunicación entre Microservicios -->
+        <div class="exercise-card">
+            <h3>4. Comunicación entre Microservicios</h3>
+            <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
+            
+            <div class="demo-container">
+                <div class="demo-title">🔄 Flujo de Comunicación</div>
+                <div class="django-demo">
+                    <div class="demo-section">
+                        <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
+                        <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
+                    </div>
+                    <div class="result-display" id="communication-log">
+                        <div class="model-field">Esperando simulación...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
         <!-- Reflexión Final -->
         <div class="section reflection">
