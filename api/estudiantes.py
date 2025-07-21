@@ -6,14 +6,16 @@ from urllib.parse import parse_qs
 
 def obtener_conexion():
     return pymysql.connect(
-        host=os.environ.get('MYSQL_HOST'),
-        user=os.environ.get('MYSQL_USER'),
-        password=os.environ.get('MYSQL_PASSWORD'),
-        database=os.environ.get('MYSQL_DATABASE'),
-        port=int(os.environ.get('MYSQL_PORT', 3306)),
+        host=os.environ.get('MYSQL_HOST', 'estudiantes-db-1-flask21e12ed.e.aivencloud.com'),
+        user=os.environ.get('MYSQL_USER', 'avnadmin'),
+        password=os.environ.get('MYSQL_PASSWORD', 'AVNS_jNTjSKAKXF6vAkvb9Qg'),
+        database=os.environ.get('MYSQL_DATABASE', 'defaultdb'),
+        port=int(os.environ.get('MYSQL_PORT', 24967)),
         cursorclass=pymysql.cursors.DictCursor,
-        ssl_verify_cert=False,
-        ssl_verify_identity=False
+        ssl={
+            'ssl_disabled': False
+        },
+        charset='utf8mb4'
     )
 
 class handler(BaseHTTPRequestHandler):
