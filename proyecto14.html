@@ -60,645 +60,358 @@
         </div>
 
         <!-- Ejercicios y Resultados -->
-<!-- Ejercicios y Resultados -->
-<div class="section">
-    <h2>Ejercicios y Resultados</h2>
-    
-    <div class="exercises-container">
-        <!-- Ejercicio 1: Programación Orientada a Objetos -->
-        <div class="exercise-card">
-            <h3>1. Programación Orientada a Objetos - Clases Persona y Estudiante</h3>
-            <p>Implementación de herencia y polimorfismo en Python con clases base y derivadas.</p>
+        <div class="section">
+            <h2>Ejercicios y Resultados</h2>
             
-            <div class="demo-container">
-                <div class="demo-title">👨‍🎓 Simulador de Clases Python</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="demo-title">Crear Estudiante</div>
-                        <div class="demo-form">
-                            <input type="text" id="nombre-estudiante" placeholder="Nombre" class="demo-input">
-                            <input type="number" id="edad-estudiante" placeholder="Edad" class="demo-input">
-                            <input type="text" id="carrera-estudiante" placeholder="Carrera" class="demo-input">
-                            <button onclick="crearEstudiante()">Crear Estudiante</button>
+            <div class="exercises-container">
+                <!-- Ejercicio 1: Arquitectura de Microservicios -->
+                <div class="exercise-card">
+                    <h3>1. Arquitectura de Microservicios</h3>
+                    <p>Implementación de un sistema distribuido con múltiples servicios Django.</p>
+                    
+                    <div class="demo-container">
+                        <div class="demo-title">🏗️ Simulación de Arquitectura de Microservicios</div>
+                        <div class="django-demo">
+                            <div class="demo-section">
+                                <div class="demo-title">👥 User Service</div>
+                                <div class="tag active" onclick="toggleService('user-service')">● ACTIVE</div>
+                                <p>Gestión de usuarios y autenticación</p>
+                            </div>
+                            <div class="demo-section">
+                                <div class="demo-title">📦 Product Service</div>
+                                <div class="tag active" onclick="toggleService('product-service')">● ACTIVE</div>
+                                <p>Catálogo de productos y inventario</p>
+                            </div>
+                            <div class="demo-section">
+                                <div class="demo-title">🛒 Order Service</div>
+                                <div class="tag active" onclick="toggleService('order-service')">● ACTIVE</div>
+                                <p>Procesamiento de pedidos y lógica de negocio</p>
+                            </div>
+                            <div class="demo-section">
+                                <div class="demo-title">💳 Payment Service</div>
+                                <div class="tag active" onclick="toggleService('payment-service')">● ACTIVE</div>
+                                <p>Procesamiento de pagos y transacciones</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="result-display" id="resultado-estudiante">
-                        <div class="model-field">Los resultados aparecerán aquí...</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="code-container" data-lang="Python">
-# api/persona.py
-class Persona:
-    def __init__(self, nombre, edad):
-        self.nombre = nombre
-        self.edad = edad
-    
-    def presentarse(self):
-        return f"Hola, soy {self.nombre} y tengo {self.edad} años."
-    
-    def to_dict(self):
-        return {
-            'nombre': self.nombre,
-            'edad': self.edad,
-            'tipo': 'Persona'
-        }
+                    <div class="code-container" data-lang="Python">
+# User Service - views.py
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+import json
+import uuid
 
-class Estudiante(Persona):
-    def __init__(self, nombre, edad, carrera):
-        super().__init__(nombre, edad)
-        self.carrera = carrera
-    
-    def estudiar(self):
-        return f"{self.nombre} está estudiando {self.carrera}."
-    
-    def presentarse(self):
-        return f"Hola, soy {self.nombre}, tengo {self.edad} años y estudio {self.carrera}."
-    
-    def to_dict(self):
-        return {
-            'nombre': self.nombre,
-            'edad': self.edad,
-            'carrera': self.carrera,
-            'tipo': 'Estudiante'
-        }
-
-# Ejemplo de uso
-def crear_estudiante_ejemplo():
-    alumno = Estudiante("Laura", 20, "Ingeniería de Sistemas")
-    return {
-        'presentacion': alumno.presentarse(),
-        'actividad': alumno.estudiar(),
-        'datos': alumno.to_dict()
-    }
-            </div>
-        </div>
-
-        <!-- Ejercicio 2: API REST con Flask -->
-        <div class="exercise-card">
-            <h3>2. API REST con Flask y Base de Datos MySQL</h3>
-            <p>Desarrollo de una aplicación web completa con conexión a base de datos Aiven MySQL.</p>
-            
-            <div class="demo-container">
-                <div class="demo-title">🌐 Simulador de API Flask</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="demo-title">Registro de Estudiante</div>
-                        <div class="demo-form">
-                            <input type="text" id="nombre-flask" placeholder="Nombre completo" class="demo-input">
-                            <input type="text" id="direccion-flask" placeholder="Dirección" class="demo-input">
-                            <input type="text" id="ciudad-flask" placeholder="Ciudad" class="demo-input">
-                            <button onclick="registrarEstudiante()">Registrar en BD</button>
-                            <button onclick="listarEstudiantes()">Listar Estudiantes</button>
-                        </div>
-                    </div>
-                    <div class="result-display" id="resultado-flask">
-                        <div class="model-field">Esperando operación...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="code-container" data-lang="Python">
-# api/app.py
-from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
-import pymysql
-import os
-from datetime import datetime
-
-app = Flask(__name__)
-CORS(app)
-
-# Configuración de base de datos Aiven
-def get_db_connection():
-    try:
-        connection = pymysql.connect(
-            host='estudiantes-db-1-flask21e12ed.e.aivencloud.com',
-            user='avnadmin',
-            password=os.environ.get('DB_PASSWORD', 'your_password'),
-            database='defaultdb',
-            port=24967,
-            ssl={'ssl_mode': 'REQUIRED'},
-            cursorclass=pymysql.cursors.DictCursor
-        )
-        return connection
-    except Exception as e:
-        print(f"Error de conexión: {e}")
-        return None
-
-@app.route('/')
-def home():
-    return jsonify({
-        'message': 'API Flask Estudiantes funcionando',
-        'version': '1.0.0',
-        'timestamp': datetime.now().isoformat()
-    })
-
-@app.route('/api/estudiantes', methods=['GET'])
-def get_estudiantes():
-    connection = get_db_connection()
-    if not connection:
-        return jsonify({'error': 'Error de conexión a base de datos'}), 500
-    
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM estudiantes ORDER BY IdEstudiante DESC")
-            estudiantes = cursor.fetchall()
-        connection.close()
-        
-        return jsonify({
-            'success': True,
-            'data': estudiantes,
-            'count': len(estudiantes)
-        })
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/estudiantes', methods=['POST'])
-def create_estudiante():
-    data = request.get_json()
-    
-    if not data or not all(k in data for k in ('nombre', 'direccion', 'ciudad')):
-        return jsonify({'error': 'Datos incompletos'}), 400
-    
-    connection = get_db_connection()
-    if not connection:
-        return jsonify({'error': 'Error de conexión a base de datos'}), 500
-    
-    try:
-        with connection.cursor() as cursor:
-            query = """INSERT INTO estudiantes 
-                      (nomEstudiante, dirEstudiante, ciuEstudiante) 
-                      VALUES (%s, %s, %s)"""
-            cursor.execute(query, (data['nombre'], data['direccion'], data['ciudad']))
-            connection.commit()
-            estudiante_id = cursor.lastrowid
-        
-        connection.close()
-        
-        return jsonify({
-            'success': True,
-            'message': 'Estudiante registrado exitosamente',
-            'id': estudiante_id,
-            'data': {
-                'id': estudiante_id,
-                'nombre': data['nombre'],
-                'direccion': data['direccion'],
-                'ciudad': data['ciudad']
+@method_decorator(csrf_exempt, name='dispatch')
+class UserAPIView(View):
+    def get(self, request, user_id=None):
+        if user_id:
+            # Simular búsqueda de usuario
+            user_data = {
+                'id': user_id,
+                'username': f'user_{user_id}',
+                'email': f'user_{user_id}@example.com',
+                'service': 'user-service',
+                'version': '1.0.0'
             }
-        }), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/estudiantes/<int:id>', methods=['DELETE'])
-def delete_estudiante(id):
-    connection = get_db_connection()
-    if not connection:
-        return jsonify({'error': 'Error de conexión a base de datos'}), 500
-    
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM estudiantes WHERE IdEstudiante = %s", (id,))
-            connection.commit()
-            affected_rows = cursor.rowcount
-        
-        connection.close()
-        
-        if affected_rows > 0:
-            return jsonify({
-                'success': True,
-                'message': f'Estudiante {id} eliminado exitosamente'
-            })
+            return JsonResponse(user_data)
         else:
-            return jsonify({'error': 'Estudiante no encontrado'}), 404
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-# Health check endpoint
-@app.route('/health')
-def health():
-    connection = get_db_connection()
-    db_status = 'connected' if connection else 'disconnected'
-    if connection:
-        connection.close()
+            return JsonResponse({'users': ['user_1', 'user_2', 'user_3']})
     
-    return jsonify({
+    def post(self, request):
+        data = json.loads(request.body)
+        user_id = str(uuid.uuid4())
+        
+        # Simular creación de usuario
+        response_data = {
+            'id': user_id,
+            'username': data.get('username'),
+            'email': data.get('email'),
+            'created': True,
+            'service': 'user-service'
+        }
+        
+        return JsonResponse(response_data, status=201)
+
+# Health Check
+def health_check(request):
+    return JsonResponse({
         'status': 'healthy',
-        'database': db_status,
-        'timestamp': datetime.now().isoformat()
+        'service': 'user-service',
+        'version': '1.0.0',
+        'timestamp': '2024-01-15T10:30:00Z'
     })
+                    </div>
+                </div>
 
-# Vercel compatibility
-if __name__ == '__main__':
-    app.run(debug=True)
-            </div>
-        </div>
-
-        <!-- Ejercicio 3: Templates Jinja2 y Formularios -->
-        <div class="exercise-card">
-            <h3>3. Templates Jinja2 y Manejo de Formularios</h3>
-            <p>Implementación de plantillas dinámicas y procesamiento de formularios HTML.</p>
-            
-            <div class="demo-container">
-                <div class="demo-title">📄 Generador de Templates</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="demo-title">Vista de Estudiantes</div>
-                        <div class="demo-form">
-                            <select id="template-tipo" class="demo-input">
-                                <option value="lista">Lista de Estudiantes</option>
-                                <option value="formulario">Formulario de Registro</option>
-                                <option value="detalle">Detalle de Estudiante</option>
-                            </select>
-                            <button onclick="generarTemplate()">Generar Vista</button>
+                <!-- Ejercicio 2: Comunicación entre Microservicios -->
+                <div class="exercise-card">
+                    <h3>2. Comunicación entre Microservicios</h3>
+                    <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
+                    
+                    <div class="demo-container">
+                        <div class="demo-title">🔄 Flujo de Comunicación</div>
+                        <div class="django-demo">
+                            <div class="demo-section">
+                                <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
+                                <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
+                            </div>
+                            <div class="result-display" id="communication-log">
+                                <div class="model-field">Esperando simulación...</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="result-display" id="resultado-template">
-                        <div class="model-field">Selecciona un tipo de template...</div>
+
+                    <div class="code-container" data-lang="Python">
+# Service Communication - service_client.py
+import requests
+import asyncio
+import aiohttp
+from django.conf import settings
+import json
+import logging
+
+class ServiceClient:
+    def __init__(self, service_name, base_url=None):
+        self.service_name = service_name
+        self.base_url = base_url or self.discover_service()
+        self.timeout = 30
+        self.circuit_breaker = CircuitBreaker()
+    
+    def discover_service(self):
+        """Service Discovery Implementation"""
+        try:
+            discovery_url = settings.MICROSERVICE_CONFIG['DISCOVERY_URL']
+            response = requests.get(f"{discovery_url}/services/{self.service_name}")
+            service_info = response.json()
+            return service_info['url']
+        except Exception as e:
+            logging.error(f"Service discovery failed: {e}")
+            return None
+    
+    async def async_call(self, endpoint, method='GET', data=None):
+        """Asynchronous service call"""
+        if not self.circuit_breaker.can_execute():
+            raise Exception("Circuit breaker is open")
+        
+        try:
+            async with aiohttp.ClientSession() as session:
+                url = f"{self.base_url}/{endpoint}"
+                async with session.request(method, url, json=data, timeout=self.timeout) as response:
+                    result = await response.json()
+                    self.circuit_breaker.record_success()
+                    return result
+        except Exception as e:
+            self.circuit_breaker.record_failure()
+            raise e
+    
+    def sync_call(self, endpoint, method='GET', data=None):
+        """Synchronous service call"""
+        if not self.circuit_breaker.can_execute():
+            raise Exception("Circuit breaker is open")
+        
+        try:
+            url = f"{self.base_url}/{endpoint}"
+            response = requests.request(method, url, json=data, timeout=self.timeout)
+            response.raise_for_status()
+            self.circuit_breaker.record_success()
+            return response.json()
+        except Exception as e:
+            self.circuit_breaker.record_failure()
+            raise e
+                    </div>
+                </div>
+
+                <!-- Ejercicio 3: Containerización con Docker -->
+                <div class="exercise-card">
+                    <h3>3. Containerización con Docker</h3>
+                    <p>Implementación de microservicios usando Docker y Docker Compose.</p>
+                    
+                    <div class="demo-container">
+                        <div class="demo-title">🐳 Gestión de Contenedores</div>
+                        <div class="demo-form">
+                            <button onclick="simulateDockerBuild()">Build Images</button>
+                            <button onclick="simulateDockerRun()">Run Containers</button>
+                            <button onclick="simulateDockerScale()">Scale Services</button>
+                            <button onclick="clearDockerLogs()">Clear Logs</button>
+                        </div>
+                        <div class="result-display" id="docker-log">
+                            <div class="model-field">Docker logs aparecerán aquí...</div>
+                        </div>
+                    </div>
+
+                    <div class="code-container" data-lang="Dockerfile">
+# Dockerfile para microservicio Django
+FROM python:3.9-slim
+
+# Configurar variables de entorno
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE=microservice.settings
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar requirements y instalar dependencias Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar código fuente
+COPY . .
+
+# Crear usuario no-root
+RUN adduser --disabled-password --gecos '' appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Exponer puerto
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health/ || exit 1
+
+# Comando por defecto
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "microservice.wsgi:application"]
+                    </div>
+
+                    <div class="code-container" data-lang="YAML">
+# docker-compose.yml
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@user-db:5432/userdb
+      - REDIS_URL=redis://redis:6379/0
+      - SERVICE_NAME=user-service
+    depends_on:
+      - user-db
+      - redis
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://product:password@product-db:5432/productdb
+      - REDIS_URL=redis://redis:6379/1
+      - SERVICE_NAME=product-service
+    depends_on:
+      - product-db
+      - redis
+    networks:
+      - microservices-network
+                    </div>
+                </div>
+
+                <!-- Ejercicio 4: Monitoreo y Observabilidad -->
+                <div class="exercise-card">
+                    <h3>4. Monitoreo y Observabilidad</h3>
+                    <p>Implementación de logging, métricas y health checks para microservicios.</p>
+                    
+                    <div class="demo-container">
+                        <div class="demo-title">📊 Dashboard de Monitoreo</div>
+                        <div class="django-demo">
+                            <div class="demo-section">
+                                <div class="demo-title">Service Health Status</div>
+                                <div class="tag active">User Service: Healthy</div>
+                                <div class="tag active">Product Service: Healthy</div>
+                                <div class="tag">Order Service: Warning</div>
+                                <div class="tag active">Payment Service: Healthy</div>
+                            </div>
+                            <div class="demo-section">
+                                <div class="demo-title">Métricas en Tiempo Real</div>
+                                <div class="model-field">Requests/sec: 1,247</div>
+                                <div class="model-field">Response Time: 89ms</div>
+                                <div class="model-field">Error Rate: 0.2%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-container" data-lang="Python">
+# Monitoring and Health Checks
+from django.http import JsonResponse
+from django.db import connections
+from django.core.cache import cache
+import redis
+import time
+import psutil
+
+def health_check(request):
+    """Comprehensive health check endpoint"""
+    health_status = {
+        'service': 'user-service',
+        'version': '1.0.0',
+        'timestamp': time.time(),
+        'status': 'healthy',
+        'checks': {}
+    }
+    
+    # Database connectivity check
+    try:
+        db_conn = connections['default']
+        db_conn.cursor()
+        health_status['checks']['database'] = 'healthy'
+    except Exception as e:
+        health_status['checks']['database'] = f'unhealthy: {str(e)}'
+        health_status['status'] = 'unhealthy'
+    
+    # Redis connectivity check
+    try:
+        cache.get('health_check')
+        health_status['checks']['redis'] = 'healthy'
+    except Exception as e:
+        health_status['checks']['redis'] = f'unhealthy: {str(e)}'
+        health_status['status'] = 'unhealthy'
+    
+    # System resources check
+    cpu_percent = psutil.cpu_percent()
+    memory_percent = psutil.virtual_memory().percent
+    
+    health_status['checks']['system'] = {
+        'cpu_usage': f'{cpu_percent}%',
+        'memory_usage': f'{memory_percent}%',
+        'status': 'healthy' if cpu_percent < 80 and memory_percent < 80 else 'warning'
+    }
+    
+    return JsonResponse(health_status)
+
+def metrics(request):
+    """Prometheus-style metrics endpoint"""
+    metrics_data = {
+        'http_requests_total': 15420,
+        'http_request_duration_seconds': 0.089,
+        'database_connections_active': 12,
+        'redis_connections_active': 8,
+        'memory_usage_bytes': psutil.virtual_memory().used,
+        'cpu_usage_percent': psutil.cpu_percent()
+    }
+    
+    return JsonResponse(metrics_data)
                     </div>
                 </div>
             </div>
-
-            <div class="code-container" data-lang="HTML">
-<!-- api/templates/estudiantes.html -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo | default('Sistema de Estudiantes') }}</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .form-group { margin-bottom: 15px; }
-        .form-control { width: 100%; padding: 8px; border: 1px solid #ddd; }
-        .btn { padding: 10px 20px; background: #007bff; color: white; border: none; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>{{ titulo | default('Gestión de Estudiantes') }}</h1>
-        
-        {% if modo == 'formulario' %}
-        <form action="/api/estudiantes" method="post">
-            <div class="form-group">
-                <label>Nombre completo:</label>
-                <input type="text" name="nombre" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Dirección:</label>
-                <input type="text" name="direccion" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Ciudad:</label>
-                <input type="text" name="ciudad" class="form-control" required>
-            </div>
-            <button type="submit" class="btn">Registrar Estudiante</button>
-        </form>
-        {% endif %}
-        
-        {% if modo == 'lista' and estudiantes %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Dirección</th>
-                    <th>Ciudad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for estudiante in estudiantes %}
-                <tr>
-                    <td>{{ estudiante.IdEstudiante }}</td>
-                    <td>{{ estudiante.nomEstudiante }}</td>
-                    <td>{{ estudiante.dirEstudiante }}</td>
-                    <td>{{ estudiante.ciuEstudiante }}</td>
-                    <td>
-                        <a href="/estudiantes/{{ estudiante.IdEstudiante }}">Ver</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <p>Total de estudiantes: {{ estudiantes|length }}</p>
-        {% elif modo == 'lista' %}
-        <p>No hay estudiantes registrados.</p>
-        {% endif %}
-        
-        {% if mensaje %}
-        <div class="alert">{{ mensaje }}</div>
-        {% endif %}
-    </div>
-</body>
-</html>
-            </div>
         </div>
-
-        <!-- Ejercicio 4: Manejo de Excepciones y Validación -->
-        <div class="exercise-card">
-            <h3>4. Manejo de Excepciones y Validación de Datos</h3>
-            <p>Implementación de validación robusta y manejo de errores en aplicaciones Flask.</p>
-            
-            <div class="demo-container">
-                <div class="demo-title">🔍 Validador de Datos</div>
-                <div class="django-demo">
-                    <div class="demo-section">
-                        <div class="demo-title">Probar Validaciones</div>
-                        <div class="demo-form">
-                            <input type="text" id="test-nombre" placeholder="Nombre (min 2 chars)" class="demo-input">
-                            <input type="email" id="test-email" placeholder="Email válido" class="demo-input">
-                            <input type="number" id="test-edad" placeholder="Edad (18-100)" class="demo-input">
-                            <button onclick="validarDatos()">Validar Datos</button>
-                        </div>
-                    </div>
-                    <div class="result-display" id="resultado-validacion">
-                        <div class="model-field">Ingresa datos para validar...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="code-container" data-lang="Python">
-# api/validators.py
-import re
-from datetime import datetime
-
-class ValidationError(Exception):
-    """Excepción personalizada para errores de validación"""
-    def __init__(self, message, field=None):
-        self.message = message
-        self.field = field
-        super().__init__(self.message)
-
-class EstudianteValidator:
-    @staticmethod
-    def validate_nombre(nombre):
-        """Valida el nombre del estudiante"""
-        try:
-            if not nombre or not isinstance(nombre, str):
-                raise ValidationError("El nombre es requerido", "nombre")
-            
-            nombre = nombre.strip()
-            if len(nombre) < 2:
-                raise ValidationError("El nombre debe tener al menos 2 caracteres", "nombre")
-            
-            if len(nombre) > 100:
-                raise ValidationError("El nombre no puede exceder 100 caracteres", "nombre")
-            
-            if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$', nombre):
-                raise ValidationError("El nombre solo puede contener letras y espacios", "nombre")
-                
-            return nombre
-        except ValidationError:
-            raise
-        except Exception as e:
-            raise ValidationError(f"Error inesperado validando nombre: {str(e)}", "nombre")
-    
-    @staticmethod
-    def validate_email(email):
-        """Valida el formato del email"""
-        try:
-            if not email:
-                raise ValidationError("El email es requerido", "email")
-            
-            email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-            if not re.match(email_pattern, email):
-                raise ValidationError("Formato de email inválido", "email")
-            
-            return email.lower().strip()
-        except ValidationError:
-            raise
-        except Exception as e:
-            raise ValidationError(f"Error validando email: {str(e)}", "email")
-    
-    @staticmethod
-    def validate_edad(edad):
-        """Valida la edad del estudiante"""
-        try:
-            if edad is None:
-                raise ValidationError("La edad es requerida", "edad")
-            
-            edad = int(edad)
-            if edad < 18:
-                raise ValidationError("La edad mínima es 18 años", "edad")
-            
-            if edad > 100:
-                raise ValidationError("La edad máxima es 100 años", "edad")
-            
-            return edad
-        except ValueError:
-            raise ValidationError("La edad debe ser un número entero", "edad")
-        except ValidationError:
-            raise
-        except Exception as e:
-            raise ValidationError(f"Error validando edad: {str(e)}", "edad")
-    
-    @classmethod
-    def validate_estudiante(cls, data):
-        """Valida todos los datos de un estudiante"""
-        errors = {}
-        validated_data = {}
-        
-        # Validar cada campo individualmente
-        for field, validator in [
-            ('nombre', cls.validate_nombre),
-            ('email', cls.validate_email),
-            ('edad', cls.validate_edad)
-        ]:
-            try:
-                if field in data:
-                    validated_data[field] = validator(data[field])
-            except ValidationError as e:
-                errors[field] = e.message
-        
-        if errors:
-            raise ValidationError("Errores de validación encontrados", errors)
-        
-        return validated_data
-
-# api/error_handlers.py
-from flask import jsonify
-from .validators import ValidationError
-
-def register_error_handlers(app):
-    @app.errorhandler(ValidationError)
-    def handle_validation_error(e):
-        return jsonify({
-            'success': False,
-            'error': 'Validation Error',
-            'message': e.message,
-            'field': e.field if hasattr(e, 'field') else None
-        }), 400
-    
-    @app.errorhandler(404)
-    def handle_not_found(e):
-        return jsonify({
-            'success': False,
-            'error': 'Not Found',
-            'message': 'Recurso no encontrado'
-        }), 404
-    
-    @app.errorhandler(500)
-    def handle_internal_error(e):
-        return jsonify({
-            'success': False,
-            'error': 'Internal Server Error',
-            'message': 'Error interno del servidor'
-        }), 500
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// Funciones para simular los ejercicios
-function crearEstudiante() {
-    const nombre = document.getElementById('nombre-estudiante').value;
-    const edad = document.getElementById('edad-estudiante').value;
-    const carrera = document.getElementById('carrera-estudiante').value;
-    
-    if (!nombre || !edad || !carrera) {
-        document.getElementById('resultado-estudiante').innerHTML = 
-            '<div class="model-field error">Todos los campos son requeridos</div>';
-        return;
-    }
-    
-    const resultado = `
-        <div class="model-field success">✅ Estudiante creado exitosamente</div>
-        <div class="model-field">📝 Presentación: "Hola, soy ${nombre}, tengo ${edad} años y estudio ${carrera}."</div>
-        <div class="model-field">📚 Actividad: "${nombre} está estudiando ${carrera}."</div>
-        <div class="model-field">🔗 Tipo: Estudiante (hereda de Persona)</div>
-    `;
-    document.getElementById('resultado-estudiante').innerHTML = resultado;
-}
-
-function registrarEstudiante() {
-    const nombre = document.getElementById('nombre-flask').value;
-    const direccion = document.getElementById('direccion-flask').value;
-    const ciudad = document.getElementById('ciudad-flask').value;
-    
-    if (!nombre || !direccion || !ciudad) {
-        document.getElementById('resultado-flask').innerHTML = 
-            '<div class="model-field error">Todos los campos son requeridos</div>';
-        return;
-    }
-    
-    const resultado = `
-        <div class="model-field success">✅ POST /api/estudiantes - Status: 201</div>
-        <div class="model-field">📊 Datos enviados a MySQL Aiven</div>
-        <div class="model-field">👤 Nombre: ${nombre}</div>
-        <div class="model-field">📍 Dirección: ${direccion}</div>
-        <div class="model-field">🏙️ Ciudad: ${ciudad}</div>
-        <div class="model-field">🔑 ID generado: ${Math.floor(Math.random() * 1000) + 1}</div>
-    `;
-    document.getElementById('resultado-flask').innerHTML = resultado;
-    
-    // Limpiar formulario
-    document.getElementById('nombre-flask').value = '';
-    document.getElementById('direccion-flask').value = '';
-    document.getElementById('ciudad-flask').value = '';
-}
-
-function listarEstudiantes() {
-    const estudiantes = [
-        { id: 1, nombre: "Ana García", direccion: "Av. Principal 123", ciudad: "Lima" },
-        { id: 2, nombre: "Carlos Mendoza", direccion: "Jr. Los Olivos 456", ciudad: "Arequipa" },
-        { id: 3, nombre: "María Fernández", direccion: "Ca. Las Flores 789", ciudad: "Cusco" }
-    ];
-    
-    let resultado = '<div class="model-field success">✅ GET /api/estudiantes - Status: 200</div>';
-    resultado += '<div class="model-field">📋 Estudiantes registrados en la BD:</div>';
-    
-    estudiantes.forEach(est => {
-        resultado += `<div class="model-field">🎓 ID: ${est.id} | ${est.nombre} - ${est.ciudad}</div>`;
-    });
-    
-    resultado += `<div class="model-field">📊 Total: ${estudiantes.length} estudiantes</div>`;
-    document.getElementById('resultado-flask').innerHTML = resultado;
-}
-
-function generarTemplate() {
-    const tipo = document.getElementById('template-tipo').value;
-    let resultado = '';
-    
-    switch(tipo) {
-        case 'lista':
-            resultado = `
-                <div class="model-field success">✅ Template: estudiantes_lista.html</div>
-                <div class="model-field">🔄 Jinja2: {% for estudiante in estudiantes %}</div>
-                <div class="model-field">📄 Renderizando tabla con {{ estudiantes|length }} registros</div>
-                <div class="model-field">🎨 Aplicando estilos CSS Bootstrap</div>
-            `;
-            break;
-        case 'formulario':
-            resultado = `
-                <div class="model-field success">✅ Template: formulario_estudiante.html</div>
-                <div class="model-field">📝 Form action="/api/estudiantes" method="POST"</div>
-                <div class="model-field">🛡️ CSRF Token incluido para seguridad</div>
-                <div class="model-field">✅ Validación HTML5 activada</div>
-            `;
-            break;
-        case 'detalle':
-            resultado = `
-                <div class="model-field success">✅ Template: detalle_estudiante.html</div>
-                <div class="model-field">👤 Mostrando datos de {{ estudiante.nomEstudiante }}</div>
-                <div class="model-field">📍 Dirección: {{ estudiante.dirEstudiante }}</div>
-                <div class="model-field">🏙️ Ciudad: {{ estudiante.ciuEstudiante }}</div>
-            `;
-            break;
-    }
-    
-    document.getElementById('resultado-template').innerHTML = resultado;
-}
-
-function validarDatos() {
-    const nombre = document.getElementById('test-nombre').value;
-    const email = document.getElementById('test-email').value;
-    const edad = document.getElementById('test-edad').value;
-    
-    let resultado = '<div class="model-field info">🔍 Ejecutando validaciones...</div>';
-    let hasErrors = false;
-    
-    // Validar nombre
-    if (!nombre || nombre.length < 2) {
-        resultado += '<div class="model-field error">❌ Nombre: debe tener al menos 2 caracteres</div>';
-        hasErrors = true;
-    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-        resultado += '<div class="model-field error">❌ Nombre: solo letras y espacios permitidos</div>';
-        hasErrors = true;
-    } else {
-        resultado += '<div class="model-field success">✅ Nombre: válido</div>';
-    }
-    
-    // Validar email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailPattern.test(email)) {
-        resultado += '<div class="model-field error">❌ Email: formato inválido</div>';
-        hasErrors = true;
-    } else {
-        resultado += '<div class="model-field success">✅ Email: válido</div>';
-    }
-    
-    // Validar edad
-    const edadNum = parseInt(edad);
-    if (!edad || edadNum < 18 || edadNum > 100) {
-        resultado += '<div class="model-field error">❌ Edad: debe estar entre 18 y 100 años</div>';
-        hasErrors = true;
-    } else {
-        resultado += '<div class="model-field success">✅ Edad: válida</div>';
-    }
-    
-    if (!hasErrors) {
-        resultado += '<div class="model-field success">🎉 Todos los datos son válidos</div>';
-    }
-    
-    document.getElementById('resultado-validacion').innerHTML = resultado;
-}
-</script>
 
         <!-- Reflexión Final -->
         <div class="section reflection">
