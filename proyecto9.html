@@ -38,18 +38,19 @@
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button">Arquitectura Web Backend</span>
-                <span class="topic-button">Desarrollo con PHP</span>
-                <span class="topic-button">Desarrollo con JSP</span>
-                <span class="topic-button">Despliegue Web</span>
-                <span class="topic-button">Servidores Web</span>
-                <span class="topic-button">Bases de Datos</span>
+                <span class="topic-button">Backend</span>
+                <span class="topic-button">Java</span>
+                <span class="topic-button">JSP</span>
+                <span class="topic-button">Jakarta</span>
+                <span class="topic-button">Spring</span>
             </div>
             <p class="topics-description">
-                Esta semana aprendí sobre el desarrollo de aplicaciones web backend utilizando PHP y JSP. Exploré la arquitectura 
-                de servidores web, el funcionamiento del lado del servidor y cómo crear aplicaciones dinámicas que interactúan con 
-                bases de datos. También vimos cómo desplegar estas aplicaciones en diferentes entornos de servidor, configurando 
-                Apache y Tomcat para el correcto funcionamiento de las aplicaciones web.
+            Esta semana aprendí sobre el desarrollo de aplicaciones web backend utilizando Java, 
+            JSP y los frameworks Jakarta EE y Spring. Exploré la arquitectura de los servidores web
+            y el funcionamiento del backend en Java, comprendiendo cómo crear aplicaciones dinámicas 
+            que interactúan con bases de datos. También aprendí a desplegar estas aplicaciones en 
+            diferentes entornos de servidor, configurando servidores como Apache Tomcat para asegurar 
+            el correcto funcionamiento de las aplicaciones web construidas con estas tecnologías.
             </p>
         </div>
 
@@ -57,190 +58,212 @@
             <h2>Ejercicios y Resultados</h2>
             <div class="exercises-container">
                 <div class="exercise-card">
-                    <h3>1. Aplicación PHP con Base de Datos</h3>
-                    <p>Sistema de gestión de usuarios con PHP y MySQL</p>
-                    
-                    <div class="code-container" data-lang="PHP">
-&lt;?php
-// Configuración de base de datos
-$host = 'localhost';
-$dbname = 'usuarios_db';
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
-}
-
-// Función para obtener usuarios
-function obtenerUsuarios($pdo) {
-    $stmt = $pdo->query("SELECT * FROM usuarios ORDER BY nombre");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Función para insertar usuario
-function insertarUsuario($pdo, $nombre, $email, $edad) {
-    $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, edad) VALUES (?, ?, ?)");
-    return $stmt->execute([$nombre, $email, $edad]);
-}
-?&gt;
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Gestión de Usuarios</h4>
-                        <div class="demo-form">
-                            <input type="text" id="nombre" placeholder="Nombre completo" required>
-                            <input type="email" id="email" placeholder="Correo electrónico" required>
-                            <input type="number" id="edad" placeholder="Edad" min="1" max="120" required>
-                            <button onclick="agregarUsuario()">Agregar Usuario</button>
-                        </div>
-                        <div class="result-display" id="usuariosLista">
-                            <strong>Usuarios registrados:</strong><br>
-                            <div id="listaUsuarios"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>2. Aplicación JSP con Servlets</h3>
-                    <p>Sistema de autenticación con JSP y Servlets</p>
+                    <h3>1. Aplicación Web JSP - Calculadora de Factorial</h3>
+                    <p>Sistema JSP que calcula el factorial de un número utilizando sesiones</p>
                     
                     <div class="code-container" data-lang="JSP">
 &lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;
-&lt;%@ page import="java.sql.*" %&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-    &lt;title&gt;Sistema de Autenticación&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Cálculo del factorial&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;h2&gt;Login de Usuario&lt;/h2&gt;
-    &lt;form method="post" action="LoginServlet"&gt;
-        &lt;input type="text" name="username" placeholder="Usuario" required&gt;&lt;br&gt;
-        &lt;input type="password" name="password" placeholder="Contraseña" required&gt;&lt;br&gt;
-        &lt;button type="submit"&gt;Iniciar Sesión&lt;/button&gt;
+    &lt;h1&gt;Cálculo del factorial&lt;/h1&gt;
+    &lt;form action="factorial.jsp" method="get"&gt;
+        &lt;p&gt;Número: &lt;input type="text" name="numero"&gt;
+        &lt;input type="submit" value="Calcular"&gt;&lt;/p&gt;
     &lt;/form&gt;
-    
+
     &lt;%
-        String mensaje = (String) request.getAttribute("mensaje");
-        if (mensaje != null) {
-            out.println("&lt;p style='color: red;'&gt;" + mensaje + "&lt;/p&gt;");
+    String numeroGet = request.getParameter("numero");
+    if(numeroGet != null) {
+        int numero = 0;
+        double factorial = 1;
+        boolean error = false;
+        
+        try {
+            numero = Integer.valueOf(numeroGet);
+            if(numero &lt; 1) {
+                error = true;
+            } else {
+                for(int i = numero; i &gt; 1; i--) {
+                    factorial *= i;
+                }
+            }
+        } catch(NumberFormatException e) {
+            error = true;
         }
+        
+        if(error) {
+            out.println("&lt;p style='color:red;'&gt;Debe indicar un número entero mayor que 0&lt;/p&gt;");
+        } else {
+            out.println("&lt;p style='color:green;'&gt;Resultado: " + numero + "! = " + factorial + "&lt;/p&gt;");
+        }
+    }
+    
+    // Contador de sesión
+    Integer contador = (Integer)session.getAttribute("contadorVisitas");
+    if(contador == null) {
+        contador = 0;
+    }
+    
+    if(contador &gt; 0) {
+        out.println("&lt;p&gt;Ejecuciones en esta sesión: " + contador + "&lt;/p&gt;");
+    }
+    
+    contador++;
+    session.setAttribute("contadorVisitas", contador);
     %&gt;
 &lt;/body&gt;
 &lt;/html&gt;
                     </div>
 
                     <div class="demo-container">
-                        <h4>Simulador de Autenticación</h4>
+                        <h4>Simulador de Factorial JSP</h4>
                         <div class="demo-form">
-                            <input type="text" id="username" placeholder="Usuario" required>
-                            <input type="password" id="password" placeholder="Contraseña" required>
-                            <button onclick="autenticar()">Iniciar Sesión</button>
+                            <input type="number" id="factorialNum" placeholder="Ingrese un número" min="1" max="20" required>
+                            <button onclick="calcularFactorial()">Calcular Factorial</button>
+                            <button onclick="resetearSesion()">Resetear Sesión</button>
                         </div>
-                        <div class="result-display" id="authResult">
-                            <strong>Estado de autenticación:</strong><br>
-                            <div id="authStatus">Ingrese sus credenciales</div>
+                        <div class="result-display" id="factorialResult">
+                            <strong>Resultado del factorial:</strong><br>
+                            <div id="factorialOutput">Ingrese un número para calcular</div>
+                            <div id="sessionCounter" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                                Ejecuciones en esta sesión: <span id="countValue">0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="exercise-card">
-                    <h3>3. Configuración de Servidor Web</h3>
-                    <p>Despliegue y configuración de aplicaciones web</p>
+                    <h3>2. API REST con Java Spring - Gestión de Estudiantes</h3>
+                    <p>API REST que valida ID y notas de estudiantes con Spring Boot</p>
                     
-                    <div class="code-container" data-lang="Apache">
-# Configuración de Virtual Host para Apache
-&lt;VirtualHost *:80&gt;
-    ServerName miapp.local
-    DocumentRoot /var/www/html/miapp
+                    <div class="code-container" data-lang="Java">
+package com.example.student.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api")
+public class StudentController {
+
+    @GetMapping("/student/{id}/{nota}")
+    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; validateStudent(
+            @PathVariable String id, 
+            @PathVariable String nota) {
+        
+        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();
+        
+        try {
+            int studentId = Integer.parseInt(id);
+            double studentNota = Double.parseDouble(nota);
+            
+            if (studentId &gt; 0 && studentNota &gt;= 0 && studentNota &lt;= 20) {
+                response.put("id", studentId);
+                response.put("nota", studentNota);
+                response.put("mensaje", "Ruta válida - Datos correctos");
+                response.put("estado", 202);
+                
+                return new ResponseEntity&lt;&gt;(response, HttpStatus.ACCEPTED);
+            } else {
+                response.put("error", "ID debe ser mayor a 0 y nota entre 0-20");
+                return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);
+            }
+            
+        } catch (NumberFormatException e) {
+            response.put("error", "ID y nota deben ser números válidos");
+            return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);
+        }
+    }
     
-    &lt;Directory /var/www/html/miapp&gt;
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    &lt;/Directory&gt;
-    
-    # Configuración para PHP
-    &lt;FilesMatch \.php$&gt;
-        SetHandler application/x-httpd-php
-    &lt;/FilesMatch&gt;
-    
-    # Logs
-    ErrorLog ${APACHE_LOG_DIR}/miapp_error.log
-    CustomLog ${APACHE_LOG_DIR}/miapp_access.log combined
-&lt;/VirtualHost&gt;
+    @GetMapping("/student/{id}")
+    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; calculateAverage(
+            @PathVariable String id,
+            @RequestParam("nota1") String nota1,
+            @RequestParam("nota2") String nota2,
+            @RequestParam("nota3") String nota3) {
+        
+        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();
+        
+        try {
+            int studentId = Integer.parseInt(id);
+            double n1 = Double.parseDouble(nota1);
+            double n2 = Double.parseDouble(nota2);
+            double n3 = Double.parseDouble(nota3);
+            
+            double promedio = (n1 + n2 + n3) / 3;
+            
+            response.put("id", studentId);
+            response.put("nota1", n1);
+            response.put("nota2", n2);
+            response.put("nota3", n3);
+            response.put("promedio", Math.round(promedio * 100.0) / 100.0);
+            response.put("mensaje", "Ruta válida - Promedio calculado");
+            response.put("estado", 202);
+            
+            return new ResponseEntity&lt;&gt;(response, HttpStatus.ACCEPTED);
+            
+        } catch (NumberFormatException e) {
+            response.put("error", "Todos los valores deben ser números válidos");
+            return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+}
                     </div>
 
                     <div class="demo-container">
-                        <h4>Simulador de Estado del Servidor</h4>
+                        <h4>Simulador API REST Spring</h4>
                         <div class="demo-form">
-                            <select id="serverType">
-                                <option value="apache">Apache Server</option>
-                                <option value="tomcat">Tomcat Server</option>
-                                <option value="nginx">Nginx Server</option>
-                            </select>
-                            <button onclick="checkServerStatus()">Verificar Estado</button>
+                            <h5>Endpoint 1: /student/{id}/{nota}</h5>
+                            <input type="number" id="studentId1" placeholder="ID Estudiante" min="1" required>
+                            <input type="number" id="studentNota" placeholder="Nota (0-20)" min="0" max="20" step="0.1" required>
+                            <button onclick="testEndpoint1()">Test Endpoint 1</button>
+                            
+                            <h5>Endpoint 2: /student/{id}?nota1=x&nota2=x&nota3=x</h5>
+                            <input type="number" id="studentId2" placeholder="ID Estudiante" min="1" required>
+                            <input type="number" id="nota1" placeholder="Nota 1 (0-20)" min="0" max="20" step="0.1" required>
+                            <input type="number" id="nota2" placeholder="Nota 2 (0-20)" min="0" max="20" step="0.1" required>
+                            <input type="number" id="nota3" placeholder="Nota 3 (0-20)" min="0" max="20" step="0.1" required>
+                            <button onclick="testEndpoint2()">Test Endpoint 2</button>
                         </div>
-                        <div class="result-display" id="serverStatus">
-                            <strong>Estado del servidor:</strong><br>
-                            <div id="statusInfo">Seleccione un servidor</div>
+                        <div class="result-display" id="apiResult">
+                            <strong>Respuesta de la API:</strong><br>
+                            <pre id="apiOutput">Pruebe los endpoints para ver la respuesta JSON</pre>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="django-demo">
-                <h4>Resultado: Sistema de Desarrollo Backend PHP/JSP</h4>
-                <div class="demo-section">
-                    <div class="demo-title">🔧 Tecnologías Utilizadas</div>
-                    <div class="url-pattern">PHP → Desarrollo backend con MySQL</div>
-                    <div class="url-pattern">JSP → Aplicaciones Java para web</div>
-                    <div class="url-pattern">Apache/Tomcat → Servidores web</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">🗃️ Gestión de Datos</div>
-                    <div class="model-field"><strong>PHP:</strong> PDO para conexiones MySQL seguras</div>
-                    <div class="model-field"><strong>JSP:</strong> Servlets para lógica de negocio</div>
-                    <div class="model-field"><strong>Despliegue:</strong> Virtual Hosts y configuración de servidores</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">⚙️ Configuración del Servidor</div>
-                    <div class="model-field"><strong>Apache:</strong> Virtual Hosts, mod_php, logs</div>
-                    <div class="model-field"><strong>Tomcat:</strong> Contenedor de servlets</div>
-                    <div class="model-field"><strong>Nginx:</strong> Proxy reverso y balanceador</div>
-                </div>
-            </div>
         </div>
+                        </div>
 
         <div class="section">
             <h2>Reflexión Final</h2>
             <p class="reflection-text">
-                Durante esta semana, al explorar el desarrollo backend con PHP y JSP, fui consciente de cómo mi comprensión 
-                del desarrollo web completo ha evolucionado. Al principio me resultó complejo diferenciar cuándo usar cada 
-                tecnología, pero al practicar y comparar sus usos en distintos ejemplos, desarrollé una mejor intuición sobre 
-                su aplicación. Esta experiencia me hizo reflexionar sobre la importancia de escribir código mantenible y 
-                escalable en el lado del servidor.
+                Durante esta semana, al explorar el desarrollo backend con Java, JSP, 
+                Jakarta EE y Spring, fui consciente de cómo ha evolucionado mi comprensión 
+                del desarrollo web completo. Al inicio me resultaba complejo entender cuándo 
+                y cómo aplicar cada herramienta o framework, pero con la práctica y la comparación 
+                de casos reales, desarrollé una mejor intuición sobre su uso adecuado en distintas 
+                situaciones. Esta experiencia me hizo reflexionar sobre la importancia de escribir 
+                código limpio, mantenible y escalable en el lado del servidor.
             </p>
             <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí a desarrollar aplicaciones web backend usando PHP y JSP, comprendiendo la arquitectura del lado del 
-                servidor y cómo gestionar bases de datos de manera eficiente.
+                Aprendí a desarrollar aplicaciones web backend utilizando Java, JSP, Jakarta EE y Spring, 
+                comprendiendo la arquitectura del lado del servidor, el flujo de las peticiones HTTP y 
+                cómo gestionar bases de datos de forma eficiente en entornos empresariales.
             </p>
             <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí practicando con ejemplos reales, configurando servidores web y analizando cómo se comporta cada 
-                tecnología en diferentes escenarios de desarrollo.
-            </p>
-            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
-            <p class="reflection-answer">
-                Lo que más me impresionó fue la versatilidad de PHP para el desarrollo web y la robustez de JSP para 
-                aplicaciones empresariales. Ambas tecnologías ofrecen diferentes enfoques para resolver problemas similares.
+                Aprendí practicando con ejemplos reales, configurando servidores como Tomcat, y analizando 
+                cómo se integran estas tecnologías en distintos escenarios de desarrollo, desde 
+                aplicaciones web sencillas hasta soluciones más complejas orientadas a servicios.
             </p>
         </div>
     </div>

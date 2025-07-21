@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 9 - PHP y JSP</title>
+    <title>Semana 13 - PHP y LARAVEL</title>
     <link rel="stylesheet" href="stylesp.css">
 </head>
 <header class="iron-header">
@@ -26,30 +26,28 @@
 <body>
     <div class="container">
     <div class="week-navigation">
-        <a href="proyecto7.html" class="week-button">Semana Anterior</a>
-        <a href="proyecto10.html" class="week-button">Semana Siguiente</a>
+        <a href="proyecto12.html" class="week-button">Semana Anterior</a>
+        <a href="proyecto14.html" class="week-button">Semana Siguiente</a>
     </div>
         
         <div>
-            <h1 class="header">Semana 9</h1>
+            <h1 class="header">Semana 13</h1>
             <p class="header-subtitle">Despliegue de aplicaciones web backend PHP y JSP</p>
         </div>
 
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button">Arquitectura Web Backend</span>
-                <span class="topic-button">Desarrollo con PHP</span>
-                <span class="topic-button">Desarrollo con JSP</span>
-                <span class="topic-button">Despliegue Web</span>
-                <span class="topic-button">Servidores Web</span>
-                <span class="topic-button">Bases de Datos</span>
+                <span class="topic-button">PHP</span>
+                <span class="topic-button">LARAVEL</span>
             </div>
             <p class="topics-description">
-                Esta semana aprendí sobre el desarrollo de aplicaciones web backend utilizando PHP y JSP. Exploré la arquitectura 
-                de servidores web, el funcionamiento del lado del servidor y cómo crear aplicaciones dinámicas que interactúan con 
-                bases de datos. También vimos cómo desplegar estas aplicaciones en diferentes entornos de servidor, configurando 
-                Apache y Tomcat para el correcto funcionamiento de las aplicaciones web.
+            Esta semana aprendí sobre el desarrollo de aplicaciones web backend utilizando PHP y 
+            Laravel. Exploré el funcionamiento de la arquitectura del servidor y cómo Laravel, como 
+            framework de PHP, facilita la creación de aplicaciones dinámicas que interactúan con bases 
+            de datos de manera eficiente. También aprendí a desplegar estas aplicaciones en diferentes 
+            entornos, configurando correctamente el servidor Apache y gestionando dependencias y rutas 
+            mediante Composer y Artisan para asegurar el correcto funcionamiento del proyecto.
             </p>
         </div>
 
@@ -57,163 +55,228 @@
             <h2>Ejercicios y Resultados</h2>
             <div class="exercises-container">
                 <div class="exercise-card">
-                    <h3>1. Aplicación PHP con Base de Datos</h3>
-                    <p>Sistema de gestión de usuarios con PHP y MySQL</p>
+                    <h3>1. Aplicación Laravel - Registro de Estudiantes</h3>
+                    <p>Sistema completo de registro de estudiantes con Laravel y MySQL</p>
                     
                     <div class="code-container" data-lang="PHP">
 &lt;?php
-// Configuración de base de datos
-$host = 'localhost';
-$dbname = 'usuarios_db';
-$username = 'root';
-$password = '';
+// app/Http/Controllers/EstudianteController.php
+namespace App\Http\Controllers;
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
+use App\Models\Estudiante;
+use Illuminate\Http\Request;
+
+class EstudianteController extends Controller
+{
+    public function create() {
+        $estudiantes = Estudiante::all();
+        return view('formulario', compact('estudiantes'));
+    }
+
+    public function store(Request $request) {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'ciudad' => 'required|string|max:100'
+        ]);
+
+        Estudiante::create([
+            'nomEstudiante' => $request->nombre,
+            'dirEstudiante' => $request->direccion,
+            'ciuEstudiante' => $request->ciudad
+        ]);
+
+        return redirect('/')->with('mensaje', 'Estudiante registrado exitosamente');
+    }
 }
 
-// Función para obtener usuarios
-function obtenerUsuarios($pdo) {
-    $stmt = $pdo->query("SELECT * FROM usuarios ORDER BY nombre");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+// app/Models/Estudiante.php
+namespace App\Models;
 
-// Función para insertar usuario
-function insertarUsuario($pdo, $nombre, $email, $edad) {
-    $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, edad) VALUES (?, ?, ?)");
-    return $stmt->execute([$nombre, $email, $edad]);
+use Illuminate\Database\Eloquent\Model;
+
+class Estudiante extends Model
+{
+    protected $table = 'estudiantes';
+    protected $primaryKey = 'idEstudiante';
+    protected $fillable = ['nomEstudiante', 'dirEstudiante', 'ciuEstudiante'];
 }
 ?&gt;
                     </div>
 
-                    <div class="demo-container">
-                        <h4>Simulador de Gestión de Usuarios</h4>
-                        <div class="demo-form">
-                            <input type="text" id="nombre" placeholder="Nombre completo" required>
-                            <input type="email" id="email" placeholder="Correo electrónico" required>
-                            <input type="number" id="edad" placeholder="Edad" min="1" max="120" required>
-                            <button onclick="agregarUsuario()">Agregar Usuario</button>
-                        </div>
-                        <div class="result-display" id="usuariosLista">
-                            <strong>Usuarios registrados:</strong><br>
-                            <div id="listaUsuarios"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>2. Aplicación JSP con Servlets</h3>
-                    <p>Sistema de autenticación con JSP y Servlets</p>
-                    
-                    <div class="code-container" data-lang="JSP">
-&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;
-&lt;%@ page import="java.sql.*" %&gt;
+                    <div class="code-container" data-lang="Blade">
+&lt;!-- resources/views/formulario.blade.php --&gt;
 &lt;!DOCTYPE html&gt;
-&lt;html&gt;
+&lt;html lang="es"&gt;
 &lt;head&gt;
-    &lt;title&gt;Sistema de Autenticación&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Registro de Estudiantes&lt;/title&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
 &lt;/head&gt;
-&lt;body&gt;
-    &lt;h2&gt;Login de Usuario&lt;/h2&gt;
-    &lt;form method="post" action="LoginServlet"&gt;
-        &lt;input type="text" name="username" placeholder="Usuario" required&gt;&lt;br&gt;
-        &lt;input type="password" name="password" placeholder="Contraseña" required&gt;&lt;br&gt;
-        &lt;button type="submit"&gt;Iniciar Sesión&lt;/button&gt;
-    &lt;/form&gt;
-    
-    &lt;%
-        String mensaje = (String) request.getAttribute("mensaje");
-        if (mensaje != null) {
-            out.println("&lt;p style='color: red;'&gt;" + mensaje + "&lt;/p&gt;");
-        }
-    %&gt;
+&lt;body class="bg-gray-100"&gt;
+    &lt;div class="container mx-auto py-8"&gt;
+        &lt;div class="max-w-md mx-auto bg-white p-6 rounded shadow-md"&gt;
+            &lt;h2 class="text-xl font-bold mb-4"&gt;Nuevo Estudiante&lt;/h2&gt;
+            
+            &lt;form action="/guardar" method="POST"&gt;
+                @csrf
+                &lt;input type="text" name="nombre" placeholder="Nombre" required 
+                       class="w-full mb-3 p-2 border rounded"&gt;
+                &lt;input type="text" name="direccion" placeholder="Dirección" required 
+                       class="w-full mb-3 p-2 border rounded"&gt;
+                &lt;input type="text" name="ciudad" placeholder="Ciudad" required 
+                       class="w-full mb-3 p-2 border rounded"&gt;
+                &lt;button type="submit" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded w-full"&gt;
+                    Guardar
+                &lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
                     </div>
 
                     <div class="demo-container">
-                        <h4>Simulador de Autenticación</h4>
+                        <h4>Simulador de Registro de Estudiantes Laravel</h4>
                         <div class="demo-form">
-                            <input type="text" id="username" placeholder="Usuario" required>
-                            <input type="password" id="password" placeholder="Contraseña" required>
-                            <button onclick="autenticar()">Iniciar Sesión</button>
+                            <input type="text" id="nombre" placeholder="Nombre del estudiante" required>
+                            <input type="text" id="direccion" placeholder="Dirección" required>
+                            <input type="text" id="ciudad" placeholder="Ciudad" required>
+                            <button onclick="registrarEstudiante()">Registrar Estudiante</button>
+                            <button onclick="limpiarLista()" class="secondary-button">Limpiar Lista</button>
                         </div>
-                        <div class="result-display" id="authResult">
-                            <strong>Estado de autenticación:</strong><br>
-                            <div id="authStatus">Ingrese sus credenciales</div>
+                        <div class="result-display" id="estudiantesLista">
+                            <strong>Estudiantes registrados:</strong><br>
+                            <div id="listaEstudiantes"></div>
+                            <div id="contadorEstudiantes" style="margin-top: 10px; font-weight: bold;"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="exercise-card">
-                    <h3>3. Configuración de Servidor Web</h3>
-                    <p>Despliegue y configuración de aplicaciones web</p>
+                    <h3>2. Configuración y Migración Laravel</h3>
+                    <p>Setup completo del proyecto Laravel con base de datos</p>
                     
-                    <div class="code-container" data-lang="Apache">
-# Configuración de Virtual Host para Apache
-&lt;VirtualHost *:80&gt;
-    ServerName miapp.local
-    DocumentRoot /var/www/html/miapp
-    
-    &lt;Directory /var/www/html/miapp&gt;
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    &lt;/Directory&gt;
-    
-    # Configuración para PHP
-    &lt;FilesMatch \.php$&gt;
-        SetHandler application/x-httpd-php
-    &lt;/FilesMatch&gt;
-    
-    # Logs
-    ErrorLog ${APACHE_LOG_DIR}/miapp_error.log
-    CustomLog ${APACHE_LOG_DIR}/miapp_access.log combined
-&lt;/VirtualHost&gt;
+                    <div class="code-container" data-lang="Bash">
+# Creación del proyecto Laravel
+laravel new estudiantes-app
+cd estudiantes-app
+
+# Configuración de base de datos (.env)
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=academico
+DB_USERNAME=root
+DB_PASSWORD=tu_contraseña
+
+# Creación del modelo y migración
+php artisan make:model Estudiante -m
+
+# Instalación de Tailwind CSS
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+
+# Compilación de assets
+npm install && npm run dev
+
+# Ejecutar migraciones
+php artisan migrate
+
+# Ejecutar servidor
+php artisan serve
+                    </div>
+
+                    <div class="code-container" data-lang="PHP">
+&lt;?php
+// database/migrations/xxxx_create_estudiantes_table.php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('estudiantes', function (Blueprint $table) {
+            $table->id('idEstudiante');
+            $table->string('nomEstudiante');
+            $table->string('dirEstudiante');
+            $table->string('ciuEstudiante');
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('estudiantes');
+    }
+};
+?&gt;
                     </div>
 
                     <div class="demo-container">
-                        <h4>Simulador de Estado del Servidor</h4>
+                        <h4>Simulador de Comandos Artisan</h4>
                         <div class="demo-form">
-                            <select id="serverType">
-                                <option value="apache">Apache Server</option>
-                                <option value="tomcat">Tomcat Server</option>
-                                <option value="nginx">Nginx Server</option>
+                            <select id="artisanCommand">
+                                <option value="migrate">php artisan migrate</option>
+                                <option value="serve">php artisan serve</option>
+                                <option value="make:controller">php artisan make:controller</option>
+                                <option value="make:model">php artisan make:model</option>
+                                <option value="route:list">php artisan route:list</option>
                             </select>
-                            <button onclick="checkServerStatus()">Verificar Estado</button>
+                            <button onclick="ejecutarComando()">Ejecutar Comando</button>
                         </div>
-                        <div class="result-display" id="serverStatus">
-                            <strong>Estado del servidor:</strong><br>
-                            <div id="statusInfo">Seleccione un servidor</div>
+                        <div class="result-display" id="commandResult">
+                            <strong>Resultado del comando:</strong><br>
+                            <div id="commandOutput">Seleccione un comando Artisan</div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="django-demo">
-                <h4>Resultado: Sistema de Desarrollo Backend PHP/JSP</h4>
-                <div class="demo-section">
-                    <div class="demo-title">🔧 Tecnologías Utilizadas</div>
-                    <div class="url-pattern">PHP → Desarrollo backend con MySQL</div>
-                    <div class="url-pattern">JSP → Aplicaciones Java para web</div>
-                    <div class="url-pattern">Apache/Tomcat → Servidores web</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">🗃️ Gestión de Datos</div>
-                    <div class="model-field"><strong>PHP:</strong> PDO para conexiones MySQL seguras</div>
-                    <div class="model-field"><strong>JSP:</strong> Servlets para lógica de negocio</div>
-                    <div class="model-field"><strong>Despliegue:</strong> Virtual Hosts y configuración de servidores</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">⚙️ Configuración del Servidor</div>
-                    <div class="model-field"><strong>Apache:</strong> Virtual Hosts, mod_php, logs</div>
-                    <div class="model-field"><strong>Tomcat:</strong> Contenedor de servlets</div>
-                    <div class="model-field"><strong>Nginx:</strong> Proxy reverso y balanceador</div>
+                <div class="exercise-card">
+                    <h3>3. Rutas y Middleware Laravel</h3>
+                    <p>Configuración de rutas web y middleware de validación</p>
+                    
+                    <div class="code-container" data-lang="PHP">
+&lt;?php
+// routes/web.php
+use App\Http\Controllers\EstudianteController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [EstudianteController::class, 'create'])->name('estudiantes.create');
+Route::post('/guardar', [EstudianteController::class, 'store'])->name('estudiantes.store');
+
+// Middleware personalizado para validación
+Route::middleware(['web', 'throttle:10,1'])->group(function () {
+    Route::post('/guardar', [EstudianteController::class, 'store']);
+});
+
+// Rutas adicionales para API
+Route::prefix('api')->group(function () {
+    Route::get('/estudiantes', [EstudianteController::class, 'index']);
+    Route::get('/estudiantes/{id}', [EstudianteController::class, 'show']);
+});
+?&gt;
+                    </div>
+
+                    <div class="demo-container">
+                        <h4>Simulador de Rutas Laravel</h4>
+                        <div class="demo-form">
+                            <select id="routeType">
+                                <option value="GET /">GET / (Mostrar formulario)</option>
+                                <option value="POST /guardar">POST /guardar (Guardar estudiante)</option>
+                                <option value="GET /api/estudiantes">GET /api/estudiantes (API Lista)</option>
+                                <option value="GET /api/estudiantes/1">GET /api/estudiantes/1 (API Show)</option>
+                            </select>
+                            <button onclick="testearRuta()">Testear Ruta</button>
+                        </div>
+                        <div class="result-display" id="routeResult">
+                            <strong>Respuesta de la ruta:</strong><br>
+                            <div id="routeResponse">Seleccione una ruta para testear</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -221,30 +284,28 @@ function insertarUsuario($pdo, $nombre, $email, $edad) {
         <div class="section">
             <h2>Reflexión Final</h2>
             <p class="reflection-text">
-                Durante esta semana, al explorar el desarrollo backend con PHP y JSP, fui consciente de cómo mi comprensión 
-                del desarrollo web completo ha evolucionado. Al principio me resultó complejo diferenciar cuándo usar cada 
-                tecnología, pero al practicar y comparar sus usos en distintos ejemplos, desarrollé una mejor intuición sobre 
-                su aplicación. Esta experiencia me hizo reflexionar sobre la importancia de escribir código mantenible y 
-                escalable en el lado del servidor.
+            Durante esta semana, al explorar el desarrollo backend con PHP y Laravel, fui consciente de 
+            cómo mi comprensión del desarrollo web completo ha evolucionado. Al principio me costó comprender 
+            la estructura del framework y su convención sobre configuración, pero al practicar y trabajar con 
+            sus herramientas, como Artisan, Eloquent y Blade, desarrollé una mejor intuición sobre cómo 
+            estructurar una aplicación de forma limpia y escalable. Esta experiencia me hizo reflexionar 
+            sobre la importancia de seguir buenas prácticas y aprovechar las ventajas que ofrecen los 
+            frameworks modernos en el desarrollo del lado del servidor.
             </p>
             <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí a desarrollar aplicaciones web backend usando PHP y JSP, comprendiendo la arquitectura del lado del 
-                servidor y cómo gestionar bases de datos de manera eficiente.
+            Aprendí a desarrollar aplicaciones web backend usando PHP y Laravel, comprendiendo la arquitectura 
+            del servidor y la gestión eficiente de bases de datos.
             </p>
             <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí practicando con ejemplos reales, configurando servidores web y analizando cómo se comporta cada 
-                tecnología en diferentes escenarios de desarrollo.
-            </p>
-            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
-            <p class="reflection-answer">
-                Lo que más me impresionó fue la versatilidad de PHP para el desarrollo web y la robustez de JSP para 
-                aplicaciones empresariales. Ambas tecnologías ofrecen diferentes enfoques para resolver problemas similares.
+            Aprendí practicando con ejemplos reales, creando rutas, controladores y vistas, configurando entornos 
+            locales con Apache y manejando dependencias mediante Composer. Estas actividades me permitieron 
+            entender mejor el comportamiento del framework en distintos escenarios de desarrollo.
             </p>
         </div>
     </div>
 
-    <script src="script9.js"></script>
+    <script src="script13.js"></script>
 </body>
 </html>

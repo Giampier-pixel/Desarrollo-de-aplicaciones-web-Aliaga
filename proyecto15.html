@@ -37,60 +37,19 @@
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button" onclick="showTopicDetails('microservicios')">🏗️ Arquitectura de Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('django-micro')">🚀 Django para Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('comunicacion')">🔄 Comunicación entre Servicios</span>
-                <span class="topic-button" onclick="showTopicDetails('bases-datos')">🗄️ Gestión de Bases de Datos</span>
-                <span class="topic-button" onclick="showTopicDetails('docker-k8s')">🐳 Docker & Kubernetes</span>
-                <span class="topic-button" onclick="showTopicDetails('seguridad')">🔒 Seguridad en Microservicios</span>
-                <span class="topic-button" onclick="showTopicDetails('monitoreo')">📊 Monitoreo y Escalado</span>
-                <span class="topic-button" onclick="showTopicDetails('consumo')">🔌 Consumo de Microservicios</span>
+                <span class="topic-button" onclick="showTopicDetails('microservicios')">Python</span>
+                <span class="topic-button" onclick="showTopicDetails('django-micro')">Django</span>
+                <span class="topic-button" onclick="showTopicDetails('comunicacion')">Flask</span>
+                <span class="topic-button" onclick="showTopicDetails('bases-datos')">Sistemas inteligentes</span>
             </div>
             
             <div class="topics-description">
-                Los microservicios representan una arquitectura donde las aplicaciones se construyen como un conjunto de servicios pequeños e independientes que se comunican entre sí. Con Django, podemos crear microservicios eficientes que manejan dominios específicos del negocio, proporcionando escalabilidad, mantenibilidad y flexibilidad tecnológica.
-            </div>
-
-            <div class="code-container" data-lang="Python">
-# Estructura básica de un microservicio en Django
-# settings.py
-MICROSERVICE_CONFIG = {
-    'SERVICE_NAME': 'user-service',
-    'VERSION': '1.0.0',
-    'PORT': 8001,
-    'DISCOVERY_URL': 'http://service-registry:8000',
-    'DATABASE_PER_SERVICE': True,
-    'ASYNC_COMMUNICATION': True,
-    'CIRCUIT_BREAKER_ENABLED': True,
-    'HEALTH_CHECK_ENDPOINT': '/health/',
-    'METRICS_ENDPOINT': '/metrics/',
-}
-
-# Service Registration
-from django.apps import AppConfig
-import requests
-
-class UserServiceConfig(AppConfig):
-    name = 'user_service'
-    
-    def ready(self):
-        self.register_service()
-    
-    def register_service(self):
-        service_info = {
-            'name': settings.MICROSERVICE_CONFIG['SERVICE_NAME'],
-            'url': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}",
-            'health_check': f"http://localhost:{settings.MICROSERVICE_CONFIG['PORT']}/health/",
-            'version': settings.MICROSERVICE_CONFIG['VERSION']
-        }
-        
-        try:
-            requests.post(
-                f"{settings.MICROSERVICE_CONFIG['DISCOVERY_URL']}/register",
-                json=service_info
-            )
-        except Exception as e:
-            print(f"Failed to register service: {e}")
+                Python es un lenguaje versátil y poderoso que permite desarrollar aplicaciones de forma rápida y clara. 
+                Frameworks como Django y Flask aprovechan su simplicidad para construir desde aplicaciones monolíticas 
+                hasta arquitecturas basadas en microservicios. Django ofrece una estructura robusta para proyectos grandes, 
+                mientras que Flask brinda mayor flexibilidad para soluciones más ligeras. Además, Python es clave en 
+                el desarrollo de sistemas inteligentes, facilitando la implementación de modelos de inteligencia artificial 
+                y aprendizaje automático en aplicaciones modernas.
             </div>
         </div>
 
@@ -180,296 +139,36 @@ def health_check(request):
     })
                     </div>
                 </div>
-
-                <!-- Ejercicio 2: Comunicación entre Microservicios -->
-                <div class="exercise-card">
-                    <h3>2. Comunicación entre Microservicios</h3>
-                    <p>Implementación de patrones de comunicación síncrona y asíncrona.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🔄 Flujo de Comunicación</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="url-pattern">Frontend → API Gateway → User Service → Order Service</div>
-                                <button class="demo-form button" onclick="simulateServiceCall()">Simular Llamada entre Servicios</button>
-                            </div>
-                            <div class="result-display" id="communication-log">
-                                <div class="model-field">Esperando simulación...</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Service Communication - service_client.py
-import requests
-import asyncio
-import aiohttp
-from django.conf import settings
-import json
-import logging
-
-class ServiceClient:
-    def __init__(self, service_name, base_url=None):
-        self.service_name = service_name
-        self.base_url = base_url or self.discover_service()
-        self.timeout = 30
-        self.circuit_breaker = CircuitBreaker()
-    
-    def discover_service(self):
-        """Service Discovery Implementation"""
-        try:
-            discovery_url = settings.MICROSERVICE_CONFIG['DISCOVERY_URL']
-            response = requests.get(f"{discovery_url}/services/{self.service_name}")
-            service_info = response.json()
-            return service_info['url']
-        except Exception as e:
-            logging.error(f"Service discovery failed: {e}")
-            return None
-    
-    async def async_call(self, endpoint, method='GET', data=None):
-        """Asynchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
-        
-        try:
-            async with aiohttp.ClientSession() as session:
-                url = f"{self.base_url}/{endpoint}"
-                async with session.request(method, url, json=data, timeout=self.timeout) as response:
-                    result = await response.json()
-                    self.circuit_breaker.record_success()
-                    return result
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-    
-    def sync_call(self, endpoint, method='GET', data=None):
-        """Synchronous service call"""
-        if not self.circuit_breaker.can_execute():
-            raise Exception("Circuit breaker is open")
-        
-        try:
-            url = f"{self.base_url}/{endpoint}"
-            response = requests.request(method, url, json=data, timeout=self.timeout)
-            response.raise_for_status()
-            self.circuit_breaker.record_success()
-            return response.json()
-        except Exception as e:
-            self.circuit_breaker.record_failure()
-            raise e
-                    </div>
-                </div>
-
-                <!-- Ejercicio 3: Containerización con Docker -->
-                <div class="exercise-card">
-                    <h3>3. Containerización con Docker</h3>
-                    <p>Implementación de microservicios usando Docker y Docker Compose.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">🐳 Gestión de Contenedores</div>
-                        <div class="demo-form">
-                            <button onclick="simulateDockerBuild()">Build Images</button>
-                            <button onclick="simulateDockerRun()">Run Containers</button>
-                            <button onclick="simulateDockerScale()">Scale Services</button>
-                            <button onclick="clearDockerLogs()">Clear Logs</button>
-                        </div>
-                        <div class="result-display" id="docker-log">
-                            <div class="model-field">Docker logs aparecerán aquí...</div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Dockerfile">
-# Dockerfile para microservicio Django
-FROM python:3.9-slim
-
-# Configurar variables de entorno
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=microservice.settings
-
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Crear directorio de trabajo
-WORKDIR /app
-
-# Copiar requirements y instalar dependencias Python
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copiar código fuente
-COPY . .
-
-# Crear usuario no-root
-RUN adduser --disabled-password --gecos '' appuser
-RUN chown -R appuser:appuser /app
-USER appuser
-
-# Exponer puerto
-EXPOSE 8000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health/ || exit 1
-
-# Comando por defecto
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "microservice.wsgi:application"]
-                    </div>
-
-                    <div class="code-container" data-lang="YAML">
-# docker-compose.yml
-version: '3.8'
-
-services:
-  user-service:
-    build: ./user-service
-    ports:
-      - "8001:8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@user-db:5432/userdb
-      - REDIS_URL=redis://redis:6379/0
-      - SERVICE_NAME=user-service
-    depends_on:
-      - user-db
-      - redis
-    networks:
-      - microservices-network
-    deploy:
-      replicas: 2
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-
-  product-service:
-    build: ./product-service
-    ports:
-      - "8002:8000"
-    environment:
-      - DATABASE_URL=postgresql://product:password@product-db:5432/productdb
-      - REDIS_URL=redis://redis:6379/1
-      - SERVICE_NAME=product-service
-    depends_on:
-      - product-db
-      - redis
-    networks:
-      - microservices-network
-                    </div>
-                </div>
-
-                <!-- Ejercicio 4: Monitoreo y Observabilidad -->
-                <div class="exercise-card">
-                    <h3>4. Monitoreo y Observabilidad</h3>
-                    <p>Implementación de logging, métricas y health checks para microservicios.</p>
-                    
-                    <div class="demo-container">
-                        <div class="demo-title">📊 Dashboard de Monitoreo</div>
-                        <div class="django-demo">
-                            <div class="demo-section">
-                                <div class="demo-title">Service Health Status</div>
-                                <div class="tag active">User Service: Healthy</div>
-                                <div class="tag active">Product Service: Healthy</div>
-                                <div class="tag">Order Service: Warning</div>
-                                <div class="tag active">Payment Service: Healthy</div>
-                            </div>
-                            <div class="demo-section">
-                                <div class="demo-title">Métricas en Tiempo Real</div>
-                                <div class="model-field">Requests/sec: 1,247</div>
-                                <div class="model-field">Response Time: 89ms</div>
-                                <div class="model-field">Error Rate: 0.2%</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-container" data-lang="Python">
-# Monitoring and Health Checks
-from django.http import JsonResponse
-from django.db import connections
-from django.core.cache import cache
-import redis
-import time
-import psutil
-
-def health_check(request):
-    """Comprehensive health check endpoint"""
-    health_status = {
-        'service': 'user-service',
-        'version': '1.0.0',
-        'timestamp': time.time(),
-        'status': 'healthy',
-        'checks': {}
-    }
-    
-    # Database connectivity check
-    try:
-        db_conn = connections['default']
-        db_conn.cursor()
-        health_status['checks']['database'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['database'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # Redis connectivity check
-    try:
-        cache.get('health_check')
-        health_status['checks']['redis'] = 'healthy'
-    except Exception as e:
-        health_status['checks']['redis'] = f'unhealthy: {str(e)}'
-        health_status['status'] = 'unhealthy'
-    
-    # System resources check
-    cpu_percent = psutil.cpu_percent()
-    memory_percent = psutil.virtual_memory().percent
-    
-    health_status['checks']['system'] = {
-        'cpu_usage': f'{cpu_percent}%',
-        'memory_usage': f'{memory_percent}%',
-        'status': 'healthy' if cpu_percent < 80 and memory_percent < 80 else 'warning'
-    }
-    
-    return JsonResponse(health_status)
-
-def metrics(request):
-    """Prometheus-style metrics endpoint"""
-    metrics_data = {
-        'http_requests_total': 15420,
-        'http_request_duration_seconds': 0.089,
-        'database_connections_active': 12,
-        'redis_connections_active': 8,
-        'memory_usage_bytes': psutil.virtual_memory().used,
-        'cpu_usage_percent': psutil.cpu_percent()
-    }
-    
-    return JsonResponse(metrics_data)
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- Reflexión Final -->
-        <div class="section reflection">
-            <h2>Reflexión Final</h2>
-            <div class="reflection-text">
-                <p>La implementación de <strong>microservicios con Django</strong> ha representado un cambio paradigmático en mi comprensión del desarrollo de aplicaciones empresariales. Esta semana me ha permitido explorar cómo transformar aplicaciones monolíticas en sistemas distribuidos más escalables y mantenibles.</p>
-                
-                <p>El aprendizaje más significativo ha sido comprender que los microservicios no son solo una cuestión técnica, sino que requieren un cambio fundamental en la <strong>arquitectura organizacional y de desarrollo</strong>. La independencia que proporcionan los microservicios permite que equipos diferentes trabajen en servicios separados, pero también introduce complejidades en la coordinación y comunicación.</p>
-                
-                <p>La experiencia práctica con <strong>Docker y Kubernetes</strong> me ha demostrado la importancia de la containerización para garantizar la consistencia entre entornos de desarrollo, pruebas y producción. La capacidad de escalar servicios individualmente según la demanda es una ventaja significativa sobre las arquitecturas monolíticas.</p>
-                
-                <div class="reflection-question">¿Cuáles son los principales desafíos de implementar microservicios?</div>
-                <div class="reflection-answer">Los principales desafíos incluyen la complejidad de la comunicación entre servicios, la gestión de transacciones distribuidas, el monitoreo y debugging en sistemas distribuidos, y la coordinación de deployments. También requiere una mayor madurez en DevOps y automatización.</div>
-                
-                <div class="reflection-question">¿Cómo se garantiza la seguridad en una arquitectura de microservicios?</div>
-                <div class="reflection-answer">La seguridad se implementa a través de múltiples capas: autenticación y autorización distribuida con JWT tokens, API gateways como punto de entrada único, comunicación segura entre servicios, y principios de "zero trust" donde cada servicio valida todas las solicitudes.</div>
-                
-                <div class="reflection-question">¿Cuál es el impacto en el rendimiento comparado con monolitos?</div>
-                <div class="reflection-answer">Los microservicios pueden introducir latencia adicional debido a la comunicación de red, pero ofrecen mejor escalabilidad horizontal y aislamiento de fallos. El rendimiento global depende del diseño de la arquitectura, patrones de comunicación y estrategias de caching implementadas.</div>
-                
-                <p>Esta experiencia me ha preparado para enfrentar los desafíos del desarrollo de aplicaciones modernas a escala empresarial, donde la <strong>escalabilidad, mantenibilidad y resiliencia</strong> son requisitos fundamentales para el éxito del producto.</p>
+            <div class="section">
+                <h2>Reflexión Final</h2>
+                <p class="reflection-text">
+                    Durante esta semana, al profundizar en el desarrollo backend con Python, utilizando los frameworks Flask y Django, 
+                    reconocí cómo ha evolucionado mi entendimiento del desarrollo web. Inicialmente me resultó desafiante distinguir 
+                    las características y enfoques de cada framework, especialmente en cuanto a la estructuración de proyectos. 
+                    Sin embargo, al trabajar con herramientas como Jinja para plantillas y los ORM para el manejo de bases de datos, 
+                    adquirí una perspectiva más clara sobre cómo construir aplicaciones limpias, escalables y mantenibles. 
+                    Esta experiencia me llevó a valorar la importancia de elegir adecuadamente el framework según las necesidades 
+                    específicas del proyecto y comprender la arquitectura que hay detrás del lado servidor.
+                </p>
+                <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
+                <p class="reflection-answer">
+                    Aprendí a desarrollar aplicaciones backend con Python, entendiendo los principios que sustentan a Flask y Django, 
+                    y aplicando conceptos como el enrutamiento, la gestión de vistas, la conexión con bases de datos mediante ORM 
+                    y la estructuración adecuada de proyectos.
+                </p>
+                <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
+                <p class="reflection-answer">
+                    Aprendí mediante la práctica constante, creando rutas y vistas con Flask, implementando plantillas con Jinja, 
+                    explorando la estructura modular de Django y configurando entornos de desarrollo. Al trabajar con modelos, 
+                    migraciones y bases de datos, comprendí cómo ambos frameworks abordan el desarrollo backend y cómo se adaptan 
+                    a distintos contextos y requerimientos.
+                </p>
             </div>
-        </div>
+
     </div>
     <script src="script14.js"></script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9626c2a49a0f7842',t:'MTc1MzA1OTYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>

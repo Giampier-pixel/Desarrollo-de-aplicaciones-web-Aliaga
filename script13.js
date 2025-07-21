@@ -1,166 +1,288 @@
-// Función para manejar el formulario PHP
-async function handlePhpSubmit(event) {
-    event.preventDefault();
+// script13.js - Funcionalidad para simuladores Laravel PHP
+
+// Array para almacenar estudiantes registrados
+let estudiantes = [];
+
+// Función para registrar estudiante
+function registrarEstudiante() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const direccion = document.getElementById('direccion').value.trim();
+    const ciudad = document.getElementById('ciudad').value.trim();
+
+    // Validaciones
+    if (!nombre || !direccion || !ciudad) {
+        alert('Por favor, complete todos los campos');
+        return;
+    }
+
+    if (nombre.length < 2) {
+        alert('El nombre debe tener al menos 2 caracteres');
+        return;
+    }
+
+    // Crear objeto estudiante
+    const estudiante = {
+        id: Date.now(),
+        nombre: nombre,
+        direccion: direccion,
+        ciudad: ciudad,
+        fechaRegistro: new Date().toLocaleString()
+    };
+
+    // Agregar al array
+    estudiantes.push(estudiante);
+
+    // Actualizar vista
+    actualizarListaEstudiantes();
+
+    // Limpiar formulario
+    document.getElementById('nombre').value = '';
+    document.getElementById('direccion').value = '';
+    document.getElementById('ciudad').value = '';
+
+    // Mostrar mensaje de éxito
+    mostrarMensaje('✅ Estudiante registrado exitosamente', 'success');
+}
+
+// Función para actualizar la lista de estudiantes
+function actualizarListaEstudiantes() {
+    const lista = document.getElementById('listaEstudiantes');
+    const contador = document.getElementById('contadorEstudiantes');
     
-    const form = event.target;
-    const formData = new FormData(form);
-    const submitButton = form.querySelector('button[type="submit"]');
-    const resultsDiv = document.getElementById('phpResults');
-    
-    // Mostrar estado de carga
-    submitButton.innerHTML = '⏳ Guardando...';
-    submitButton.disabled = true;
-    
-    try {
-        const response = await fetch('api/estudiantes2.php', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Mostrar mensaje de éxito
-            resultsDiv.innerHTML = `
-                <div style="background: #f0fff4; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78; margin-top: 20px;">
-                    <h5 style="margin: 0 0 10px 0; color: #2d3748;">✅ ¡Estudiante Registrado Exitosamente!</h5>
-                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                        <p style="margin: 5px 0; color: #2d3748;"><strong>ID:</strong> ${result.id}</p>
-                        <p style="margin: 5px 0; color: #2d3748;"><strong>Nombre:</strong> ${result.data.nombre}</p>
-                        <p style="margin: 5px 0; color: #2d3748;"><strong>Dirección:</strong> ${result.data.direccion}</p>
-                        <p style="margin: 5px 0; color: #2d3748;"><strong>Ciudad:</strong> ${result.data.ciudad}</p>
-                    </div>
-                </div>
-            `;
-            
-            // Limpiar formulario
-            form.reset();
-            
-        } else {
-            // Mostrar error
-            resultsDiv.innerHTML = `
-                <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
-                    <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error al Registrar</h5>
-                    <p style="margin: 0; color: #c53030;">${result.error || 'Error desconocido'}</p>
-                </div>
-            `;
-        }
-        
-    } catch (error) {
-        console.error('Error:', error);
-        resultsDiv.innerHTML = `
-            <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
-                <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error de Conexión</h5>
-                <p style="margin: 0; color: #c53030;">No se pudo conectar con el servidor. Verifica tu conexión.</p>
+    if (estudiantes.length === 0) {
+        lista.innerHTML = '<div style="color: #666; font-style: italic;">No hay estudiantes registrados</div>';
+        contador.innerHTML = '';
+        return;
+    }
+
+    let html = '<div style="max-height: 300px; overflow-y: auto;">';
+    estudiantes.forEach((estudiante, index) => {
+        html += `
+            <div style="background: #f8f9fa; margin: 5px 0; padding: 10px; border-radius: 5px; border-left: 4px solid #007bff;">
+                <strong>${estudiante.nombre}</strong><br>
+                <small style="color: #666;">
+                    📍 ${estudiante.direccion}, ${estudiante.ciudad}<br>
+                    🕒 Registrado: ${estudiante.fechaRegistro}
+                </small>
+                <button onclick="eliminarEstudiante(${index})" style="float: right; background: #dc3545; color: white; border: none; padding: 2px 6px; border-radius: 3px; font-size: 12px; cursor: pointer;">
+                    ❌
+                </button>
             </div>
         `;
-    } finally {
-        // Restaurar botón
-        submitButton.innerHTML = '🚀 Guardar en Base de Datos';
-        submitButton.disabled = false;
+    });
+    html += '</div>';
+    
+    lista.innerHTML = html;
+    contador.innerHTML = `📊 Total de estudiantes: ${estudiantes.length}`;
+}
+
+// Función para eliminar estudiante
+function eliminarEstudiante(index) {
+    if (confirm('¿Está seguro de eliminar este estudiante?')) {
+        estudiantes.splice(index, 1);
+        actualizarListaEstudiantes();
+        mostrarMensaje('🗑️ Estudiante eliminado', 'warning');
     }
 }
 
-// Función para cargar estudiantes registrados
-async function loadEstudiantes2() {
-    const listaDiv = document.getElementById('listaEstudiantes2');
+// Función para limpiar lista
+function limpiarLista() {
+    if (estudiantes.length === 0) {
+        alert('No hay estudiantes para eliminar');
+        return;
+    }
     
-    // Mostrar loading
-    listaDiv.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-            <p>⏳ Cargando estudiantes...</p>
-        </div>
+    if (confirm('¿Está seguro de eliminar todos los estudiantes?')) {
+        estudiantes = [];
+        actualizarListaEstudiantes();
+        mostrarMensaje('🧹 Lista limpiada completamente', 'info');
+    }
+}
+
+// Función para ejecutar comandos Artisan
+function ejecutarComando() {
+    const comando = document.getElementById('artisanCommand').value;
+    const output = document.getElementById('commandOutput');
+    
+    // Simular respuestas de comandos Artisan
+    const respuestas = {
+        'migrate': `
+            <div style="background: #d4edda; padding: 10px; border-radius: 5px; font-family: monospace;">
+                Migration table created successfully.<br>
+                Migrating: 2024_01_01_000000_create_estudiantes_table<br>
+                Migrated:  2024_01_01_000000_create_estudiantes_table (45.67ms)<br>
+                <span style="color: #28a745;">✅ Migrations completed successfully!</span>
+            </div>
+        `,
+        'serve': `
+            <div style="background: #d1ecf1; padding: 10px; border-radius: 5px; font-family: monospace;">
+                Laravel development server started:<br>
+                <strong style="color: #0c5460;">http://127.0.0.1:8000</strong><br>
+                [Press Ctrl+C to quit]<br>
+                <span style="color: #17a2b8;">🚀 Server is running!</span>
+            </div>
+        `,
+        'make:controller': `
+            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; font-family: monospace;">
+                Controller created successfully.<br>
+                Created: app/Http/Controllers/EstudianteController.php<br>
+                <span style="color: #856404;">📁 Controller ready to use!</span>
+            </div>
+        `,
+        'make:model': `
+            <div style="background: #e2e3e5; padding: 10px; border-radius: 5px; font-family: monospace;">
+                Model created successfully.<br>
+                Created: app/Models/Estudiante.php<br>
+                Migration created successfully.<br>
+                Created: database/migrations/2024_01_01_000000_create_estudiantes_table.php<br>
+                <span style="color: #6c757d;">🏗️ Model and migration created!</span>
+            </div>
+        `,
+        'route:list': `
+            <div style="background: #f8d7da; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px;">
+                +--------+----------+----------+------+---------+------------+<br>
+                | Domain | Method   | URI      | Name | Action  | Middleware |<br>
+                +--------+----------+----------+------+---------+------------+<br>
+                |        | GET|HEAD | /        |      | EstudianteController@create | web |<br>
+                |        | POST     | /guardar |      | EstudianteController@store  | web |<br>
+                +--------+----------+----------+------+---------+------------+<br>
+                <span style="color: #721c24;">📋 Routes listed successfully!</span>
+            </div>
+        `
+    };
+    
+    output.innerHTML = respuestas[comando] || '<div style="color: #dc3545;">❌ Comando no encontrado</div>';
+    
+    // Simular tiempo de carga
+    output.innerHTML = '<div style="color: #6c757d;">⏳ Ejecutando comando...</div>';
+    setTimeout(() => {
+        output.innerHTML = respuestas[comando];
+    }, 1000);
+}
+
+// Función para testear rutas
+function testearRuta() {
+    const ruta = document.getElementById('routeType').value;
+    const response = document.getElementById('routeResponse');
+    
+    const respuestas = {
+        'GET /': `
+            <div style="background: #d4edda; padding: 10px; border-radius: 5px;">
+                <strong>HTTP 200 OK</strong><br>
+                Content-Type: text/html<br>
+                <pre style="margin: 10px 0; background: #f8f9fa; padding: 5px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Registro de Estudiantes&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;...formulario renderizado...&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span style="color: #28a745;">✅ Formulario mostrado correctamente</span>
+            </div>
+        `,
+        'POST /guardar': `
+            <div style="background: #d1ecf1; padding: 10px; border-radius: 5px;">
+                <strong>HTTP 302 Redirect</strong><br>
+                Location: /<br>
+                Set-Cookie: laravel_session=...<br>
+                <div style="margin: 10px 0; padding: 5px; background: #b8daff; border-radius: 3px;">
+                    Flash message: "Estudiante registrado exitosamente"
+                </div>
+                <span style="color: #0c5460;">↩️ Redirigido con mensaje de éxito</span>
+            </div>
+        `,
+        'GET /api/estudiantes': `
+            <div style="background: #fff3cd; padding: 10px; border-radius: 5px;">
+                <strong>HTTP 200 OK</strong><br>
+                Content-Type: application/json<br>
+                <pre style="margin: 10px 0; background: #f8f9fa; padding: 5px; font-size: 12px;">
+{
+  "data": [
+    {
+      "idEstudiante": 1,
+      "nomEstudiante": "Juan Pérez",
+      "dirEstudiante": "Av. Principal 123",
+      "ciuEstudiante": "Lima",
+      "created_at": "2024-01-01T10:00:00.000000Z"
+    }
+  ],
+  "total": 1
+}</pre>
+                <span style="color: #856404;">📊 JSON response generado</span>
+            </div>
+        `,
+        'GET /api/estudiantes/1': `
+            <div style="background: #e2e3e5; padding: 10px; border-radius: 5px;">
+                <strong>HTTP 200 OK</strong><br>
+                Content-Type: application/json<br>
+                <pre style="margin: 10px 0; background: #f8f9fa; padding: 5px; font-size: 12px;">
+{
+  "idEstudiante": 1,
+  "nomEstudiante": "Juan Pérez",
+  "dirEstudiante": "Av. Principal 123",
+  "ciuEstudiante": "Lima",
+  "created_at": "2024-01-01T10:00:00.000000Z",
+  "updated_at": "2024-01-01T10:00:00.000000Z"
+}</pre>
+                <span style="color: #6c757d;">🔍 Estudiante encontrado</span>
+            </div>
+        `
+    };
+    
+    response.innerHTML = '<div style="color: #6c757d;">⏳ Procesando solicitud...</div>';
+    
+    setTimeout(() => {
+        response.innerHTML = respuestas[ruta] || '<div style="color: #dc3545;">❌ Ruta no encontrada</div>';
+    }, 800);
+}
+
+// Función para mostrar mensajes temporales
+function mostrarMensaje(mensaje, tipo = 'info') {
+    const colores = {
+        'success': '#d4edda',
+        'warning': '#fff3cd',
+        'info': '#d1ecf1',
+        'error': '#f8d7da'
+    };
+    
+    const div = document.createElement('div');
+    div.innerHTML = mensaje;
+    div.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colores[tipo] || colores.info};
+        padding: 12px 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
     `;
-    listaDiv.style.display = 'block';
     
-    try {
-        const response = await fetch('api/estudiantes2.php', {
-            method: 'GET'
-        });
-        
-        const result = await response.json();
-        
-        if (result.success && result.data) {
-            if (result.data.length > 0) {
-                let html = `
-                    <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                        <h5 style="margin: 0 0 20px 0; color: #2d3748;">📋 Estudiantes Registrados (${result.count})</h5>
-                        <div style="display: grid; gap: 15px;">
-                `;
-                
-                result.data.forEach((estudiante, index) => {
-                    html += `
-                        <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h6 style="margin: 0 0 8px 0; color: #2d3748; font-size: 16px;">${estudiante.nomEstudiante}</h6>
-                                    <p style="margin: 2px 0; color: #4a5568; font-size: 14px;">📍 ${estudiante.dirEstudiante}</p>
-                                    <p style="margin: 2px 0; color: #4a5568; font-size: 14px;">🏙️ ${estudiante.ciuEstudiante}</p>
-                                </div>
-                                <div style="text-align: right; color: #718096; font-size: 12px;">
-                                    <p style="margin: 0;">ID: ${estudiante.idEstudiante}</p>
-                                    <p style="margin: 0;">${new Date(estudiante.created_at).toLocaleDateString()}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += `
-                        </div>
-                    </div>
-                `;
-                
-                listaDiv.innerHTML = html;
-            } else {
-                listaDiv.innerHTML = `
-                    <div style="background: #fef5e7; padding: 20px; border-radius: 10px; border-left: 4px solid #f6ad55; margin-top: 20px;">
-                        <h5 style="margin: 0 0 10px 0; color: #c05621;">📝 Sin Registros</h5>
-                        <p style="margin: 0; color: #c05621;">No hay estudiantes registrados aún. ¡Sé el primero en registrarte!</p>
-                    </div>
-                `;
-            }
-        } else {
-            listaDiv.innerHTML = `
-                <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
-                    <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error al Cargar</h5>
-                    <p style="margin: 0; color: #c53030;">${result.error || 'Error desconocido'}</p>
-                </div>
-            `;
-        }
-        
-    } catch (error) {
-        console.error('Error:', error);
-        listaDiv.innerHTML = `
-            <div style="background: #fed7d7; padding: 20px; border-radius: 10px; border-left: 4px solid #f56565; margin-top: 20px;">
-                <h5 style="margin: 0 0 10px 0; color: #c53030;">❌ Error de Conexión</h5>
-                <p style="margin: 0; color: #c53030;">No se pudo cargar la lista de estudiantes.</p>
-            </div>
-        `;
-    }
+    document.body.appendChild(div);
+    
+    setTimeout(() => {
+        div.style.opacity = '0';
+        div.style.transform = 'translateX(100%)';
+        setTimeout(() => div.remove(), 300);
+    }, 3000);
 }
 
-// Mantener la función original del simulador
-function submitEstudiante(event) {
-    event.preventDefault();
+// Event listeners para Enter key
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = ['nombre', 'direccion', 'ciudad'];
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    registrarEstudiante();
+                }
+            });
+        }
+    });
     
-    const nombre = document.getElementById('nombre').value;
-    const direccion = document.getElementById('direccion').value;
-    const ciudad = document.getElementById('ciudad').value;
-    const output = document.getElementById('estudianteOutput');
-    
-    if (nombre && direccion && ciudad) {
-        output.innerHTML = `
-            <div style="background: #f0fff4; padding: 15px; border-radius: 8px; border-left: 4px solid #48bb78;">
-                <h4 style="margin: 0 0 10px 0; color: #2d3748;">✅ Simulación Completada</h4>
-                <p style="margin: 5px 0; color: #2d3748;"><strong>Nombre:</strong> ${nombre}</p>
-                <p style="margin: 5px 0; color: #2d3748;"><strong>Dirección:</strong> ${direccion}</p>
-                <p style="margin: 5px 0; color: #2d3748;"><strong>Ciudad:</strong> ${ciudad}</p>
-                <p style="margin: 10px 0 0 0; color: #4a5568; font-style: italic;">Datos simulados - No guardados en base de datos</p>
-            </div>
-        `;
-        
-        // Limpiar formulario
-        document.getElementById('estudianteForm').reset();
-    }
-}
+    // Mostrar mensaje de bienvenida
+    setTimeout(() => {
+        mostrarMensaje('🎉 Simulador Laravel PHP listo para usar', 'success');
+    }, 500);
+});

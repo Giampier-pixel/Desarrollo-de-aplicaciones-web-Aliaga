@@ -38,20 +38,16 @@
         <div class="section">
             <h2>Temas Aprendidos</h2>
             <div class="topics-buttons">
-                <span class="topic-button">Sintaxis Básica</span>
-                <span class="topic-button">Variables y Tipos</span>
-                <span class="topic-button">Estructuras de Datos</span>
-                <span class="topic-button">Estructuras de Control</span>
-                <span class="topic-button">Funciones</span>
-                <span class="topic-button">POO</span>
-                <span class="topic-button">Excepciones</span>
-                <span class="topic-button">Módulos</span>
+                <span class="topic-button">JSP</span>
+                <span class="topic-button">Jakarta</span>
+                <span class="topic-button">SPRING</span>
+                <span class="topic-button">Spring data</span>
             </div>
             <p class="topics-description">
-                Esta semana me adentré en el mundo de Python, un lenguaje que realmente me ha sorprendido por su simplicidad y elegancia. 
-                Aprendí sobre la sintaxis básica, tipos de datos, estructuras de control, funciones y programación orientada a objetos. 
-                También exploré el manejo de excepciones y el uso de módulos, comprendiendo cómo Python logra un equilibrio perfecto entre 
-                simplicidad y potencia para el desarrollo de aplicaciones.
+                Esta semana me adentré en el ecosistema de desarrollo Java para la web, explorando tecnologías como JSP, Jakarta EE, Spring y Spring Data. 
+                Comprendí cómo JSP permite generar contenido dinámico en aplicaciones web, mientras que Jakarta EE proporciona una base robusta para construir aplicaciones empresariales.
+                Con Spring, aprendí a estructurar aplicaciones de forma modular y flexible, aprovechando características como la inyección de dependencias.
+                Finalmente, al trabajar con Spring Data, descubrí cómo simplifica enormemente el acceso a bases de datos, permitiendo enfocarme más en la lógica de negocio que en el código repetitivo.
             </p>
         </div>
 
@@ -59,192 +55,162 @@
             <h2>Ejercicios y Resultados</h2>
             <div class="exercises-container">
                 <div class="exercise-card">
-                    <h3>1. Sintaxis Básica y Variables</h3>
-                    <p>Demostración de la sintaxis básica de Python y manejo de variables</p>
+                    <h3>1. Creación de API REST con Spring Boot</h3>
+                    <p>Desarrollo de una API completa para gestión de estudiantes usando Spring Boot, JPA y MySQL</p>
                     
-                    <div class="code-container" data-lang="Python">
-# Sintaxis básica de Python
-# Variables y tipos de datos
-
-def demonstrar_sintaxis():
-    # Variables
-    nombre = "Python"
-    version = 3.9
-    es_interpretado = True
+                    <div class="code-container" data-lang="Java">
+// Modelo Estudiante (models/Estudiante.java)
+@Entity
+@Table(name = "estudiante")
+public class Estudiante {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idEstudiante;
+    private String nomEstudiante;
+    private String dirEstudiante;
+    private String ciuEstudiante;
     
-    # Mostrar información
-    print(f"Lenguaje: {nombre}")
-    print(f"Versión: {version}")
-    print(f"Es interpretado: {es_interpretado}")
+    // Getters y Setters
+    public Long getIdEstudiante() { return idEstudiante; }
+    public void setIdEstudiante(Long id) { this.idEstudiante = id; }
+    public String getNomEstudiante() { return nomEstudiante; }
+    public void setNomEstudiante(String nom) { this.nomEstudiante = nom; }
+    public String getDirEstudiante() { return dirEstudiante; }
+    public void setDirEstudiante(String dir) { this.dirEstudiante = dir; }
+    public String getCiuEstudiante() { return ciuEstudiante; }
+    public void setCiuEstudiante(String ciu) { this.ciuEstudiante = ciu; }
+}
+
+// Repository (repositories/EstudianteRepository.java)
+@Repository
+public interface EstudianteRepository extends JpaRepository&lt;Estudiante, Long&gt; {
+}
+
+// Controller (controllers/EstudianteController.java)
+@RestController
+@RequestMapping("/api/estudiantes")
+public class EstudianteController {
+    @Autowired
+    private EstudianteRepository repo;
     
-    # Tipos de datos
-    tipos = ["int", "float", "str", "bool", "list", "dict"]
-    print(f"Tipos principales: {tipos}")
-
-demonstrar_sintaxis()
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Tipos de Datos</h4>
-                        <div class="demo-form">
-                            <select id="tipoVariable">
-                                <option value="int">Entero (int)</option>
-                                <option value="float">Decimal (float)</option>
-                                <option value="str">Cadena (str)</option>
-                                <option value="bool">Booleano (bool)</option>
-                                <option value="list">Lista (list)</option>
-                            </select>
-                            <input type="text" id="valorVariable" placeholder="Ingresa un valor">
-                            <button onclick="verificarTipo()">Verificar Tipo</button>
-                        </div>
-                        <div class="result-display" id="tipoResult">
-                            <strong>Resultado de tipo:</strong><br>
-                            <div id="tipoInfo">Ingrese un valor para verificar su tipo</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>2. Estructuras de Datos</h3>
-                    <p>Trabajo con listas, tuplas y diccionarios en Python</p>
-                    
-                    <div class="code-container" data-lang="Python">
-# Listas, tuplas y diccionarios
-
-def trabajar_con_estructuras():
-    # Lista
-    lenguajes = ["Python", "JavaScript", "Java", "C++"]
-    print(f"Lista: {lenguajes}")
-    
-    # Tupla
-    coordenadas = (10, 20)
-    print(f"Tupla: {coordenadas}")
-    
-    # Diccionario
-    estudiante = {
-        "nombre": "Ana",
-        "edad": 22,
-        "carrera": "Ingeniería"
+    @PostMapping
+    public Estudiante agregar(@RequestBody Estudiante estudiante) {
+        return repo.save(estudiante);
     }
-    print(f"Diccionario: {estudiante}")
     
-    # Operaciones con listas
-    lenguajes.append("Ruby")
-    print(f"Lista actualizada: {lenguajes}")
-
-trabajar_con_estructuras()
+    @GetMapping
+    public List&lt;Estudiante&gt; listarTodos() {
+        return repo.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;Estudiante&gt; buscarPorId(@PathVariable Long id) {
+        return repo.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity&lt;Estudiante&gt; modificar(@PathVariable Long id, 
+                                              @RequestBody Estudiante datos) {
+        return repo.findById(id)
+            .map(est -> {
+                est.setNomEstudiante(datos.getNomEstudiante());
+                est.setDirEstudiante(datos.getDirEstudiante());
+                est.setCiuEstudiante(datos.getCiuEstudiante());
+                return ResponseEntity.ok(repo.save(est));
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity&lt;Void&gt; eliminar(@PathVariable Long id) {
+        if (repo.existsById(id)) {
+            repo.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}
                     </div>
 
                     <div class="demo-container">
-                        <h4>Simulador de Estructuras de Datos</h4>
+                        <h4>Simulador de API REST - Gestión de Estudiantes</h4>
+                        
                         <div class="demo-form">
-                            <select id="estructuraType">
-                                <option value="lista">Lista</option>
-                                <option value="tupla">Tupla</option>
-                                <option value="diccionario">Diccionario</option>
-                            </select>
-                            <input type="text" id="elementoInput" placeholder="Agregar elemento">
-                            <button onclick="agregarElemento()">Agregar</button>
-                            <button onclick="limpiarEstructura()">Limpiar</button>
+                            <div class="api-section">
+                                <h5>Crear/Actualizar Estudiante</h5>
+                                <input type="hidden" id="estudianteId" value="">
+                                <input type="text" id="nombreEstudiante" placeholder="Nombre del estudiante">
+                                <input type="text" id="direccionEstudiante" placeholder="Dirección">
+                                <input type="text" id="ciudadEstudiante" placeholder="Ciudad">
+                                <button onclick="guardarEstudiante()">Guardar Estudiante</button>
+                                <button onclick="limpiarFormulario()">Limpiar</button>
+                            </div>
+                            
+                            <div class="api-section">
+                                <h5>Operaciones CRUD</h5>
+                                <button onclick="listarEstudiantes()">GET - Listar Todos</button>
+                                <input type="number" id="buscarId" placeholder="ID a buscar">
+                                <button onclick="buscarEstudiante()">GET - Buscar por ID</button>
+                                <input type="number" id="eliminarId" placeholder="ID a eliminar">
+                                <button onclick="eliminarEstudiante()">DELETE - Eliminar</button>
+                            </div>
                         </div>
-                        <div class="result-display" id="estructuraResult">
-                            <strong>Estructura actual:</strong><br>
-                            <div id="estructuraInfo">Estructura vacía</div>
+                        
+                        <div class="result-display" id="apiResult">
+                            <strong>Respuesta de la API:</strong><br>
+                            <div id="apiResponse">Utilice los botones para simular las operaciones CRUD</div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>3. Programación Orientada a Objetos</h3>
-                    <p>Implementación de clases y herencia en Python</p>
-                    
-                    <div class="code-container" data-lang="Python">
-# Clase y herencia
-
-class Vehiculo:
-    def __init__(self, marca, modelo):
-        self.marca = marca
-        self.modelo = modelo
-        self.velocidad = 0
-    
-    def acelerar(self, incremento):
-        self.velocidad += incremento
-        return f"{self.marca} {self.modelo} acelerando a {self.velocidad} km/h"
-
-class Coche(Vehiculo):
-    def __init__(self, marca, modelo, puertas):
-        super().__init__(marca, modelo)
-        self.puertas = puertas
-    
-    def describir(self):
-        return f"{self.marca} {self.modelo} con {self.puertas} puertas"
-
-# Crear instancias
-mi_coche = Coche("Toyota", "Corolla", 4)
-print(mi_coche.describir())
-print(mi_coche.acelerar(50))
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Clases Python</h4>
-                        <div class="demo-form">
-                            <input type="text" id="marcaCoche" placeholder="Marca del coche">
-                            <input type="text" id="modeloCoche" placeholder="Modelo del coche">
-                            <input type="number" id="puertasCoche" placeholder="Número de puertas" min="2" max="5">
-                            <button onclick="crearCoche()">Crear Coche</button>
-                        </div>
-                        <div class="result-display" id="cocheResult">
-                            <strong>Coche creado:</strong><br>
-                            <div id="cocheInfo">Ingrese los datos del coche</div>
+                        
+                        <div class="students-list">
+                            <h5>Lista de Estudiantes</h5>
+                            <div id="estudiantesList">
+                                <div class="student-item">
+                                    <span><strong>ID:</strong> 1 | <strong>Nombre:</strong> Juan Pérez</span>
+                                    <span><strong>Dirección:</strong> Jr. Los Andes 123</span>
+                                    <span><strong>Ciudad:</strong> Huancayo</span>
+                                    <div class="student-actions">
+                                        <button onclick="editarEstudiante(1, 'Juan Pérez', 'Jr. Los Andes 123', 'Huancayo')">Editar</button>
+                                        <button onclick="eliminarEstudiantePorId(1)">Eliminar</button>
+                                    </div>
+                                </div>
+                                <div class="student-item">
+                                    <span><strong>ID:</strong> 2 | <strong>Nombre:</strong> María García</span>
+                                    <span><strong>Dirección:</strong> Av. Real 456</span>
+                                    <span><strong>Ciudad:</strong> Lima</span>
+                                    <div class="student-actions">
+                                        <button onclick="editarEstudiante(2, 'María García', 'Av. Real 456', 'Lima')">Editar</button>
+                                        <button onclick="eliminarEstudiantePorId(2)">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="django-demo">
-                <h4>Calculadora Interactiva en Python</h4>
-                <div class="demo-section">
-                    <div class="demo-title">🧮 Calculadora Python</div>
-                    <div class="demo-form">
-                        <input type="number" id="num1" placeholder="Primer número">
-                        <input type="number" id="num2" placeholder="Segundo número">
-                        <div>
-                            <button onclick="calcular('suma')">Sumar</button>
-                            <button onclick="calcular('resta')">Restar</button>
-                            <button onclick="calcular('multiplicacion')">Multiplicar</button>
-                            <button onclick="calcular('division')">Dividir</button>
-                        </div>
-                    </div>
-                    <div class="result-display" id="calculadoraResult">
-                        <strong>Resultado:</strong><br>
-                        <div id="calc-output">Resultado aparecerá aquí...</div>
-                    </div>
-                </div>
-            </div>
+                                </div>
         </div>
 
         <div class="section">
             <h2>Reflexión Final</h2>
             <p class="reflection-text">
-                Esta semana me adentré en el mundo de Python, un lenguaje que realmente me ha sorprendido por su simplicidad y elegancia. 
-                La filosofía de Python de "código legible" se hace evidente desde el primer momento, donde la indentación no es solo una convención, 
-                sino parte fundamental de la sintaxis.
+                Esta semana me adentré en el desarrollo backend con tecnologías del ecosistema Java, como JSP, Jakarta EE, Spring 
+                y Spring Data. Desde el inicio, noté cómo estas herramientas están pensadas para construir aplicaciones robustas, 
+                escalables y bien estructuradas, siguiendo principios de diseño sólidos y buenas prácticas de desarrollo.
             </p>
             <p class="reflection-question"><strong>¿Qué aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí a desarrollar aplicaciones con Python, comprendiendo su sintaxis básica, estructuras de datos nativas y programación orientada a objetos. 
-                También exploré el manejo de excepciones y el sistema de módulos.
+                Aprendí a desarrollar aplicaciones web utilizando JSP para la generación de contenido dinámico, comprendí 
+                el rol de Jakarta EE como base para aplicaciones empresariales, y exploré el uso de Spring para estructurar 
+                proyectos con mayor flexibilidad mediante inyección de dependencias. Con Spring Data, entendí cómo acceder 
+                y manipular bases de datos de manera eficiente y con menos código repetitivo.
             </p>
             <p class="reflection-question"><strong>¿Cómo aprendí?</strong></p>
             <p class="reflection-answer">
-                Aprendí practicando con ejemplos interactivos, creando clases y objetos, y comparando Python con otros lenguajes de programación 
-                para entender sus ventajas y filosofía de diseño.
-            </p>
-            <p class="reflection-question"><strong>¿Qué me impresionó más?</strong></p>
-            <p class="reflection-answer">
-                Lo que más me ha llamado la atención es cómo Python logra un equilibrio perfecto entre simplicidad y potencia. 
-                Las estructuras de datos nativas como listas, tuplas y diccionarios son increíblemente versátiles y fáciles de usar, 
-                y la programación orientada a objetos se siente natural y menos verbosa comparada con otros lenguajes.
+                Aprendí a través de la práctica, creando controladores, vistas y modelos, configurando el entorno con 
+                anotaciones y XML, y observando cómo cada tecnología se integra dentro del flujo de una aplicación moderna. 
+                Comparar estas herramientas con otras tecnologías web me ayudó a comprender su potencia, modularidad y 
+                enfoque empresarial.
             </p>
         </div>
     </div>
