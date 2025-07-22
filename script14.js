@@ -84,7 +84,7 @@ function crearPersonaOEstudiante() {
         <div class="model-field"><strong>Edad:</strong> ${info.edad}</div>
         ${info.carrera ? `<div class="model-field"><strong>Carrera:</strong> ${info.carrera}</div>` : ''}
         <div class="model-field"><strong>Saludo:</strong> ${saludo}</div>
-        <div class="model-field success">✅ Instancia creada exitosamente</div>
+        <div class="model-field success">Instancia creada exitosamente</div>
     `;
     
     // Limpiar campos
@@ -110,9 +110,7 @@ function registrarEstudiante() {
     
     if (!nombre || !direccion || !ciudad) {
         resultadoDiv.innerHTML = `
-            <div class="model-field error">❌ Todos los campos son obligatorios</div>
-            <div class="model-field">Base de datos conectada a Aiven MySQL ✓</div>
-            <div class="model-field">Tabla 'estudiantes' lista ✓</div>
+            <div class="model-field error">Todos los campos son obligatorios</div>
         `;
         return;
     }
@@ -128,7 +126,7 @@ function registrarEstudiante() {
     estudiantes.push(nuevoEstudiante);
     
     resultadoDiv.innerHTML = `
-        <div class="model-field success">✅ Estudiante registrado exitosamente</div>
+        <div class="model-field success">Estudiante registrado exitosamente</div>
         <div class="model-field"><strong>ID:</strong> ${nuevoEstudiante.id}</div>
         <div class="model-field"><strong>Nombre:</strong> ${nuevoEstudiante.nombre}</div>
         <div class="model-field"><strong>Dirección:</strong> ${nuevoEstudiante.direccion}</div>
@@ -162,14 +160,13 @@ function cargarEstudiantes() {
         html += `
             <div class="model-field">
                 <strong>ID ${estudiante.id}:</strong> ${estudiante.nombre} | 
-                📍 ${estudiante.direccion}, ${estudiante.ciudad}
-                <button onclick="eliminarEstudiante(${estudiante.id})" style="margin-left: 10px; background: #ff6b6b; color: white; border: none; padding: 2px 8px; border-radius: 3px; cursor: pointer;">❌</button>
+                ${estudiante.direccion}, ${estudiante.ciudad}
+                <button onclick="eliminarEstudiante(${estudiante.id})" style="margin-left: 10px; background: #ff000091; color: white; border: none; padding: 2px 8px; border-radius: 3px; cursor: pointer;">Eliminar</button>
             </div>
         `;
     });
-    
-    html += `<div class="model-field success">📊 Query ejecutado: SELECT * FROM estudiantes</div>`;
-    
+
+        
     listaDiv.innerHTML = html;
 }
 
@@ -180,9 +177,8 @@ function eliminarEstudiante(id) {
         
         const resultadoDiv = document.getElementById('resultado-flask');
         resultadoDiv.innerHTML = `
-            <div class="model-field success">✅ Estudiante eliminado: ${estudianteEliminado.nombre}</div>
+            <div class="model-field success">Estudiante eliminado: ${estudianteEliminado.nombre}</div>
             <div class="model-field">Query ejecutado: DELETE FROM estudiantes WHERE id=${id}</div>
-            <div class="model-field">Base de datos conectada a Aiven MySQL ✓</div>
         `;
         
         // Actualizar lista
@@ -260,16 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function simularConexionDB() {
     const estadoDiv = document.getElementById('resultado-flask');
     estadoDiv.innerHTML = `
-        <div class="model-field">🔄 Conectando a Aiven MySQL...</div>
-        <div class="model-field">🔍 Verificando tabla 'estudiantes'...</div>
+
     `;
     
     setTimeout(() => {
         estadoDiv.innerHTML = `
-            <div class="model-field success">✅ Conexión establecida exitosamente</div>
-            <div class="model-field">📊 Host: mysql-flask-demo.aivencloud.com</div>
-            <div class="model-field">🗂️ Base de datos: estudiantes_db</div>
-            <div class="model-field">📋 Tabla 'estudiantes' verificada</div>
+            <div class="model-field success">Conexión establecida exitosamente</div>
         `;
     }, 1500);
 }

@@ -58,9 +58,7 @@
             <h2>Ejercicios y Resultados</h2>
             <div class="exercises-container">
                 <div class="exercise-card">
-                    <h3>1. Formulario de Registro con Validación</h3>
-                    <p>Sistema de registro con validación personalizada y sanitización de datos</p>
-                    
+                    <h3>Formulario de Registro con Validación</h3>                   
                     <div class="code-container" data-lang="Python">
 # forms.py
 from django import forms
@@ -122,8 +120,7 @@ class RegistroForm(forms.ModelForm):
                 </div>
 
                 <div class="exercise-card">
-                    <h3>2. Django Admin Panel Personalizado</h3>
-                    <p>Configuración avanzada del panel administrativo con filtros y campos personalizados</p>
+                    <h3>Django Admin Panel Personalizado</h3>
                     
                     <div class="code-container" data-lang="Python">
 # admin.py
@@ -174,78 +171,6 @@ class PerfilAdmin(admin.ModelAdmin):
                             <div id="adminInfo">Use los filtros para explorar el panel administrativo</div>
                         </div>
                     </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>3. Middleware y Manejo de Sesiones</h3>
-                    <p>Implementación de middleware personalizado para logging y autenticación</p>
-                    
-                    <div class="code-container" data-lang="Python">
-# middleware.py
-import logging
-from django.utils.deprecation import MiddlewareMixin
-from django.http import HttpResponseForbidden
-
-logger = logging.getLogger(__name__)
-
-class LoggingMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        logger.info(f"Request: {request.method} {request.path}")
-        logger.info(f"User: {request.user}")
-        logger.info(f"IP: {request.META.get('REMOTE_ADDR')}")
-        
-    def process_response(self, request, response):
-        logger.info(f"Response: {response.status_code}")
-        return response
-
-class AuthRequiredMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if not request.user.is_authenticated:
-            if request.path.startswith('/admin/'):
-                return HttpResponseForbidden("Acceso denegado")
-        return None
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Middleware</h4>
-                        <div class="demo-form">
-                            <select id="middlewareAction">
-                                <option value="request">Simular Request</option>
-                                <option value="auth">Verificar Autenticación</option>
-                                <option value="session">Actualizar Sesión</option>
-                                <option value="log">Ver Logs</option>
-                            </select>
-                            <button onclick="ejecutarMiddleware()">Ejecutar Middleware</button>
-                        </div>
-                        <div class="result-display" id="middlewareResult">
-                            <strong>Log del Middleware:</strong><br>
-                            <div id="middlewareInfo">Seleccione una acción para simular el middleware</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="django-demo">
-                <h4>Resultado: Sistema Backend Django Completo</h4>
-                <div class="demo-section">
-                    <div class="demo-title">📝 Formularios Implementados</div>
-                    <div class="url-pattern">RegistroForm → Validación personalizada</div>
-                    <div class="url-pattern">ContactoForm → Sanitización de datos</div>
-                    <div class="url-pattern">ProfileForm → Campos calculados</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">🔧 Django Admin Personalizado</div>
-                    <div class="model-field"><strong>Filtros:</strong> Por categoría, fecha, estado activo</div>
-                    <div class="model-field"><strong>Búsqueda:</strong> Nombre, email, teléfono</div>
-                    <div class="model-field"><strong>Campos:</strong> Readonly, personalizados, calculados</div>
-                </div>
-                
-                <div class="demo-section">
-                    <div class="demo-title">🔗 Middleware y Sesiones</div>
-                    <div class="model-field"><strong>Logging:</strong> Registro de peticiones y respuestas</div>
-                    <div class="model-field"><strong>Autenticación:</strong> Verificación de permisos</div>
-                    <div class="model-field"><strong>Sesiones:</strong> Gestión automática de estado</div>
                 </div>
             </div>
         </div>

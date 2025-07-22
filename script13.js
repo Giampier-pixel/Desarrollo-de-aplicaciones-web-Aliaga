@@ -61,11 +61,11 @@ function actualizarListaEstudiantes() {
             <div style="background: #f8f9fa; margin: 5px 0; padding: 10px; border-radius: 5px; border-left: 4px solid #007bff;">
                 <strong>${estudiante.nombre}</strong><br>
                 <small style="color: #666;">
-                    📍 ${estudiante.direccion}, ${estudiante.ciudad}<br>
-                    🕒 Registrado: ${estudiante.fechaRegistro}
+                    ${estudiante.direccion}, ${estudiante.ciudad}<br>
+                    Registrado: ${estudiante.fechaRegistro}
                 </small>
                 <button onclick="eliminarEstudiante(${index})" style="float: right; background: #dc3545; color: white; border: none; padding: 2px 6px; border-radius: 3px; font-size: 12px; cursor: pointer;">
-                    ❌
+                    Eliminar
                 </button>
             </div>
         `;
@@ -73,7 +73,7 @@ function actualizarListaEstudiantes() {
     html += '</div>';
     
     lista.innerHTML = html;
-    contador.innerHTML = `📊 Total de estudiantes: ${estudiantes.length}`;
+    contador.innerHTML = `Total de estudiantes: ${estudiantes.length}`;
 }
 
 // Función para eliminar estudiante
@@ -280,9 +280,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    
-    // Mostrar mensaje de bienvenida
-    setTimeout(() => {
-        mostrarMensaje('🎉 Simulador Laravel PHP listo para usar', 'success');
-    }, 500);
 });

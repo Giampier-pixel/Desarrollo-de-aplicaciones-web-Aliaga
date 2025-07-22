@@ -64,13 +64,12 @@ function registrarUsuario() {
     
     resultDiv.innerHTML = `
         <div style="color: #27ae60; padding: 10px; background: #f2fdf4; border-radius: 5px;">
-            <strong>✅ Usuario registrado exitosamente!</strong><br>
+            <strong>Usuario registrado exitosamente!</strong><br>
             <strong>Nombre:</strong> ${nombre}<br>
             <strong>Email:</strong> ${email}<br>
             <strong>Teléfono:</strong> ${telefono}<br>
             <strong>Edad:</strong> ${edad} años<br>
             <strong>Categoría:</strong> ${categoria}<br>
-            <em>Datos validados y sanitizados correctamente</em><br>
             <small style="color: #666;">Usuario agregado al sistema admin</small>
         </div>
     `;
@@ -145,7 +144,7 @@ function filtrarAdmin() {
     
     const tablaHTML = `
         <div style="padding: 10px; background: #f8f9fa; border-radius: 5px; overflow-x: auto;">
-            <strong>📊 Usuarios encontrados: ${usuariosFiltrados.length}</strong><br><br>
+            <strong>Usuarios encontrados: ${usuariosFiltrados.length}</strong><br><br>
             <div style="overflow-x: auto; max-width: 100%;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 12px; min-width: 600px;">
                     <thead>
@@ -167,7 +166,7 @@ function filtrarAdmin() {
                                 <td style="padding: 6px; border: 1px solid #dee2e6; font-size: 11px; text-align: center;">${user.categoria}</td>
                                 <td style="padding: 6px; border: 1px solid #dee2e6; font-size: 11px; text-align: center;">
                                     <span style="color: ${user.activo ? '#27ae60' : '#e74c3c'};">
-                                        ${user.activo ? '✅' : '❌'}
+                                        ${user.activo ? 'Activo' : '❌'}
                                     </span>
                                 </td>
                                 <td style="padding: 6px; border: 1px solid #dee2e6; font-size: 10px; text-align: center;">${user.fecha}</td>

@@ -35,7 +35,7 @@ function navegarURL() {
                 `;
             }, 500);
 
-            urlInfo.innerHTML = '<span style="color: blue;">🔄 Navegando...</span>';
+            urlInfo.innerHTML = '<span style="color: blue;">Navegando...</span>';
         }
 
         // Simulador de productos

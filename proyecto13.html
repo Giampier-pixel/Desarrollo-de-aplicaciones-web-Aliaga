@@ -55,10 +55,30 @@
             <h2>Ejercicios y Resultados</h2>
             <div class="exercises-container">
                 <div class="exercise-card">
-                    <h3>1. Aplicación Laravel - Registro de Estudiantes</h3>
+                    <h3>Aplicación Laravel - Registro de Estudiantes</h3>
                     <p>Sistema completo de registro de estudiantes con Laravel y MySQL</p>
                     
-                    <div class="code-container" data-lang="PHP">
+                      
+
+                    <div class="demo-container">
+                        <h4>Simulador de Registro de Estudiantes Laravel</h4>
+                        <div class="demo-form">
+                            <input type="text" id="nombre" placeholder="Nombre del estudiante" required>
+                            <input type="text" id="direccion" placeholder="Dirección" required>
+                            <input type="text" id="ciudad" placeholder="Ciudad" required>
+                            <button onclick="registrarEstudiante()">Registrar Estudiante</button>
+                            <button onclick="limpiarLista()" class="secondary-button">Limpiar Lista</button>
+                        </div>
+                        <div class="result-display" id="estudiantesLista">
+                            <strong>Estudiantes registrados:</strong><br>
+                            <div id="listaEstudiantes"></div>
+                            <div id="contadorEstudiantes" style="margin-top: 10px; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                            <div class="exercise-card">
+<div class="code-container" data-lang="Código">
 &lt;?php
 // app/Http/Controllers/EstudianteController.php
 namespace App\Http\Controllers;
@@ -104,7 +124,7 @@ class Estudiante extends Model
 ?&gt;
                     </div>
 
-                    <div class="code-container" data-lang="Blade">
+                    <div class="code-container" data-lang="Código">
 &lt;!-- resources/views/formulario.blade.php --&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
@@ -136,153 +156,8 @@ class Estudiante extends Model
 &lt;/body&gt;
 &lt;/html&gt;
                     </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Registro de Estudiantes Laravel</h4>
-                        <div class="demo-form">
-                            <input type="text" id="nombre" placeholder="Nombre del estudiante" required>
-                            <input type="text" id="direccion" placeholder="Dirección" required>
-                            <input type="text" id="ciudad" placeholder="Ciudad" required>
-                            <button onclick="registrarEstudiante()">Registrar Estudiante</button>
-                            <button onclick="limpiarLista()" class="secondary-button">Limpiar Lista</button>
-                        </div>
-                        <div class="result-display" id="estudiantesLista">
-                            <strong>Estudiantes registrados:</strong><br>
-                            <div id="listaEstudiantes"></div>
-                            <div id="contadorEstudiantes" style="margin-top: 10px; font-weight: bold;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>2. Configuración y Migración Laravel</h3>
-                    <p>Setup completo del proyecto Laravel con base de datos</p>
-                    
-                    <div class="code-container" data-lang="Bash">
-# Creación del proyecto Laravel
-laravel new estudiantes-app
-cd estudiantes-app
-
-# Configuración de base de datos (.env)
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=academico
-DB_USERNAME=root
-DB_PASSWORD=tu_contraseña
-
-# Creación del modelo y migración
-php artisan make:model Estudiante -m
-
-# Instalación de Tailwind CSS
-npm install -D tailwindcss@3 postcss autoprefixer
-npx tailwindcss init -p
-
-# Compilación de assets
-npm install && npm run dev
-
-# Ejecutar migraciones
-php artisan migrate
-
-# Ejecutar servidor
-php artisan serve
-                    </div>
-
-                    <div class="code-container" data-lang="PHP">
-&lt;?php
-// database/migrations/xxxx_create_estudiantes_table.php
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    public function up()
-    {
-        Schema::create('estudiantes', function (Blueprint $table) {
-            $table->id('idEstudiante');
-            $table->string('nomEstudiante');
-            $table->string('dirEstudiante');
-            $table->string('ciuEstudiante');
-            $table->timestamps();
-        });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('estudiantes');
-    }
-};
-?&gt;
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Comandos Artisan</h4>
-                        <div class="demo-form">
-                            <select id="artisanCommand">
-                                <option value="migrate">php artisan migrate</option>
-                                <option value="serve">php artisan serve</option>
-                                <option value="make:controller">php artisan make:controller</option>
-                                <option value="make:model">php artisan make:model</option>
-                                <option value="route:list">php artisan route:list</option>
-                            </select>
-                            <button onclick="ejecutarComando()">Ejecutar Comando</button>
-                        </div>
-                        <div class="result-display" id="commandResult">
-                            <strong>Resultado del comando:</strong><br>
-                            <div id="commandOutput">Seleccione un comando Artisan</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exercise-card">
-                    <h3>3. Rutas y Middleware Laravel</h3>
-                    <p>Configuración de rutas web y middleware de validación</p>
-                    
-                    <div class="code-container" data-lang="PHP">
-&lt;?php
-// routes/web.php
-use App\Http\Controllers\EstudianteController;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', [EstudianteController::class, 'create'])->name('estudiantes.create');
-Route::post('/guardar', [EstudianteController::class, 'store'])->name('estudiantes.store');
-
-// Middleware personalizado para validación
-Route::middleware(['web', 'throttle:10,1'])->group(function () {
-    Route::post('/guardar', [EstudianteController::class, 'store']);
-});
-
-// Rutas adicionales para API
-Route::prefix('api')->group(function () {
-    Route::get('/estudiantes', [EstudianteController::class, 'index']);
-    Route::get('/estudiantes/{id}', [EstudianteController::class, 'show']);
-});
-?&gt;
-                    </div>
-
-                    <div class="demo-container">
-                        <h4>Simulador de Rutas Laravel</h4>
-                        <div class="demo-form">
-                            <select id="routeType">
-                                <option value="GET /">GET / (Mostrar formulario)</option>
-                                <option value="POST /guardar">POST /guardar (Guardar estudiante)</option>
-                                <option value="GET /api/estudiantes">GET /api/estudiantes (API Lista)</option>
-                                <option value="GET /api/estudiantes/1">GET /api/estudiantes/1 (API Show)</option>
-                            </select>
-                            <button onclick="testearRuta()">Testear Ruta</button>
-                        </div>
-                        <div class="result-display" id="routeResult">
-                            <strong>Respuesta de la ruta:</strong><br>
-                            <div id="routeResponse">Seleccione una ruta para testear</div>
-                        </div>
-
-                    </div>
-
-                </div>
-                                                                <div class="demo-section" style="margin-top: 20px;">
                                 <a href="https://github.com/Giampier-pixel/php-laravel.git" class="topic-button" target="_blank" rel="noopener noreferrer">
-                                    📂 Github Repository
+                                    Github Repository
                                 </a>
                             </div>
             </div>
