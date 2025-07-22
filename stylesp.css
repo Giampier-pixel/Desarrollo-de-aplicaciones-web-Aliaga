@@ -788,3 +788,70 @@ body {
     position: relative;
     min-height: 50px;
 }
+/* Contenedor principal del chat */
+#chat-container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #fff;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensajes del chat */
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
+.bot-message {
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+.user-message {
+    background-color: #dff0d8;
+    text-align: right;
+    color: #000;
+}
+
+/* Contenedor del textarea + botón */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-direction: column;
+}
+
+#prompt {
+    width: 100%;
+    resize: vertical;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Botón enviar */
+#send-btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor de todo el demo */
+.demo-container {
+    margin-top: 20px;
+}
