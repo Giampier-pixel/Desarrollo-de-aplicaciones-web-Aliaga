@@ -58,45 +58,42 @@
             <h2>Ejercicios y Resultados</h2>
             
             <div class="exercises-container">
-                <!-- Ejercicio 1: Arquitectura de Microservicios -->
-                <!-- Ejercicio 1: Sistema Inteligente con IA -->
-<div class="exercise-card">
-    <h3>1. Sistema Inteligente con IA</h3>
-    <p>Implementación de un chatbot inteligente usando un modelo de lenguaje ligero para análisis de texto y respuestas automáticas.</p>
-    
-    <div class="demo-container">
-        <div class="demo-title">🤖 Chat Inteligente con IA</div>
-        <div class="django-demo">
-            <div class="chat-container" id="chatContainer">
-                <div class="chat-message bot-message">
-                    <strong>🤖 Asistente IA:</strong> ¡Hola! Soy un asistente inteligente. Puedo ayudarte con análisis de texto, responder preguntas y generar contenido. ¿En qué puedo ayudarte?
-                </div>
-            </div>
-            <div class="chat-input-container">
-                <textarea id="userInput" placeholder="Escribe tu mensaje aquí..." rows="3"></textarea>
-                <button onclick="sendMessage()" class="topic-button">Enviar Mensaje</button>
-            </div>
-            <div class="demo-section">
-                <div class="demo-title">📊 Análisis en Tiempo Real</div>
-                <div class="analysis-container">
-                    <div class="analysis-item">
-                        <span>Mensajes procesados:</span>
-                        <span id="messageCount">0</span>
+                    <div class="exercise-card">
+                    <h3>1. Chat con Llama 3.2 1B</h3>
+                    <p>Implementación de un chatbot inteligente usando el modelo Llama 3.2 1B para análisis de texto y respuestas automáticas.</p>
+                    
+                    <div class="demo-container">
+                        <div class="demo-title">Chat con Llama</div>
+                        <div class="django-demo">
+                            <div id="chat-container">
+                                <div id="messages">
+                                    <div class="chat-message bot-message">
+                                        <strong>Llama:</strong> ¡Hola! Soy Llama 3.2 1B, un asistente inteligente. Puedo ayudarte con análisis de texto, responder preguntas y generar contenido. ¿En qué puedo ayudarte?
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-container">
+                                <textarea 
+                                    id="prompt" 
+                                    placeholder="Escribe tu pregunta aquí..."
+                                    rows="3"
+                                ></textarea>
+                                <button id="send-btn" onclick="sendPrompt()" class="topic-button">
+                                    <span id="btn-text">Enviar</span>
+                                    <span id="loading" style="display: none;">Generando...</span>
+                                </button>
+                            </div>
+                            
+                            <div class="demo-section" style="margin-top: 20px;">
+                                <a href="https://github.com/Giampier-pixel/Llama-web-app.git" class="topic-button" target="_blank" rel="noopener noreferrer">
+                                    📂 Github Repository
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="analysis-item">
-                        <span>Sentimiento detectado:</span>
-                        <span id="sentiment">Neutral</span>
-                    </div>
-                    <div class="analysis-item">
-                        <span>Confianza del modelo:</span>
-                        <span id="confidence">--</span>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-</div>
-            </div>
+              </div>
         </div>
 
         <!-- Reflexión Final -->
